@@ -42,9 +42,9 @@ The figures below are selected from the final v31 output set and focus on diagno
 
 ### Diagnostics And Method Comparisons
 
-| Cross-method divergence | Method agreement by corpus |
+| Cross-method divergence | Robustness specification grid |
 | --- | --- |
-| ![Cross-method divergence](results/figures/cross_method_divergence.png) | ![Method agreement by corpus](results/figures/comparison_agreement_barplot.png) |
+| ![Cross-method divergence](results/figures/cross_method_divergence.png) | ![Robustness specification grid](results/figures/robustness_specification_grid.png) |
 
 | Rolling agreement | Tone and rate overlay |
 | --- | --- |
