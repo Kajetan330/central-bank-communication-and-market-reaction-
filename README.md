@@ -38,13 +38,27 @@ flowchart LR
 
 ## Visual Preview
 
-| Score distributions | RQ2 direct out-of-sample performance |
-| --- | --- |
-| ![Score distributions](results/figures/fig6_1_score_distributions.png) | ![RQ2 direct out-of-sample R2](results/figures/fig6_7_rq2_direct_oos_r2.png) |
+The figures below are selected from the final v31 output set. They give a quick visual tour of the main empirical story and the most useful diagnostics.
 
-| RF feature importance | RQ1 method comparison |
+### Core Results
+
+| Tone-score distributions | RF feature importance |
 | --- | --- |
-| ![RF feature importance](results/figures/fig6_4_rf_feature_importance.png) | ![RQ1 method comparison](results/figures/fig6_5_rq1_method_r2_heatmap.png) |
+| ![Tone-score distributions](results/figures/fig6_1_score_distributions.png) | ![RF feature importance](results/figures/fig6_4_rf_feature_importance.png) |
+
+| RQ1 method comparison | RQ2 direct out-of-sample performance |
+| --- | --- |
+| ![RQ1 method comparison](results/figures/fig6_5_rq1_method_r2_heatmap.png) | ![RQ2 direct out-of-sample performance](results/figures/fig6_7_rq2_direct_oos_r2.png) |
+
+### Diagnostics And Method Comparisons
+
+| Cross-method divergence | Score scatter |
+| --- | --- |
+| ![Cross-method divergence](results/figures/cross_method_divergence.png) | ![Score scatter](results/figures/comparison_score_scatter.png) |
+
+| Rolling agreement | Tone and rate overlay |
+| --- | --- |
+| ![Rolling agreement](results/figures/rolling_agreement_rate.png) | ![Tone and rate overlay](results/figures/tone_rate_overlay.png) |
 
 ## Repository Map
 
