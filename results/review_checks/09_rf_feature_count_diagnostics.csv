@@ -1,0 +1,5 @@
+corpus,spec_used,rf_training_n,oob_acc,bal_acc,holdout_acc,corpus_long,raw_unique_bigrams,df_ge_3_bigrams,top_2000_cap,rf_features_in_importance_file
+ECB PC,Lasso + balanced RF,250,0.896,0.848,0.8,ECB press conferences,39674,6996,2000,14
+ECB stmt,Lasso + balanced RF,276,0.887,0.763,0.696,ECB statements,1920,458,458,32
+FOMC PC,Lasso + balanced RF,91,0.945,0.936,0.684,FOMC press conferences,22352,3434,2000,11
+FOMC stmt,Lasso + balanced RF,235,0.843,0.838,0.617,FOMC statements,2945,1168,1168,49

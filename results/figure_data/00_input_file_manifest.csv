@@ -1,0 +1,16 @@
+key,filename,path
+fed_stmt,fed_stmt_with_bert_v31.csv,C:/Users/Kajetan/Desktop/final thesis/final model/final outputs/fed_stmt_with_bert_v31.csv
+fed_pc,fed_pc_with_bert_v31.csv,C:/Users/Kajetan/Desktop/final thesis/final model/final outputs/fed_pc_with_bert_v31.csv
+ecb_stmt,ecb_stmt_with_bert_v31.csv,C:/Users/Kajetan/Desktop/final thesis/final model/final outputs/ecb_stmt_with_bert_v31.csv
+ecb_pc,ecb_pc_with_bert_v31.csv,C:/Users/Kajetan/Desktop/final thesis/final model/final outputs/ecb_pc_with_bert_v31.csv
+combined,combined_final_v2.csv,C:/Users/Kajetan/Desktop/final thesis/final model/final outputs/combined_final_v2.csv
+rf_imp,rf_feature_importance_v31.csv,C:/Users/Kajetan/Desktop/final thesis/final model/final outputs/rf_feature_importance_v31.csv
+cm_long,confusion_matrices_long_v31.csv,C:/Users/Kajetan/Desktop/final thesis/final model/final outputs/confusion_matrices_long_v31.csv
+cm_agree,confusion_matrix_agreement_v31.csv,C:/Users/Kajetan/Desktop/final thesis/final model/final outputs/confusion_matrix_agreement_v31.csv
+rf_perf,rf_rq1_performance_v31.csv,C:/Users/Kajetan/Desktop/final thesis/final model/final outputs/rf_rq1_performance_v31.csv
+rq1_mc,rq1_method_comparison_v31.csv,C:/Users/Kajetan/Desktop/final thesis/final model/final outputs/rq1_method_comparison_v31.csv
+dual_r2,r2_dual_mandate_comparison_v31.csv,C:/Users/Kajetan/Desktop/final thesis/final model/final outputs/r2_dual_mandate_comparison_v31.csv
+fe,fe_ladder_results_v31.csv,C:/Users/Kajetan/Desktop/final thesis/final model/final outputs/fe_ladder_results_v31.csv
+rf_xw,rf_rq2_xw_performance_v31.csv,C:/Users/Kajetan/Desktop/final thesis/final model/final outputs/rf_rq2_xw_performance_v31.csv
+rq2_rf,rq2_method_comparison_v31.csv,C:/Users/Kajetan/Desktop/final thesis/final model/final outputs/rq2_method_comparison_v31.csv
+rq2_bert,rq2_bert_method_comparison_v31.csv,C:/Users/Kajetan/Desktop/final thesis/final model/final outputs/rq2_bert_method_comparison_v31.csv

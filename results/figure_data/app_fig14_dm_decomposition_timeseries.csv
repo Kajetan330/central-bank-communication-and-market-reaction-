@@ -1,0 +1,1579 @@
+corpus_long,bank,meeting_date,score_component,score
+FOMC statements,FOMC,1994-02-04,Policy score,0
+FOMC statements,FOMC,1994-02-04,Economic score,0.09090909090909093
+FOMC statements,FOMC,1994-02-04,Aggregate net score,0.07692307692307693
+FOMC statements,FOMC,1994-03-22,Policy score,0.09090909090909093
+FOMC statements,FOMC,1994-03-22,Economic score,0
+FOMC statements,FOMC,1994-03-22,Aggregate net score,0.09090909090909093
+FOMC statements,FOMC,1994-04-18,Policy score,0
+FOMC statements,FOMC,1994-04-18,Economic score,0
+FOMC statements,FOMC,1994-04-18,Aggregate net score,0
+FOMC statements,FOMC,1994-05-17,Policy score,-0.09090909090909093
+FOMC statements,FOMC,1994-05-17,Economic score,0.09090909090909093
+FOMC statements,FOMC,1994-05-17,Aggregate net score,0
+FOMC statements,FOMC,1994-08-16,Policy score,0
+FOMC statements,FOMC,1994-08-16,Economic score,0.16666666666666666
+FOMC statements,FOMC,1994-08-16,Aggregate net score,0.16666666666666666
+FOMC statements,FOMC,1994-11-15,Policy score,0.09090909090909093
+FOMC statements,FOMC,1994-11-15,Economic score,0
+FOMC statements,FOMC,1994-11-15,Aggregate net score,0.09090909090909093
+FOMC statements,FOMC,1995-02-01,Policy score,0
+FOMC statements,FOMC,1995-02-01,Economic score,0
+FOMC statements,FOMC,1995-02-01,Aggregate net score,0
+FOMC statements,FOMC,1995-03-28,Policy score,0
+FOMC statements,FOMC,1995-03-28,Economic score,0
+FOMC statements,FOMC,1995-03-28,Aggregate net score,0
+FOMC statements,FOMC,1995-07-06,Policy score,0.09090909090909093
+FOMC statements,FOMC,1995-07-06,Economic score,0.09090909090909093
+FOMC statements,FOMC,1995-07-06,Aggregate net score,0.16666666666666666
+FOMC statements,FOMC,1995-12-19,Policy score,-0.09090909090909093
+FOMC statements,FOMC,1995-12-19,Economic score,0
+FOMC statements,FOMC,1995-12-19,Aggregate net score,-0.09090909090909093
+FOMC statements,FOMC,1996-01-31,Policy score,0
+FOMC statements,FOMC,1996-01-31,Economic score,0
+FOMC statements,FOMC,1996-01-31,Aggregate net score,0
+FOMC statements,FOMC,1997-03-25,Policy score,0
+FOMC statements,FOMC,1997-03-25,Economic score,-0.07692307692307693
+FOMC statements,FOMC,1997-03-25,Aggregate net score,-0.07692307692307693
+FOMC statements,FOMC,1998-09-29,Policy score,0
+FOMC statements,FOMC,1998-09-29,Economic score,0
+FOMC statements,FOMC,1998-09-29,Aggregate net score,0
+FOMC statements,FOMC,1998-10-15,Policy score,-0.09090909090909093
+FOMC statements,FOMC,1998-10-15,Economic score,0
+FOMC statements,FOMC,1998-10-15,Aggregate net score,-0.09090909090909093
+FOMC statements,FOMC,1998-11-17,Policy score,0
+FOMC statements,FOMC,1998-11-17,Economic score,0.16666666666666666
+FOMC statements,FOMC,1998-11-17,Aggregate net score,0.16666666666666666
+FOMC statements,FOMC,1999-02-03,Policy score,0
+FOMC statements,FOMC,1999-02-03,Economic score,0
+FOMC statements,FOMC,1999-02-03,Aggregate net score,0
+FOMC statements,FOMC,1999-03-30,Policy score,0
+FOMC statements,FOMC,1999-03-30,Economic score,0
+FOMC statements,FOMC,1999-03-30,Aggregate net score,0
+FOMC statements,FOMC,1999-05-18,Policy score,-0.09090909090909093
+FOMC statements,FOMC,1999-05-18,Economic score,0
+FOMC statements,FOMC,1999-05-18,Aggregate net score,-0.09090909090909093
+FOMC statements,FOMC,1999-06-30,Policy score,0
+FOMC statements,FOMC,1999-06-30,Economic score,0.09090909090909093
+FOMC statements,FOMC,1999-06-30,Aggregate net score,0.09090909090909093
+FOMC statements,FOMC,1999-08-24,Policy score,-0.09090909090909093
+FOMC statements,FOMC,1999-08-24,Economic score,0.14285714285714285
+FOMC statements,FOMC,1999-08-24,Aggregate net score,0.06666666666666667
+FOMC statements,FOMC,1999-10-05,Policy score,0
+FOMC statements,FOMC,1999-10-05,Economic score,0
+FOMC statements,FOMC,1999-10-05,Aggregate net score,0
+FOMC statements,FOMC,1999-11-16,Policy score,0.16666666666666666
+FOMC statements,FOMC,1999-11-16,Economic score,0.16666666666666666
+FOMC statements,FOMC,1999-11-16,Aggregate net score,0.2857142857142857
+FOMC statements,FOMC,1999-12-21,Policy score,0
+FOMC statements,FOMC,1999-12-21,Economic score,0.09090909090909093
+FOMC statements,FOMC,1999-12-21,Aggregate net score,0.09090909090909093
+FOMC statements,FOMC,2000-02-02,Policy score,0.16666666666666666
+FOMC statements,FOMC,2000-02-02,Economic score,0.09090909090909093
+FOMC statements,FOMC,2000-02-02,Aggregate net score,0.2307692307692308
+FOMC statements,FOMC,2000-03-21,Policy score,0.16666666666666666
+FOMC statements,FOMC,2000-03-21,Economic score,0.09090909090909093
+FOMC statements,FOMC,2000-03-21,Aggregate net score,0.2307692307692308
+FOMC statements,FOMC,2000-05-16,Policy score,0.16666666666666666
+FOMC statements,FOMC,2000-05-16,Economic score,0
+FOMC statements,FOMC,2000-05-16,Aggregate net score,0.16666666666666666
+FOMC statements,FOMC,2000-06-28,Policy score,0
+FOMC statements,FOMC,2000-06-28,Economic score,0.09090909090909093
+FOMC statements,FOMC,2000-06-28,Aggregate net score,0.09090909090909093
+FOMC statements,FOMC,2000-08-22,Policy score,0
+FOMC statements,FOMC,2000-08-22,Economic score,0.09090909090909093
+FOMC statements,FOMC,2000-08-22,Aggregate net score,0.09090909090909093
+FOMC statements,FOMC,2000-10-03,Policy score,0
+FOMC statements,FOMC,2000-10-03,Economic score,0.09090909090909093
+FOMC statements,FOMC,2000-10-03,Aggregate net score,0.09090909090909093
+FOMC statements,FOMC,2000-11-15,Policy score,0
+FOMC statements,FOMC,2000-11-15,Economic score,0
+FOMC statements,FOMC,2000-11-15,Aggregate net score,0
+FOMC statements,FOMC,2000-12-19,Policy score,-0.09090909090909093
+FOMC statements,FOMC,2000-12-19,Economic score,-0.09090909090909093
+FOMC statements,FOMC,2000-12-19,Aggregate net score,-0.16666666666666666
+FOMC statements,FOMC,2001-01-03,Policy score,-0.2307692307692308
+FOMC statements,FOMC,2001-01-03,Economic score,-0.09090909090909093
+FOMC statements,FOMC,2001-01-03,Aggregate net score,-0.2857142857142857
+FOMC statements,FOMC,2001-01-31,Policy score,-0.3333333333333333
+FOMC statements,FOMC,2001-01-31,Economic score,-0.09090909090909093
+FOMC statements,FOMC,2001-01-31,Aggregate net score,-0.375
+FOMC statements,FOMC,2001-03-20,Policy score,-0.2857142857142857
+FOMC statements,FOMC,2001-03-20,Economic score,-0.09090909090909093
+FOMC statements,FOMC,2001-03-20,Aggregate net score,-0.3333333333333333
+FOMC statements,FOMC,2001-04-18,Policy score,-0.14285714285714285
+FOMC statements,FOMC,2001-04-18,Economic score,-0.16666666666666666
+FOMC statements,FOMC,2001-04-18,Aggregate net score,-0.25
+FOMC statements,FOMC,2001-05-15,Policy score,-0.2
+FOMC statements,FOMC,2001-05-15,Economic score,-0.2307692307692308
+FOMC statements,FOMC,2001-05-15,Aggregate net score,-0.3333333333333333
+FOMC statements,FOMC,2001-06-27,Policy score,-0.2857142857142857
+FOMC statements,FOMC,2001-06-27,Economic score,-0.09090909090909093
+FOMC statements,FOMC,2001-06-27,Aggregate net score,-0.3333333333333333
+FOMC statements,FOMC,2001-08-21,Policy score,-0.2857142857142857
+FOMC statements,FOMC,2001-08-21,Economic score,-0.09090909090909093
+FOMC statements,FOMC,2001-08-21,Aggregate net score,-0.3333333333333333
+FOMC statements,FOMC,2001-09-17,Policy score,-0.2307692307692308
+FOMC statements,FOMC,2001-09-17,Economic score,-0.16666666666666666
+FOMC statements,FOMC,2001-09-17,Aggregate net score,-0.3333333333333333
+FOMC statements,FOMC,2001-10-02,Policy score,-0.2307692307692308
+FOMC statements,FOMC,2001-10-02,Economic score,-0.16666666666666666
+FOMC statements,FOMC,2001-10-02,Aggregate net score,-0.3333333333333333
+FOMC statements,FOMC,2001-11-06,Policy score,-0.2307692307692308
+FOMC statements,FOMC,2001-11-06,Economic score,-0.16666666666666666
+FOMC statements,FOMC,2001-11-06,Aggregate net score,-0.3333333333333333
+FOMC statements,FOMC,2001-12-11,Policy score,-0.2307692307692308
+FOMC statements,FOMC,2001-12-11,Economic score,-0.07692307692307693
+FOMC statements,FOMC,2001-12-11,Aggregate net score,-0.25
+FOMC statements,FOMC,2002-01-30,Policy score,-0.16666666666666666
+FOMC statements,FOMC,2002-01-30,Economic score,-0.16666666666666666
+FOMC statements,FOMC,2002-01-30,Aggregate net score,-0.2857142857142857
+FOMC statements,FOMC,2002-03-19,Policy score,0
+FOMC statements,FOMC,2002-03-19,Economic score,0.09090909090909093
+FOMC statements,FOMC,2002-03-19,Aggregate net score,0.09090909090909093
+FOMC statements,FOMC,2002-05-07,Policy score,0
+FOMC statements,FOMC,2002-05-07,Economic score,0.09090909090909093
+FOMC statements,FOMC,2002-05-07,Aggregate net score,0.09090909090909093
+FOMC statements,FOMC,2002-06-26,Policy score,0.09090909090909093
+FOMC statements,FOMC,2002-06-26,Economic score,0
+FOMC statements,FOMC,2002-06-26,Aggregate net score,0.09090909090909093
+FOMC statements,FOMC,2002-08-13,Policy score,-0.16666666666666666
+FOMC statements,FOMC,2002-08-13,Economic score,-0.16666666666666666
+FOMC statements,FOMC,2002-08-13,Aggregate net score,-0.2857142857142857
+FOMC statements,FOMC,2002-09-24,Policy score,-0.16666666666666666
+FOMC statements,FOMC,2002-09-24,Economic score,-0.16666666666666666
+FOMC statements,FOMC,2002-09-24,Aggregate net score,-0.2857142857142857
+FOMC statements,FOMC,2002-11-06,Policy score,-0.3333333333333333
+FOMC statements,FOMC,2002-11-06,Economic score,-0.09090909090909093
+FOMC statements,FOMC,2002-11-06,Aggregate net score,-0.375
+FOMC statements,FOMC,2002-12-10,Policy score,-0.16666666666666666
+FOMC statements,FOMC,2002-12-10,Economic score,0
+FOMC statements,FOMC,2002-12-10,Aggregate net score,-0.16666666666666666
+FOMC statements,FOMC,2003-01-29,Policy score,-0.09090909090909093
+FOMC statements,FOMC,2003-01-29,Economic score,-0.09090909090909093
+FOMC statements,FOMC,2003-01-29,Aggregate net score,-0.16666666666666666
+FOMC statements,FOMC,2003-03-18,Policy score,-0.16666666666666666
+FOMC statements,FOMC,2003-03-18,Economic score,0.09090909090909093
+FOMC statements,FOMC,2003-03-18,Aggregate net score,-0.07692307692307693
+FOMC statements,FOMC,2003-05-06,Policy score,-0.09090909090909093
+FOMC statements,FOMC,2003-05-06,Economic score,-0.2307692307692308
+FOMC statements,FOMC,2003-05-06,Aggregate net score,-0.2857142857142857
+FOMC statements,FOMC,2003-06-25,Policy score,-0.375
+FOMC statements,FOMC,2003-06-25,Economic score,-0.07692307692307693
+FOMC statements,FOMC,2003-06-25,Aggregate net score,-0.3684210526315789
+FOMC statements,FOMC,2003-08-12,Policy score,-0.2307692307692308
+FOMC statements,FOMC,2003-08-12,Economic score,0
+FOMC statements,FOMC,2003-08-12,Aggregate net score,-0.17647058823529413
+FOMC statements,FOMC,2003-09-16,Policy score,-0.2307692307692308
+FOMC statements,FOMC,2003-09-16,Economic score,0
+FOMC statements,FOMC,2003-09-16,Aggregate net score,-0.17647058823529413
+FOMC statements,FOMC,2003-10-28,Policy score,-0.2307692307692308
+FOMC statements,FOMC,2003-10-28,Economic score,0
+FOMC statements,FOMC,2003-10-28,Aggregate net score,-0.17647058823529413
+FOMC statements,FOMC,2003-12-09,Policy score,-0.2307692307692308
+FOMC statements,FOMC,2003-12-09,Economic score,-0.07692307692307693
+FOMC statements,FOMC,2003-12-09,Aggregate net score,-0.25
+FOMC statements,FOMC,2004-01-28,Policy score,-0.2307692307692308
+FOMC statements,FOMC,2004-01-28,Economic score,-0.07692307692307693
+FOMC statements,FOMC,2004-01-28,Aggregate net score,-0.25
+FOMC statements,FOMC,2004-03-16,Policy score,-0.2307692307692308
+FOMC statements,FOMC,2004-03-16,Economic score,0
+FOMC statements,FOMC,2004-03-16,Aggregate net score,-0.15789473684210523
+FOMC statements,FOMC,2004-05-04,Policy score,-0.2307692307692308
+FOMC statements,FOMC,2004-05-04,Economic score,0
+FOMC statements,FOMC,2004-05-04,Aggregate net score,-0.2
+FOMC statements,FOMC,2004-06-30,Policy score,0
+FOMC statements,FOMC,2004-06-30,Economic score,0.06666666666666667
+FOMC statements,FOMC,2004-06-30,Aggregate net score,0.04761904761904761
+FOMC statements,FOMC,2004-08-10,Policy score,0
+FOMC statements,FOMC,2004-08-10,Economic score,0
+FOMC statements,FOMC,2004-08-10,Aggregate net score,0
+FOMC statements,FOMC,2004-09-21,Policy score,0
+FOMC statements,FOMC,2004-09-21,Economic score,0
+FOMC statements,FOMC,2004-09-21,Aggregate net score,0
+FOMC statements,FOMC,2004-11-10,Policy score,0
+FOMC statements,FOMC,2004-11-10,Economic score,0
+FOMC statements,FOMC,2004-11-10,Aggregate net score,0
+FOMC statements,FOMC,2004-12-14,Policy score,0
+FOMC statements,FOMC,2004-12-14,Economic score,0
+FOMC statements,FOMC,2004-12-14,Aggregate net score,0
+FOMC statements,FOMC,2005-02-02,Policy score,0
+FOMC statements,FOMC,2005-02-02,Economic score,0
+FOMC statements,FOMC,2005-02-02,Aggregate net score,0
+FOMC statements,FOMC,2005-03-22,Policy score,0
+FOMC statements,FOMC,2005-03-22,Economic score,0.14285714285714285
+FOMC statements,FOMC,2005-03-22,Aggregate net score,0.1
+FOMC statements,FOMC,2005-05-03,Policy score,0
+FOMC statements,FOMC,2005-05-03,Economic score,0.06666666666666667
+FOMC statements,FOMC,2005-05-03,Aggregate net score,0.04761904761904761
+FOMC statements,FOMC,2005-06-30,Policy score,0
+FOMC statements,FOMC,2005-06-30,Economic score,0
+FOMC statements,FOMC,2005-06-30,Aggregate net score,0
+FOMC statements,FOMC,2005-08-09,Policy score,0
+FOMC statements,FOMC,2005-08-09,Economic score,0.07692307692307693
+FOMC statements,FOMC,2005-08-09,Aggregate net score,0.05263157894736842
+FOMC statements,FOMC,2005-09-20,Policy score,0
+FOMC statements,FOMC,2005-09-20,Economic score,0.07692307692307693
+FOMC statements,FOMC,2005-09-20,Aggregate net score,0.05263157894736842
+FOMC statements,FOMC,2005-11-01,Policy score,0
+FOMC statements,FOMC,2005-11-01,Economic score,0.07692307692307693
+FOMC statements,FOMC,2005-11-01,Aggregate net score,0.05263157894736842
+FOMC statements,FOMC,2005-12-13,Policy score,0.16666666666666666
+FOMC statements,FOMC,2005-12-13,Economic score,0.09090909090909093
+FOMC statements,FOMC,2005-12-13,Aggregate net score,0.2307692307692308
+FOMC statements,FOMC,2006-01-31,Policy score,0.2307692307692308
+FOMC statements,FOMC,2006-01-31,Economic score,0.09090909090909093
+FOMC statements,FOMC,2006-01-31,Aggregate net score,0.2857142857142857
+FOMC statements,FOMC,2006-03-28,Policy score,0.2307692307692308
+FOMC statements,FOMC,2006-03-28,Economic score,0.16666666666666666
+FOMC statements,FOMC,2006-03-28,Aggregate net score,0.3333333333333333
+FOMC statements,FOMC,2006-05-10,Policy score,0.2307692307692308
+FOMC statements,FOMC,2006-05-10,Economic score,0.16666666666666666
+FOMC statements,FOMC,2006-05-10,Aggregate net score,0.3333333333333333
+FOMC statements,FOMC,2006-06-29,Policy score,0.16666666666666666
+FOMC statements,FOMC,2006-06-29,Economic score,0.2857142857142857
+FOMC statements,FOMC,2006-06-29,Aggregate net score,0.375
+FOMC statements,FOMC,2006-08-08,Policy score,0
+FOMC statements,FOMC,2006-08-08,Economic score,0.2307692307692308
+FOMC statements,FOMC,2006-08-08,Aggregate net score,0.2307692307692308
+FOMC statements,FOMC,2006-09-20,Policy score,0
+FOMC statements,FOMC,2006-09-20,Economic score,0.16666666666666666
+FOMC statements,FOMC,2006-09-20,Aggregate net score,0.16666666666666666
+FOMC statements,FOMC,2006-10-25,Policy score,0
+FOMC statements,FOMC,2006-10-25,Economic score,0.07692307692307693
+FOMC statements,FOMC,2006-10-25,Aggregate net score,0.07692307692307693
+FOMC statements,FOMC,2006-12-12,Policy score,0
+FOMC statements,FOMC,2006-12-12,Economic score,0.07692307692307693
+FOMC statements,FOMC,2006-12-12,Aggregate net score,0.07692307692307693
+FOMC statements,FOMC,2007-01-31,Policy score,0
+FOMC statements,FOMC,2007-01-31,Economic score,0.09090909090909093
+FOMC statements,FOMC,2007-01-31,Aggregate net score,0.09090909090909093
+FOMC statements,FOMC,2007-03-21,Policy score,0
+FOMC statements,FOMC,2007-03-21,Economic score,0.16666666666666666
+FOMC statements,FOMC,2007-03-21,Aggregate net score,0.16666666666666666
+FOMC statements,FOMC,2007-05-09,Policy score,0
+FOMC statements,FOMC,2007-05-09,Economic score,0
+FOMC statements,FOMC,2007-05-09,Aggregate net score,0
+FOMC statements,FOMC,2007-06-28,Policy score,0
+FOMC statements,FOMC,2007-06-28,Economic score,0
+FOMC statements,FOMC,2007-06-28,Aggregate net score,0
+FOMC statements,FOMC,2007-08-07,Policy score,0
+FOMC statements,FOMC,2007-08-07,Economic score,0.06666666666666667
+FOMC statements,FOMC,2007-08-07,Aggregate net score,0.06666666666666667
+FOMC statements,FOMC,2007-08-17,Policy score,-0.09090909090909093
+FOMC statements,FOMC,2007-08-17,Economic score,0
+FOMC statements,FOMC,2007-08-17,Aggregate net score,-0.09090909090909093
+FOMC statements,FOMC,2007-09-18,Policy score,-0.16666666666666666
+FOMC statements,FOMC,2007-09-18,Economic score,0.09090909090909093
+FOMC statements,FOMC,2007-09-18,Aggregate net score,-0.07692307692307693
+FOMC statements,FOMC,2007-10-31,Policy score,-0.16666666666666666
+FOMC statements,FOMC,2007-10-31,Economic score,0.125
+FOMC statements,FOMC,2007-10-31,Aggregate net score,0
+FOMC statements,FOMC,2007-12-11,Policy score,-0.2307692307692308
+FOMC statements,FOMC,2007-12-11,Economic score,0.07692307692307693
+FOMC statements,FOMC,2007-12-11,Aggregate net score,-0.125
+FOMC statements,FOMC,2008-01-22,Policy score,-0.2307692307692308
+FOMC statements,FOMC,2008-01-22,Economic score,-0.3333333333333333
+FOMC statements,FOMC,2008-01-22,Aggregate net score,-0.4444444444444444
+FOMC statements,FOMC,2008-01-30,Policy score,-0.16666666666666666
+FOMC statements,FOMC,2008-01-30,Economic score,-0.2307692307692308
+FOMC statements,FOMC,2008-01-30,Aggregate net score,-0.3333333333333333
+FOMC statements,FOMC,2008-03-11,Policy score,0
+FOMC statements,FOMC,2008-03-11,Economic score,0
+FOMC statements,FOMC,2008-03-11,Aggregate net score,0
+FOMC statements,FOMC,2008-03-18,Policy score,-0.16666666666666666
+FOMC statements,FOMC,2008-03-18,Economic score,-0.07692307692307693
+FOMC statements,FOMC,2008-03-18,Aggregate net score,-0.2
+FOMC statements,FOMC,2008-04-30,Policy score,-0.2307692307692308
+FOMC statements,FOMC,2008-04-30,Economic score,0.09090909090909093
+FOMC statements,FOMC,2008-04-30,Aggregate net score,-0.14285714285714285
+FOMC statements,FOMC,2008-06-25,Policy score,-0.09090909090909093
+FOMC statements,FOMC,2008-06-25,Economic score,0
+FOMC statements,FOMC,2008-06-25,Aggregate net score,-0.06666666666666667
+FOMC statements,FOMC,2008-08-05,Policy score,-0.09090909090909093
+FOMC statements,FOMC,2008-08-05,Economic score,0
+FOMC statements,FOMC,2008-08-05,Aggregate net score,-0.06666666666666667
+FOMC statements,FOMC,2008-09-16,Policy score,-0.09090909090909093
+FOMC statements,FOMC,2008-09-16,Economic score,0
+FOMC statements,FOMC,2008-09-16,Aggregate net score,-0.06666666666666667
+FOMC statements,FOMC,2008-10-08,Policy score,-0.2307692307692308
+FOMC statements,FOMC,2008-10-08,Economic score,0.1111111111111111
+FOMC statements,FOMC,2008-10-08,Aggregate net score,-0.04761904761904761
+FOMC statements,FOMC,2008-10-29,Policy score,-0.2857142857142857
+FOMC statements,FOMC,2008-10-29,Economic score,-0.2307692307692308
+FOMC statements,FOMC,2008-10-29,Aggregate net score,-0.4117647058823529
+FOMC statements,FOMC,2008-12-16,Policy score,0
+FOMC statements,FOMC,2008-12-16,Economic score,0
+FOMC statements,FOMC,2008-12-16,Aggregate net score,0
+FOMC statements,FOMC,2009-01-28,Policy score,-0.09090909090909093
+FOMC statements,FOMC,2009-01-28,Economic score,-0.16666666666666666
+FOMC statements,FOMC,2009-01-28,Aggregate net score,-0.2307692307692308
+FOMC statements,FOMC,2009-03-18,Policy score,-0.16666666666666666
+FOMC statements,FOMC,2009-03-18,Economic score,-0.09090909090909093
+FOMC statements,FOMC,2009-03-18,Aggregate net score,-0.2307692307692308
+FOMC statements,FOMC,2009-04-29,Policy score,-0.16666666666666666
+FOMC statements,FOMC,2009-04-29,Economic score,-0.09090909090909093
+FOMC statements,FOMC,2009-04-29,Aggregate net score,-0.2307692307692308
+FOMC statements,FOMC,2009-06-24,Policy score,-0.16666666666666666
+FOMC statements,FOMC,2009-06-24,Economic score,0
+FOMC statements,FOMC,2009-06-24,Aggregate net score,-0.14285714285714285
+FOMC statements,FOMC,2009-08-12,Policy score,-0.16666666666666666
+FOMC statements,FOMC,2009-08-12,Economic score,0
+FOMC statements,FOMC,2009-08-12,Aggregate net score,-0.14285714285714285
+FOMC statements,FOMC,2009-09-23,Policy score,-0.2307692307692308
+FOMC statements,FOMC,2009-09-23,Economic score,0
+FOMC statements,FOMC,2009-09-23,Aggregate net score,-0.2
+FOMC statements,FOMC,2009-11-04,Policy score,-0.2307692307692308
+FOMC statements,FOMC,2009-11-04,Economic score,-0.07692307692307693
+FOMC statements,FOMC,2009-11-04,Aggregate net score,-0.25
+FOMC statements,FOMC,2009-12-16,Policy score,-0.2857142857142857
+FOMC statements,FOMC,2009-12-16,Economic score,0
+FOMC statements,FOMC,2009-12-16,Aggregate net score,-0.25
+FOMC statements,FOMC,2010-01-27,Policy score,-0.2307692307692308
+FOMC statements,FOMC,2010-01-27,Economic score,0
+FOMC statements,FOMC,2010-01-27,Aggregate net score,-0.2
+FOMC statements,FOMC,2010-03-16,Policy score,-0.2307692307692308
+FOMC statements,FOMC,2010-03-16,Economic score,-0.07692307692307693
+FOMC statements,FOMC,2010-03-16,Aggregate net score,-0.25
+FOMC statements,FOMC,2010-04-28,Policy score,-0.14285714285714285
+FOMC statements,FOMC,2010-04-28,Economic score,-0.07692307692307693
+FOMC statements,FOMC,2010-04-28,Aggregate net score,-0.17647058823529413
+FOMC statements,FOMC,2010-06-23,Policy score,-0.14285714285714285
+FOMC statements,FOMC,2010-06-23,Economic score,0
+FOMC statements,FOMC,2010-06-23,Aggregate net score,-0.1111111111111111
+FOMC statements,FOMC,2010-08-10,Policy score,-0.2857142857142857
+FOMC statements,FOMC,2010-08-10,Economic score,0
+FOMC statements,FOMC,2010-08-10,Aggregate net score,-0.2222222222222222
+FOMC statements,FOMC,2010-09-21,Policy score,-0.25
+FOMC statements,FOMC,2010-09-21,Economic score,0
+FOMC statements,FOMC,2010-09-21,Aggregate net score,-0.2
+FOMC statements,FOMC,2010-11-03,Policy score,-0.375
+FOMC statements,FOMC,2010-11-03,Economic score,0
+FOMC statements,FOMC,2010-11-03,Aggregate net score,-0.3
+FOMC statements,FOMC,2010-12-14,Policy score,-0.375
+FOMC statements,FOMC,2010-12-14,Economic score,0.06666666666666667
+FOMC statements,FOMC,2010-12-14,Aggregate net score,-0.23809523809523808
+FOMC statements,FOMC,2011-01-26,Policy score,-0.3333333333333333
+FOMC statements,FOMC,2011-01-26,Economic score,0.06666666666666667
+FOMC statements,FOMC,2011-01-26,Aggregate net score,-0.2
+FOMC statements,FOMC,2011-03-15,Policy score,-0.3333333333333333
+FOMC statements,FOMC,2011-03-15,Economic score,0.25
+FOMC statements,FOMC,2011-03-15,Aggregate net score,-0.04761904761904761
+FOMC statements,FOMC,2011-04-27,Policy score,-0.14285714285714285
+FOMC statements,FOMC,2011-04-27,Economic score,0.2
+FOMC statements,FOMC,2011-04-27,Aggregate net score,0.05263157894736842
+FOMC statements,FOMC,2011-06-22,Policy score,-0.2307692307692308
+FOMC statements,FOMC,2011-06-22,Economic score,0.16666666666666666
+FOMC statements,FOMC,2011-06-22,Aggregate net score,-0.06666666666666667
+FOMC statements,FOMC,2011-08-09,Policy score,-0.2307692307692308
+FOMC statements,FOMC,2011-08-09,Economic score,-0.06666666666666667
+FOMC statements,FOMC,2011-08-09,Aggregate net score,-0.2222222222222222
+FOMC statements,FOMC,2011-09-21,Policy score,-0.2857142857142857
+FOMC statements,FOMC,2011-09-21,Economic score,0
+FOMC statements,FOMC,2011-09-21,Aggregate net score,-0.25
+FOMC statements,FOMC,2011-11-02,Policy score,-0.07692307692307693
+FOMC statements,FOMC,2011-11-02,Economic score,-0.07692307692307693
+FOMC statements,FOMC,2011-11-02,Aggregate net score,-0.125
+FOMC statements,FOMC,2011-12-13,Policy score,-0.16666666666666666
+FOMC statements,FOMC,2011-12-13,Economic score,-0.09090909090909093
+FOMC statements,FOMC,2011-12-13,Aggregate net score,-0.2307692307692308
+FOMC statements,FOMC,2012-01-25,Policy score,-0.2307692307692308
+FOMC statements,FOMC,2012-01-25,Economic score,-0.09090909090909093
+FOMC statements,FOMC,2012-01-25,Aggregate net score,-0.2857142857142857
+FOMC statements,FOMC,2012-03-13,Policy score,-0.2307692307692308
+FOMC statements,FOMC,2012-03-13,Economic score,-0.09090909090909093
+FOMC statements,FOMC,2012-03-13,Aggregate net score,-0.2857142857142857
+FOMC statements,FOMC,2012-04-25,Policy score,-0.2307692307692308
+FOMC statements,FOMC,2012-04-25,Economic score,0
+FOMC statements,FOMC,2012-04-25,Aggregate net score,-0.2
+FOMC statements,FOMC,2012-06-20,Policy score,-0.2857142857142857
+FOMC statements,FOMC,2012-06-20,Economic score,-0.2307692307692308
+FOMC statements,FOMC,2012-06-20,Aggregate net score,-0.4117647058823529
+FOMC statements,FOMC,2012-08-01,Policy score,-0.2857142857142857
+FOMC statements,FOMC,2012-08-01,Economic score,-0.14285714285714285
+FOMC statements,FOMC,2012-08-01,Aggregate net score,-0.3333333333333333
+FOMC statements,FOMC,2012-09-13,Policy score,-0.4444444444444444
+FOMC statements,FOMC,2012-09-13,Economic score,0.07692307692307693
+FOMC statements,FOMC,2012-09-13,Aggregate net score,-0.3333333333333333
+FOMC statements,FOMC,2012-10-24,Policy score,-0.47368421052631576
+FOMC statements,FOMC,2012-10-24,Economic score,0.07692307692307693
+FOMC statements,FOMC,2012-10-24,Aggregate net score,-0.3636363636363637
+FOMC statements,FOMC,2012-12-12,Policy score,-0.5454545454545454
+FOMC statements,FOMC,2012-12-12,Economic score,0.06666666666666667
+FOMC statements,FOMC,2012-12-12,Aggregate net score,-0.4074074074074074
+FOMC statements,FOMC,2013-01-30,Policy score,-0.5238095238095238
+FOMC statements,FOMC,2013-01-30,Economic score,0
+FOMC statements,FOMC,2013-01-30,Aggregate net score,-0.4074074074074074
+FOMC statements,FOMC,2013-03-20,Policy score,-0.4545454545454546
+FOMC statements,FOMC,2013-03-20,Economic score,0
+FOMC statements,FOMC,2013-03-20,Aggregate net score,-0.38461538461538464
+FOMC statements,FOMC,2013-05-01,Policy score,-0.5454545454545454
+FOMC statements,FOMC,2013-05-01,Economic score,0
+FOMC statements,FOMC,2013-05-01,Aggregate net score,-0.4615384615384616
+FOMC statements,FOMC,2013-06-19,Policy score,-0.5454545454545454
+FOMC statements,FOMC,2013-06-19,Economic score,-0.06666666666666667
+FOMC statements,FOMC,2013-06-19,Aggregate net score,-0.48148148148148145
+FOMC statements,FOMC,2013-07-31,Policy score,-0.5454545454545454
+FOMC statements,FOMC,2013-07-31,Economic score,0
+FOMC statements,FOMC,2013-07-31,Aggregate net score,-0.4615384615384616
+FOMC statements,FOMC,2013-09-18,Policy score,-0.5833333333333334
+FOMC statements,FOMC,2013-09-18,Economic score,-0.06666666666666667
+FOMC statements,FOMC,2013-09-18,Aggregate net score,-0.5172413793103449
+FOMC statements,FOMC,2013-10-30,Policy score,-0.5833333333333334
+FOMC statements,FOMC,2013-10-30,Economic score,0.06666666666666667
+FOMC statements,FOMC,2013-10-30,Aggregate net score,-0.4482758620689655
+FOMC statements,FOMC,2013-12-18,Policy score,-0.6
+FOMC statements,FOMC,2013-12-18,Economic score,0.125
+FOMC statements,FOMC,2013-12-18,Aggregate net score,-0.41935483870967744
+FOMC statements,FOMC,2014-01-29,Policy score,-0.5833333333333334
+FOMC statements,FOMC,2014-01-29,Economic score,0.07692307692307693
+FOMC statements,FOMC,2014-01-29,Aggregate net score,-0.48148148148148145
+FOMC statements,FOMC,2014-03-19,Policy score,-0.44
+FOMC statements,FOMC,2014-03-19,Economic score,0.07692307692307693
+FOMC statements,FOMC,2014-03-19,Aggregate net score,-0.35714285714285715
+FOMC statements,FOMC,2014-04-30,Policy score,-0.5454545454545454
+FOMC statements,FOMC,2014-04-30,Economic score,0.07692307692307693
+FOMC statements,FOMC,2014-04-30,Aggregate net score,-0.44
+FOMC statements,FOMC,2014-06-18,Policy score,-0.5454545454545454
+FOMC statements,FOMC,2014-06-18,Economic score,0.07692307692307693
+FOMC statements,FOMC,2014-06-18,Aggregate net score,-0.44
+FOMC statements,FOMC,2014-07-30,Policy score,-0.5833333333333334
+FOMC statements,FOMC,2014-07-30,Economic score,0.07692307692307693
+FOMC statements,FOMC,2014-07-30,Aggregate net score,-0.48148148148148145
+FOMC statements,FOMC,2014-09-17,Policy score,-0.6153846153846154
+FOMC statements,FOMC,2014-09-17,Economic score,0.14285714285714285
+FOMC statements,FOMC,2014-09-17,Aggregate net score,-0.4666666666666667
+FOMC statements,FOMC,2014-10-29,Policy score,-0.5454545454545454
+FOMC statements,FOMC,2014-10-29,Economic score,0.07692307692307693
+FOMC statements,FOMC,2014-10-29,Aggregate net score,-0.44
+FOMC statements,FOMC,2014-12-17,Policy score,-0.4117647058823529
+FOMC statements,FOMC,2014-12-17,Economic score,-0.14285714285714285
+FOMC statements,FOMC,2014-12-17,Aggregate net score,-0.42857142857142855
+FOMC statements,FOMC,2015-01-28,Policy score,-0.2307692307692308
+FOMC statements,FOMC,2015-01-28,Economic score,0.07692307692307693
+FOMC statements,FOMC,2015-01-28,Aggregate net score,-0.125
+FOMC statements,FOMC,2015-03-18,Policy score,-0.125
+FOMC statements,FOMC,2015-03-18,Economic score,0
+FOMC statements,FOMC,2015-03-18,Aggregate net score,-0.1111111111111111
+FOMC statements,FOMC,2015-04-29,Policy score,-0.06666666666666667
+FOMC statements,FOMC,2015-04-29,Economic score,-0.07692307692307693
+FOMC statements,FOMC,2015-04-29,Aggregate net score,-0.1111111111111111
+FOMC statements,FOMC,2015-06-17,Policy score,-0.06666666666666667
+FOMC statements,FOMC,2015-06-17,Economic score,0.09090909090909093
+FOMC statements,FOMC,2015-06-17,Aggregate net score,0
+FOMC statements,FOMC,2015-07-29,Policy score,-0.06666666666666667
+FOMC statements,FOMC,2015-07-29,Economic score,0.09090909090909093
+FOMC statements,FOMC,2015-07-29,Aggregate net score,0
+FOMC statements,FOMC,2015-09-17,Policy score,0
+FOMC statements,FOMC,2015-09-17,Economic score,0.09090909090909093
+FOMC statements,FOMC,2015-09-17,Aggregate net score,0.0588235294117647
+FOMC statements,FOMC,2015-10-28,Policy score,0.1111111111111111
+FOMC statements,FOMC,2015-10-28,Economic score,0.09090909090909093
+FOMC statements,FOMC,2015-10-28,Aggregate net score,0.15789473684210523
+FOMC statements,FOMC,2015-12-16,Policy score,0
+FOMC statements,FOMC,2015-12-16,Economic score,0.16666666666666666
+FOMC statements,FOMC,2015-12-16,Aggregate net score,0.125
+FOMC statements,FOMC,2016-01-27,Policy score,-0.16666666666666666
+FOMC statements,FOMC,2016-01-27,Economic score,0.07692307692307693
+FOMC statements,FOMC,2016-01-27,Aggregate net score,-0.06666666666666667
+FOMC statements,FOMC,2016-03-16,Policy score,-0.07692307692307693
+FOMC statements,FOMC,2016-03-16,Economic score,0.09090909090909093
+FOMC statements,FOMC,2016-03-16,Aggregate net score,0
+FOMC statements,FOMC,2016-04-27,Policy score,-0.07692307692307693
+FOMC statements,FOMC,2016-04-27,Economic score,0.16666666666666666
+FOMC statements,FOMC,2016-04-27,Aggregate net score,0.06666666666666667
+FOMC statements,FOMC,2016-06-15,Policy score,-0.16666666666666666
+FOMC statements,FOMC,2016-06-15,Economic score,0.16666666666666666
+FOMC statements,FOMC,2016-06-15,Aggregate net score,0
+FOMC statements,FOMC,2016-07-27,Policy score,-0.07692307692307693
+FOMC statements,FOMC,2016-07-27,Economic score,0.07692307692307693
+FOMC statements,FOMC,2016-07-27,Aggregate net score,0
+FOMC statements,FOMC,2016-09-21,Policy score,-0.07692307692307693
+FOMC statements,FOMC,2016-09-21,Economic score,0.16666666666666666
+FOMC statements,FOMC,2016-09-21,Aggregate net score,0.06666666666666667
+FOMC statements,FOMC,2016-11-02,Policy score,-0.07692307692307693
+FOMC statements,FOMC,2016-11-02,Economic score,0.16666666666666666
+FOMC statements,FOMC,2016-11-02,Aggregate net score,0.06666666666666667
+FOMC statements,FOMC,2016-12-14,Policy score,0
+FOMC statements,FOMC,2016-12-14,Economic score,0.16666666666666666
+FOMC statements,FOMC,2016-12-14,Aggregate net score,0.125
+FOMC statements,FOMC,2017-02-01,Policy score,-0.16666666666666666
+FOMC statements,FOMC,2017-02-01,Economic score,0.2307692307692308
+FOMC statements,FOMC,2017-02-01,Aggregate net score,0.06666666666666667
+FOMC statements,FOMC,2017-03-15,Policy score,0
+FOMC statements,FOMC,2017-03-15,Economic score,0.2307692307692308
+FOMC statements,FOMC,2017-03-15,Aggregate net score,0.17647058823529413
+FOMC statements,FOMC,2017-05-03,Policy score,-0.16666666666666666
+FOMC statements,FOMC,2017-05-03,Economic score,0.16666666666666666
+FOMC statements,FOMC,2017-05-03,Aggregate net score,0
+FOMC statements,FOMC,2017-06-14,Policy score,0
+FOMC statements,FOMC,2017-06-14,Economic score,0.07692307692307693
+FOMC statements,FOMC,2017-06-14,Aggregate net score,0.05263157894736842
+FOMC statements,FOMC,2017-07-26,Policy score,-0.07692307692307693
+FOMC statements,FOMC,2017-07-26,Economic score,0.16666666666666666
+FOMC statements,FOMC,2017-07-26,Aggregate net score,0.06666666666666667
+FOMC statements,FOMC,2017-09-20,Policy score,0
+FOMC statements,FOMC,2017-09-20,Economic score,0.16666666666666666
+FOMC statements,FOMC,2017-09-20,Aggregate net score,0.14285714285714285
+FOMC statements,FOMC,2017-11-01,Policy score,-0.09090909090909093
+FOMC statements,FOMC,2017-11-01,Economic score,0.09090909090909093
+FOMC statements,FOMC,2017-11-01,Aggregate net score,0
+FOMC statements,FOMC,2017-12-13,Policy score,0.07692307692307693
+FOMC statements,FOMC,2017-12-13,Economic score,0.16666666666666666
+FOMC statements,FOMC,2017-12-13,Aggregate net score,0.2
+FOMC statements,FOMC,2018-01-31,Policy score,-0.09090909090909093
+FOMC statements,FOMC,2018-01-31,Economic score,0.09090909090909093
+FOMC statements,FOMC,2018-01-31,Aggregate net score,0
+FOMC statements,FOMC,2018-03-21,Policy score,0.07692307692307693
+FOMC statements,FOMC,2018-03-21,Economic score,0.16666666666666666
+FOMC statements,FOMC,2018-03-21,Aggregate net score,0.2
+FOMC statements,FOMC,2018-05-02,Policy score,-0.09090909090909093
+FOMC statements,FOMC,2018-05-02,Economic score,0.16666666666666666
+FOMC statements,FOMC,2018-05-02,Aggregate net score,0.07692307692307693
+FOMC statements,FOMC,2018-06-13,Policy score,0.07692307692307693
+FOMC statements,FOMC,2018-06-13,Economic score,0.2307692307692308
+FOMC statements,FOMC,2018-06-13,Aggregate net score,0.25
+FOMC statements,FOMC,2018-08-01,Policy score,-0.09090909090909093
+FOMC statements,FOMC,2018-08-01,Economic score,0.2307692307692308
+FOMC statements,FOMC,2018-08-01,Aggregate net score,0.14285714285714285
+FOMC statements,FOMC,2018-09-26,Policy score,0.16666666666666666
+FOMC statements,FOMC,2018-09-26,Economic score,0.16666666666666666
+FOMC statements,FOMC,2018-09-26,Aggregate net score,0.2857142857142857
+FOMC statements,FOMC,2018-11-08,Policy score,0
+FOMC statements,FOMC,2018-11-08,Economic score,0.16666666666666666
+FOMC statements,FOMC,2018-11-08,Aggregate net score,0.16666666666666666
+FOMC statements,FOMC,2018-12-19,Policy score,0.16666666666666666
+FOMC statements,FOMC,2018-12-19,Economic score,0.16666666666666666
+FOMC statements,FOMC,2018-12-19,Aggregate net score,0.2857142857142857
+FOMC statements,FOMC,2019-01-30,Policy score,0
+FOMC statements,FOMC,2019-01-30,Economic score,0.07692307692307693
+FOMC statements,FOMC,2019-01-30,Aggregate net score,0.07692307692307693
+FOMC statements,FOMC,2019-03-20,Policy score,0
+FOMC statements,FOMC,2019-03-20,Economic score,0
+FOMC statements,FOMC,2019-03-20,Aggregate net score,0
+FOMC statements,FOMC,2019-05-01,Policy score,0
+FOMC statements,FOMC,2019-05-01,Economic score,0.06666666666666667
+FOMC statements,FOMC,2019-05-01,Aggregate net score,0.06666666666666667
+FOMC statements,FOMC,2019-06-19,Policy score,-0.09090909090909093
+FOMC statements,FOMC,2019-06-19,Economic score,0.25
+FOMC statements,FOMC,2019-06-19,Aggregate net score,0.17647058823529413
+FOMC statements,FOMC,2019-07-31,Policy score,-0.16666666666666666
+FOMC statements,FOMC,2019-07-31,Economic score,0.2
+FOMC statements,FOMC,2019-07-31,Aggregate net score,0.0588235294117647
+FOMC statements,FOMC,2019-09-18,Policy score,-0.2307692307692308
+FOMC statements,FOMC,2019-09-18,Economic score,0.25
+FOMC statements,FOMC,2019-09-18,Aggregate net score,0.05263157894736842
+FOMC statements,FOMC,2019-10-30,Policy score,-0.16666666666666666
+FOMC statements,FOMC,2019-10-30,Economic score,0.2
+FOMC statements,FOMC,2019-10-30,Aggregate net score,0.0588235294117647
+FOMC statements,FOMC,2019-12-11,Policy score,0
+FOMC statements,FOMC,2019-12-11,Economic score,0.2
+FOMC statements,FOMC,2019-12-11,Aggregate net score,0.2
+FOMC statements,FOMC,2020-01-29,Policy score,0
+FOMC statements,FOMC,2020-01-29,Economic score,0.14285714285714285
+FOMC statements,FOMC,2020-01-29,Aggregate net score,0.14285714285714285
+FOMC statements,FOMC,2020-03-03,Policy score,-0.16666666666666666
+FOMC statements,FOMC,2020-03-03,Economic score,0.09090909090909093
+FOMC statements,FOMC,2020-03-03,Aggregate net score,-0.07692307692307693
+FOMC statements,FOMC,2020-03-15,Policy score,-0.2857142857142857
+FOMC statements,FOMC,2020-03-15,Economic score,0.14285714285714285
+FOMC statements,FOMC,2020-03-15,Aggregate net score,-0.1111111111111111
+FOMC statements,FOMC,2020-03-23,Policy score,-0.09090909090909093
+FOMC statements,FOMC,2020-03-23,Economic score,0.09090909090909093
+FOMC statements,FOMC,2020-03-23,Aggregate net score,0
+FOMC statements,FOMC,2020-04-29,Policy score,-0.09090909090909093
+FOMC statements,FOMC,2020-04-29,Economic score,-0.2
+FOMC statements,FOMC,2020-04-29,Aggregate net score,-0.25
+FOMC statements,FOMC,2020-06-10,Policy score,-0.16666666666666666
+FOMC statements,FOMC,2020-06-10,Economic score,-0.2
+FOMC statements,FOMC,2020-06-10,Aggregate net score,-0.29411764705882354
+FOMC statements,FOMC,2020-07-29,Policy score,-0.16666666666666666
+FOMC statements,FOMC,2020-07-29,Economic score,-0.14285714285714285
+FOMC statements,FOMC,2020-07-29,Aggregate net score,-0.25
+FOMC statements,FOMC,2020-09-16,Policy score,-0.16666666666666666
+FOMC statements,FOMC,2020-09-16,Economic score,0
+FOMC statements,FOMC,2020-09-16,Aggregate net score,-0.125
+FOMC statements,FOMC,2020-11-05,Policy score,-0.2307692307692308
+FOMC statements,FOMC,2020-11-05,Economic score,-0.07692307692307693
+FOMC statements,FOMC,2020-11-05,Aggregate net score,-0.25
+FOMC statements,FOMC,2020-12-16,Policy score,-0.3333333333333333
+FOMC statements,FOMC,2020-12-16,Economic score,-0.07692307692307693
+FOMC statements,FOMC,2020-12-16,Aggregate net score,-0.3333333333333333
+FOMC statements,FOMC,2021-01-27,Policy score,-0.3333333333333333
+FOMC statements,FOMC,2021-01-27,Economic score,-0.07692307692307693
+FOMC statements,FOMC,2021-01-27,Aggregate net score,-0.3333333333333333
+FOMC statements,FOMC,2021-03-17,Policy score,-0.3333333333333333
+FOMC statements,FOMC,2021-03-17,Economic score,0
+FOMC statements,FOMC,2021-03-17,Aggregate net score,-0.29411764705882354
+FOMC statements,FOMC,2021-04-28,Policy score,-0.3333333333333333
+FOMC statements,FOMC,2021-04-28,Economic score,-0.07692307692307693
+FOMC statements,FOMC,2021-04-28,Aggregate net score,-0.3333333333333333
+FOMC statements,FOMC,2021-06-16,Policy score,-0.3333333333333333
+FOMC statements,FOMC,2021-06-16,Economic score,-0.07692307692307693
+FOMC statements,FOMC,2021-06-16,Aggregate net score,-0.3333333333333333
+FOMC statements,FOMC,2021-07-28,Policy score,-0.3333333333333333
+FOMC statements,FOMC,2021-07-28,Economic score,-0.07692307692307693
+FOMC statements,FOMC,2021-07-28,Aggregate net score,-0.3333333333333333
+FOMC statements,FOMC,2021-09-22,Policy score,-0.375
+FOMC statements,FOMC,2021-09-22,Economic score,0
+FOMC statements,FOMC,2021-09-22,Aggregate net score,-0.3
+FOMC statements,FOMC,2021-11-03,Policy score,-0.4117647058823529
+FOMC statements,FOMC,2021-11-03,Economic score,0.14285714285714285
+FOMC statements,FOMC,2021-11-03,Aggregate net score,-0.23809523809523808
+FOMC statements,FOMC,2021-12-15,Policy score,-0.4117647058823529
+FOMC statements,FOMC,2021-12-15,Economic score,0.16666666666666666
+FOMC statements,FOMC,2021-12-15,Aggregate net score,-0.2631578947368421
+FOMC statements,FOMC,2022-01-26,Policy score,-0.125
+FOMC statements,FOMC,2022-01-26,Economic score,0.2307692307692308
+FOMC statements,FOMC,2022-01-26,Aggregate net score,0.05263157894736842
+FOMC statements,FOMC,2022-03-16,Policy score,0.2857142857142857
+FOMC statements,FOMC,2022-03-16,Economic score,0.2857142857142857
+FOMC statements,FOMC,2022-03-16,Aggregate net score,0.4444444444444444
+FOMC statements,FOMC,2022-05-04,Policy score,0.2307692307692308
+FOMC statements,FOMC,2022-05-04,Economic score,0.2857142857142857
+FOMC statements,FOMC,2022-05-04,Aggregate net score,0.4117647058823529
+FOMC statements,FOMC,2022-06-15,Policy score,0.4117647058823529
+FOMC statements,FOMC,2022-06-15,Economic score,0.2
+FOMC statements,FOMC,2022-06-15,Aggregate net score,0.4545454545454546
+FOMC statements,FOMC,2022-07-27,Policy score,0.375
+FOMC statements,FOMC,2022-07-27,Economic score,0.2
+FOMC statements,FOMC,2022-07-27,Aggregate net score,0.42857142857142855
+FOMC statements,FOMC,2022-09-21,Policy score,0.375
+FOMC statements,FOMC,2022-09-21,Economic score,0.125
+FOMC statements,FOMC,2022-09-21,Aggregate net score,0.3636363636363637
+FOMC statements,FOMC,2022-11-02,Policy score,0.5
+FOMC statements,FOMC,2022-11-02,Economic score,0.125
+FOMC statements,FOMC,2022-11-02,Aggregate net score,0.4615384615384616
+FOMC statements,FOMC,2022-12-14,Policy score,0.5
+FOMC statements,FOMC,2022-12-14,Economic score,0.125
+FOMC statements,FOMC,2022-12-14,Aggregate net score,0.4615384615384616
+FOMC statements,FOMC,2023-02-01,Policy score,0.5
+FOMC statements,FOMC,2023-02-01,Economic score,-0.14285714285714285
+FOMC statements,FOMC,2023-02-01,Aggregate net score,0.3333333333333333
+FOMC statements,FOMC,2023-03-22,Policy score,0.5
+FOMC statements,FOMC,2023-03-22,Economic score,0
+FOMC statements,FOMC,2023-03-22,Aggregate net score,0.38461538461538464
+FOMC statements,FOMC,2023-05-03,Policy score,0.47368421052631576
+FOMC statements,FOMC,2023-05-03,Economic score,0.06666666666666667
+FOMC statements,FOMC,2023-05-03,Aggregate net score,0.4166666666666667
+FOMC statements,FOMC,2023-06-14,Policy score,0.4117647058823529
+FOMC statements,FOMC,2023-06-14,Economic score,0.06666666666666667
+FOMC statements,FOMC,2023-06-14,Aggregate net score,0.3636363636363637
+FOMC statements,FOMC,2023-07-26,Policy score,0.47368421052631576
+FOMC statements,FOMC,2023-07-26,Economic score,0
+FOMC statements,FOMC,2023-07-26,Aggregate net score,0.391304347826087
+FOMC statements,FOMC,2023-09-20,Policy score,0.4117647058823529
+FOMC statements,FOMC,2023-09-20,Economic score,0.06666666666666667
+FOMC statements,FOMC,2023-09-20,Aggregate net score,0.3636363636363637
+FOMC statements,FOMC,2023-11-01,Policy score,0.4117647058823529
+FOMC statements,FOMC,2023-11-01,Economic score,0.14285714285714285
+FOMC statements,FOMC,2023-11-01,Aggregate net score,0.42857142857142855
+FOMC statements,FOMC,2023-12-13,Policy score,0.4117647058823529
+FOMC statements,FOMC,2023-12-13,Economic score,0
+FOMC statements,FOMC,2023-12-13,Aggregate net score,0.3333333333333333
+FOMC statements,FOMC,2024-01-31,Policy score,0.14285714285714285
+FOMC statements,FOMC,2024-01-31,Economic score,-0.06666666666666667
+FOMC statements,FOMC,2024-01-31,Aggregate net score,0.05263157894736842
+FOMC statements,FOMC,2024-03-20,Policy score,0.14285714285714285
+FOMC statements,FOMC,2024-03-20,Economic score,-0.06666666666666667
+FOMC statements,FOMC,2024-03-20,Aggregate net score,0.05263157894736842
+FOMC statements,FOMC,2024-05-01,Policy score,0.14285714285714285
+FOMC statements,FOMC,2024-05-01,Economic score,0
+FOMC statements,FOMC,2024-05-01,Aggregate net score,0.1
+FOMC statements,FOMC,2024-06-12,Policy score,0.14285714285714285
+FOMC statements,FOMC,2024-06-12,Economic score,0
+FOMC statements,FOMC,2024-06-12,Aggregate net score,0.1
+FOMC statements,FOMC,2024-07-31,Policy score,0.14285714285714285
+FOMC statements,FOMC,2024-07-31,Economic score,0
+FOMC statements,FOMC,2024-07-31,Aggregate net score,0.1
+FOMC statements,FOMC,2024-09-18,Policy score,-0.06666666666666667
+FOMC statements,FOMC,2024-09-18,Economic score,0.06666666666666667
+FOMC statements,FOMC,2024-09-18,Aggregate net score,0
+FOMC statements,FOMC,2024-11-07,Policy score,0
+FOMC statements,FOMC,2024-11-07,Economic score,0.07692307692307693
+FOMC statements,FOMC,2024-11-07,Aggregate net score,0.0588235294117647
+FOMC statements,FOMC,2024-12-18,Policy score,0
+FOMC statements,FOMC,2024-12-18,Economic score,0.07692307692307693
+FOMC statements,FOMC,2024-12-18,Aggregate net score,0.0588235294117647
+FOMC statements,FOMC,2025-01-29,Policy score,0.16666666666666666
+FOMC statements,FOMC,2025-01-29,Economic score,0.16666666666666666
+FOMC statements,FOMC,2025-01-29,Aggregate net score,0.2857142857142857
+FOMC statements,FOMC,2025-03-19,Policy score,0.16666666666666666
+FOMC statements,FOMC,2025-03-19,Economic score,0.16666666666666666
+FOMC statements,FOMC,2025-03-19,Aggregate net score,0.2857142857142857
+FOMC statements,FOMC,2025-05-07,Policy score,0.16666666666666666
+FOMC statements,FOMC,2025-05-07,Economic score,0.14285714285714285
+FOMC statements,FOMC,2025-05-07,Aggregate net score,0.25
+FOMC statements,FOMC,2025-06-18,Policy score,0.16666666666666666
+FOMC statements,FOMC,2025-06-18,Economic score,0.16666666666666666
+FOMC statements,FOMC,2025-06-18,Aggregate net score,0.2857142857142857
+FOMC statements,FOMC,2025-07-30,Policy score,0.07692307692307693
+FOMC statements,FOMC,2025-07-30,Economic score,0
+FOMC statements,FOMC,2025-07-30,Aggregate net score,0.07692307692307693
+FOMC statements,FOMC,2025-09-17,Policy score,-0.06666666666666667
+FOMC statements,FOMC,2025-09-17,Economic score,-0.07692307692307693
+FOMC statements,FOMC,2025-09-17,Aggregate net score,-0.1111111111111111
+FOMC statements,FOMC,2025-10-29,Policy score,-0.06666666666666667
+FOMC statements,FOMC,2025-10-29,Economic score,0
+FOMC statements,FOMC,2025-10-29,Aggregate net score,-0.0588235294117647
+FOMC statements,FOMC,2025-12-10,Policy score,-0.06666666666666667
+FOMC statements,FOMC,2025-12-10,Economic score,0
+FOMC statements,FOMC,2025-12-10,Aggregate net score,-0.0588235294117647
+FOMC statements,FOMC,2026-01-28,Policy score,0.07692307692307693
+FOMC statements,FOMC,2026-01-28,Economic score,0.2307692307692308
+FOMC statements,FOMC,2026-01-28,Aggregate net score,0.25
+FOMC statements,FOMC,2026-03-18,Policy score,0.07692307692307693
+FOMC statements,FOMC,2026-03-18,Economic score,0.2307692307692308
+FOMC statements,FOMC,2026-03-18,Aggregate net score,0.25
+ECB statements,ECB,1999-01-07,Policy score,0
+ECB statements,ECB,1999-01-07,Economic score,0
+ECB statements,ECB,1999-01-07,Aggregate net score,0
+ECB statements,ECB,1999-02-04,Policy score,0
+ECB statements,ECB,1999-02-04,Economic score,0
+ECB statements,ECB,1999-02-04,Aggregate net score,0
+ECB statements,ECB,1999-03-04,Policy score,0
+ECB statements,ECB,1999-03-04,Economic score,0
+ECB statements,ECB,1999-03-04,Aggregate net score,0
+ECB statements,ECB,1999-04-08,Policy score,0
+ECB statements,ECB,1999-04-08,Economic score,0
+ECB statements,ECB,1999-04-08,Aggregate net score,0
+ECB statements,ECB,1999-05-06,Policy score,0
+ECB statements,ECB,1999-05-06,Economic score,0
+ECB statements,ECB,1999-05-06,Aggregate net score,0
+ECB statements,ECB,1999-06-17,Policy score,0
+ECB statements,ECB,1999-06-17,Economic score,0
+ECB statements,ECB,1999-06-17,Aggregate net score,0
+ECB statements,ECB,1999-07-08,Policy score,0
+ECB statements,ECB,1999-07-08,Economic score,0
+ECB statements,ECB,1999-07-08,Aggregate net score,0
+ECB statements,ECB,1999-08-05,Policy score,0
+ECB statements,ECB,1999-08-05,Economic score,0
+ECB statements,ECB,1999-08-05,Aggregate net score,0
+ECB statements,ECB,1999-09-09,Policy score,0
+ECB statements,ECB,1999-09-09,Economic score,0
+ECB statements,ECB,1999-09-09,Aggregate net score,0
+ECB statements,ECB,1999-10-07,Policy score,0
+ECB statements,ECB,1999-10-07,Economic score,0
+ECB statements,ECB,1999-10-07,Aggregate net score,0
+ECB statements,ECB,1999-11-04,Policy score,0
+ECB statements,ECB,1999-11-04,Economic score,0
+ECB statements,ECB,1999-11-04,Aggregate net score,0
+ECB statements,ECB,1999-12-02,Policy score,0
+ECB statements,ECB,1999-12-02,Economic score,0
+ECB statements,ECB,1999-12-02,Aggregate net score,0
+ECB statements,ECB,2000-01-20,Policy score,0
+ECB statements,ECB,2000-01-20,Economic score,0
+ECB statements,ECB,2000-01-20,Aggregate net score,0
+ECB statements,ECB,2000-02-03,Policy score,0
+ECB statements,ECB,2000-02-03,Economic score,0
+ECB statements,ECB,2000-02-03,Aggregate net score,0
+ECB statements,ECB,2000-03-16,Policy score,0
+ECB statements,ECB,2000-03-16,Economic score,0.47368421052631576
+ECB statements,ECB,2000-03-16,Aggregate net score,0.42857142857142855
+ECB statements,ECB,2000-04-13,Policy score,0
+ECB statements,ECB,2000-04-13,Economic score,0
+ECB statements,ECB,2000-04-13,Aggregate net score,0
+ECB statements,ECB,2000-05-11,Policy score,0
+ECB statements,ECB,2000-05-11,Economic score,0
+ECB statements,ECB,2000-05-11,Aggregate net score,0
+ECB statements,ECB,2000-06-08,Policy score,0
+ECB statements,ECB,2000-06-08,Economic score,0
+ECB statements,ECB,2000-06-08,Aggregate net score,0
+ECB statements,ECB,2000-07-06,Policy score,0
+ECB statements,ECB,2000-07-06,Economic score,0
+ECB statements,ECB,2000-07-06,Aggregate net score,0
+ECB statements,ECB,2000-08-31,Policy score,-0.09090909090909093
+ECB statements,ECB,2000-08-31,Economic score,0.2857142857142857
+ECB statements,ECB,2000-08-31,Aggregate net score,0.2
+ECB statements,ECB,2000-09-05,Policy score,0
+ECB statements,ECB,2000-09-05,Economic score,0
+ECB statements,ECB,2000-09-05,Aggregate net score,0
+ECB statements,ECB,2000-10-05,Policy score,0
+ECB statements,ECB,2000-10-05,Economic score,0
+ECB statements,ECB,2000-10-05,Aggregate net score,0
+ECB statements,ECB,2000-11-09,Policy score,0
+ECB statements,ECB,2000-11-09,Economic score,0
+ECB statements,ECB,2000-11-09,Aggregate net score,0
+ECB statements,ECB,2000-12-14,Policy score,0
+ECB statements,ECB,2000-12-14,Economic score,0
+ECB statements,ECB,2000-12-14,Aggregate net score,0
+ECB statements,ECB,2001-01-11,Policy score,0
+ECB statements,ECB,2001-01-11,Economic score,0
+ECB statements,ECB,2001-01-11,Aggregate net score,0
+ECB statements,ECB,2001-02-01,Policy score,0
+ECB statements,ECB,2001-02-01,Economic score,0
+ECB statements,ECB,2001-02-01,Aggregate net score,0
+ECB statements,ECB,2001-03-15,Policy score,0
+ECB statements,ECB,2001-03-15,Economic score,0
+ECB statements,ECB,2001-03-15,Aggregate net score,0
+ECB statements,ECB,2001-04-12,Policy score,0
+ECB statements,ECB,2001-04-12,Economic score,0
+ECB statements,ECB,2001-04-12,Aggregate net score,0
+ECB statements,ECB,2001-05-10,Policy score,0
+ECB statements,ECB,2001-05-10,Economic score,0
+ECB statements,ECB,2001-05-10,Aggregate net score,0
+ECB statements,ECB,2001-06-07,Policy score,0
+ECB statements,ECB,2001-06-07,Economic score,0
+ECB statements,ECB,2001-06-07,Aggregate net score,0
+ECB statements,ECB,2001-07-05,Policy score,0
+ECB statements,ECB,2001-07-05,Economic score,0
+ECB statements,ECB,2001-07-05,Aggregate net score,0
+ECB statements,ECB,2001-08-30,Policy score,0
+ECB statements,ECB,2001-08-30,Economic score,0
+ECB statements,ECB,2001-08-30,Aggregate net score,0
+ECB statements,ECB,2001-09-13,Policy score,0
+ECB statements,ECB,2001-09-13,Economic score,0
+ECB statements,ECB,2001-09-13,Aggregate net score,0
+ECB statements,ECB,2001-09-17,Policy score,-0.09090909090909093
+ECB statements,ECB,2001-09-17,Economic score,0.09090909090909093
+ECB statements,ECB,2001-09-17,Aggregate net score,0
+ECB statements,ECB,2001-10-08,Policy score,0
+ECB statements,ECB,2001-10-08,Economic score,0
+ECB statements,ECB,2001-10-08,Aggregate net score,0
+ECB statements,ECB,2001-11-08,Policy score,0
+ECB statements,ECB,2001-11-08,Economic score,0
+ECB statements,ECB,2001-11-08,Aggregate net score,0
+ECB statements,ECB,2001-12-06,Policy score,0
+ECB statements,ECB,2001-12-06,Economic score,0
+ECB statements,ECB,2001-12-06,Aggregate net score,0
+ECB statements,ECB,2002-01-10,Policy score,0
+ECB statements,ECB,2002-01-10,Economic score,0
+ECB statements,ECB,2002-01-10,Aggregate net score,0
+ECB statements,ECB,2002-02-07,Policy score,0
+ECB statements,ECB,2002-02-07,Economic score,0
+ECB statements,ECB,2002-02-07,Aggregate net score,0
+ECB statements,ECB,2002-03-07,Policy score,0
+ECB statements,ECB,2002-03-07,Economic score,0
+ECB statements,ECB,2002-03-07,Aggregate net score,0
+ECB statements,ECB,2002-04-04,Policy score,0
+ECB statements,ECB,2002-04-04,Economic score,0
+ECB statements,ECB,2002-04-04,Aggregate net score,0
+ECB statements,ECB,2002-05-02,Policy score,0
+ECB statements,ECB,2002-05-02,Economic score,0
+ECB statements,ECB,2002-05-02,Aggregate net score,0
+ECB statements,ECB,2002-06-06,Policy score,0
+ECB statements,ECB,2002-06-06,Economic score,0
+ECB statements,ECB,2002-06-06,Aggregate net score,0
+ECB statements,ECB,2002-07-04,Policy score,0
+ECB statements,ECB,2002-07-04,Economic score,0
+ECB statements,ECB,2002-07-04,Aggregate net score,0
+ECB statements,ECB,2002-08-01,Policy score,0
+ECB statements,ECB,2002-08-01,Economic score,0
+ECB statements,ECB,2002-08-01,Aggregate net score,0
+ECB statements,ECB,2002-09-12,Policy score,0
+ECB statements,ECB,2002-09-12,Economic score,0
+ECB statements,ECB,2002-09-12,Aggregate net score,0
+ECB statements,ECB,2002-10-10,Policy score,0
+ECB statements,ECB,2002-10-10,Economic score,0
+ECB statements,ECB,2002-10-10,Aggregate net score,0
+ECB statements,ECB,2002-11-07,Policy score,0
+ECB statements,ECB,2002-11-07,Economic score,0
+ECB statements,ECB,2002-11-07,Aggregate net score,0
+ECB statements,ECB,2002-12-05,Policy score,0
+ECB statements,ECB,2002-12-05,Economic score,0
+ECB statements,ECB,2002-12-05,Aggregate net score,0
+ECB statements,ECB,2003-01-23,Policy score,0
+ECB statements,ECB,2003-01-23,Economic score,0
+ECB statements,ECB,2003-01-23,Aggregate net score,0
+ECB statements,ECB,2003-02-06,Policy score,0
+ECB statements,ECB,2003-02-06,Economic score,0
+ECB statements,ECB,2003-02-06,Aggregate net score,0
+ECB statements,ECB,2003-03-06,Policy score,0
+ECB statements,ECB,2003-03-06,Economic score,0
+ECB statements,ECB,2003-03-06,Aggregate net score,0
+ECB statements,ECB,2003-04-03,Policy score,0
+ECB statements,ECB,2003-04-03,Economic score,0
+ECB statements,ECB,2003-04-03,Aggregate net score,0
+ECB statements,ECB,2003-05-08,Policy score,0
+ECB statements,ECB,2003-05-08,Economic score,0
+ECB statements,ECB,2003-05-08,Aggregate net score,0
+ECB statements,ECB,2003-06-05,Policy score,0
+ECB statements,ECB,2003-06-05,Economic score,0
+ECB statements,ECB,2003-06-05,Aggregate net score,0
+ECB statements,ECB,2003-07-10,Policy score,0
+ECB statements,ECB,2003-07-10,Economic score,0
+ECB statements,ECB,2003-07-10,Aggregate net score,0
+ECB statements,ECB,2003-09-04,Policy score,0
+ECB statements,ECB,2003-09-04,Economic score,0
+ECB statements,ECB,2003-09-04,Aggregate net score,0
+ECB statements,ECB,2003-10-02,Policy score,0
+ECB statements,ECB,2003-10-02,Economic score,0
+ECB statements,ECB,2003-10-02,Aggregate net score,0
+ECB statements,ECB,2003-11-06,Policy score,0
+ECB statements,ECB,2003-11-06,Economic score,0
+ECB statements,ECB,2003-11-06,Aggregate net score,0
+ECB statements,ECB,2003-12-04,Policy score,0
+ECB statements,ECB,2003-12-04,Economic score,0
+ECB statements,ECB,2003-12-04,Aggregate net score,0
+ECB statements,ECB,2004-01-08,Policy score,0
+ECB statements,ECB,2004-01-08,Economic score,0
+ECB statements,ECB,2004-01-08,Aggregate net score,0
+ECB statements,ECB,2004-02-05,Policy score,0
+ECB statements,ECB,2004-02-05,Economic score,0
+ECB statements,ECB,2004-02-05,Aggregate net score,0
+ECB statements,ECB,2004-03-04,Policy score,0
+ECB statements,ECB,2004-03-04,Economic score,0
+ECB statements,ECB,2004-03-04,Aggregate net score,0
+ECB statements,ECB,2004-04-01,Policy score,0
+ECB statements,ECB,2004-04-01,Economic score,0
+ECB statements,ECB,2004-04-01,Aggregate net score,0
+ECB statements,ECB,2004-05-06,Policy score,0
+ECB statements,ECB,2004-05-06,Economic score,0
+ECB statements,ECB,2004-05-06,Aggregate net score,0
+ECB statements,ECB,2004-06-03,Policy score,0
+ECB statements,ECB,2004-06-03,Economic score,0
+ECB statements,ECB,2004-06-03,Aggregate net score,0
+ECB statements,ECB,2004-07-01,Policy score,0
+ECB statements,ECB,2004-07-01,Economic score,0
+ECB statements,ECB,2004-07-01,Aggregate net score,0
+ECB statements,ECB,2004-08-05,Policy score,0
+ECB statements,ECB,2004-08-05,Economic score,0
+ECB statements,ECB,2004-08-05,Aggregate net score,0
+ECB statements,ECB,2004-09-02,Policy score,0
+ECB statements,ECB,2004-09-02,Economic score,0
+ECB statements,ECB,2004-09-02,Aggregate net score,0
+ECB statements,ECB,2004-10-07,Policy score,0
+ECB statements,ECB,2004-10-07,Economic score,0
+ECB statements,ECB,2004-10-07,Aggregate net score,0
+ECB statements,ECB,2004-11-04,Policy score,0
+ECB statements,ECB,2004-11-04,Economic score,0
+ECB statements,ECB,2004-11-04,Aggregate net score,0
+ECB statements,ECB,2004-12-02,Policy score,0
+ECB statements,ECB,2004-12-02,Economic score,0
+ECB statements,ECB,2004-12-02,Aggregate net score,0
+ECB statements,ECB,2005-01-13,Policy score,0
+ECB statements,ECB,2005-01-13,Economic score,0
+ECB statements,ECB,2005-01-13,Aggregate net score,0
+ECB statements,ECB,2005-02-03,Policy score,0
+ECB statements,ECB,2005-02-03,Economic score,0
+ECB statements,ECB,2005-02-03,Aggregate net score,0
+ECB statements,ECB,2005-03-03,Policy score,0
+ECB statements,ECB,2005-03-03,Economic score,0
+ECB statements,ECB,2005-03-03,Aggregate net score,0
+ECB statements,ECB,2005-04-07,Policy score,0
+ECB statements,ECB,2005-04-07,Economic score,0
+ECB statements,ECB,2005-04-07,Aggregate net score,0
+ECB statements,ECB,2005-05-04,Policy score,0
+ECB statements,ECB,2005-05-04,Economic score,0
+ECB statements,ECB,2005-05-04,Aggregate net score,0
+ECB statements,ECB,2005-06-02,Policy score,0
+ECB statements,ECB,2005-06-02,Economic score,0
+ECB statements,ECB,2005-06-02,Aggregate net score,0
+ECB statements,ECB,2005-07-07,Policy score,0
+ECB statements,ECB,2005-07-07,Economic score,0
+ECB statements,ECB,2005-07-07,Aggregate net score,0
+ECB statements,ECB,2005-08-04,Policy score,0
+ECB statements,ECB,2005-08-04,Economic score,0
+ECB statements,ECB,2005-08-04,Aggregate net score,0
+ECB statements,ECB,2005-09-01,Policy score,0
+ECB statements,ECB,2005-09-01,Economic score,0
+ECB statements,ECB,2005-09-01,Aggregate net score,0
+ECB statements,ECB,2005-10-06,Policy score,0
+ECB statements,ECB,2005-10-06,Economic score,0
+ECB statements,ECB,2005-10-06,Aggregate net score,0
+ECB statements,ECB,2005-11-03,Policy score,0
+ECB statements,ECB,2005-11-03,Economic score,0
+ECB statements,ECB,2005-11-03,Aggregate net score,0
+ECB statements,ECB,2005-12-01,Policy score,0
+ECB statements,ECB,2005-12-01,Economic score,0
+ECB statements,ECB,2005-12-01,Aggregate net score,0
+ECB statements,ECB,2006-01-12,Policy score,0
+ECB statements,ECB,2006-01-12,Economic score,0
+ECB statements,ECB,2006-01-12,Aggregate net score,0
+ECB statements,ECB,2006-02-02,Policy score,0
+ECB statements,ECB,2006-02-02,Economic score,0
+ECB statements,ECB,2006-02-02,Aggregate net score,0
+ECB statements,ECB,2006-03-02,Policy score,0
+ECB statements,ECB,2006-03-02,Economic score,0
+ECB statements,ECB,2006-03-02,Aggregate net score,0
+ECB statements,ECB,2006-04-06,Policy score,0
+ECB statements,ECB,2006-04-06,Economic score,0
+ECB statements,ECB,2006-04-06,Aggregate net score,0
+ECB statements,ECB,2006-05-04,Policy score,0
+ECB statements,ECB,2006-05-04,Economic score,0
+ECB statements,ECB,2006-05-04,Aggregate net score,0
+ECB statements,ECB,2006-06-08,Policy score,0
+ECB statements,ECB,2006-06-08,Economic score,0
+ECB statements,ECB,2006-06-08,Aggregate net score,0
+ECB statements,ECB,2006-07-06,Policy score,0
+ECB statements,ECB,2006-07-06,Economic score,0
+ECB statements,ECB,2006-07-06,Aggregate net score,0
+ECB statements,ECB,2006-08-03,Policy score,0
+ECB statements,ECB,2006-08-03,Economic score,0
+ECB statements,ECB,2006-08-03,Aggregate net score,0
+ECB statements,ECB,2006-09-07,Policy score,0
+ECB statements,ECB,2006-09-07,Economic score,0
+ECB statements,ECB,2006-09-07,Aggregate net score,0
+ECB statements,ECB,2006-10-05,Policy score,0
+ECB statements,ECB,2006-10-05,Economic score,0
+ECB statements,ECB,2006-10-05,Aggregate net score,0
+ECB statements,ECB,2006-11-02,Policy score,0
+ECB statements,ECB,2006-11-02,Economic score,0
+ECB statements,ECB,2006-11-02,Aggregate net score,0
+ECB statements,ECB,2006-12-07,Policy score,0
+ECB statements,ECB,2006-12-07,Economic score,0
+ECB statements,ECB,2006-12-07,Aggregate net score,0
+ECB statements,ECB,2007-01-11,Policy score,0
+ECB statements,ECB,2007-01-11,Economic score,0
+ECB statements,ECB,2007-01-11,Aggregate net score,0
+ECB statements,ECB,2007-02-08,Policy score,0
+ECB statements,ECB,2007-02-08,Economic score,0
+ECB statements,ECB,2007-02-08,Aggregate net score,0
+ECB statements,ECB,2007-03-08,Policy score,0
+ECB statements,ECB,2007-03-08,Economic score,0
+ECB statements,ECB,2007-03-08,Aggregate net score,0
+ECB statements,ECB,2007-04-12,Policy score,0
+ECB statements,ECB,2007-04-12,Economic score,0
+ECB statements,ECB,2007-04-12,Aggregate net score,0
+ECB statements,ECB,2007-05-10,Policy score,0
+ECB statements,ECB,2007-05-10,Economic score,0
+ECB statements,ECB,2007-05-10,Aggregate net score,0
+ECB statements,ECB,2007-06-06,Policy score,0
+ECB statements,ECB,2007-06-06,Economic score,0
+ECB statements,ECB,2007-06-06,Aggregate net score,0
+ECB statements,ECB,2007-07-05,Policy score,0
+ECB statements,ECB,2007-07-05,Economic score,0
+ECB statements,ECB,2007-07-05,Aggregate net score,0
+ECB statements,ECB,2007-08-02,Policy score,0
+ECB statements,ECB,2007-08-02,Economic score,0
+ECB statements,ECB,2007-08-02,Aggregate net score,0
+ECB statements,ECB,2007-09-06,Policy score,0
+ECB statements,ECB,2007-09-06,Economic score,0
+ECB statements,ECB,2007-09-06,Aggregate net score,0
+ECB statements,ECB,2007-10-04,Policy score,0
+ECB statements,ECB,2007-10-04,Economic score,0
+ECB statements,ECB,2007-10-04,Aggregate net score,0
+ECB statements,ECB,2007-11-08,Policy score,0
+ECB statements,ECB,2007-11-08,Economic score,0
+ECB statements,ECB,2007-11-08,Aggregate net score,0
+ECB statements,ECB,2007-12-06,Policy score,0
+ECB statements,ECB,2007-12-06,Economic score,0
+ECB statements,ECB,2007-12-06,Aggregate net score,0
+ECB statements,ECB,2008-01-10,Policy score,0
+ECB statements,ECB,2008-01-10,Economic score,0
+ECB statements,ECB,2008-01-10,Aggregate net score,0
+ECB statements,ECB,2008-02-07,Policy score,0
+ECB statements,ECB,2008-02-07,Economic score,0
+ECB statements,ECB,2008-02-07,Aggregate net score,0
+ECB statements,ECB,2008-03-06,Policy score,0
+ECB statements,ECB,2008-03-06,Economic score,0
+ECB statements,ECB,2008-03-06,Aggregate net score,0
+ECB statements,ECB,2008-04-10,Policy score,0
+ECB statements,ECB,2008-04-10,Economic score,0
+ECB statements,ECB,2008-04-10,Aggregate net score,0
+ECB statements,ECB,2008-05-08,Policy score,0
+ECB statements,ECB,2008-05-08,Economic score,0
+ECB statements,ECB,2008-05-08,Aggregate net score,0
+ECB statements,ECB,2008-06-05,Policy score,0
+ECB statements,ECB,2008-06-05,Economic score,0
+ECB statements,ECB,2008-06-05,Aggregate net score,0
+ECB statements,ECB,2008-07-03,Policy score,0
+ECB statements,ECB,2008-07-03,Economic score,0
+ECB statements,ECB,2008-07-03,Aggregate net score,0
+ECB statements,ECB,2008-08-07,Policy score,0
+ECB statements,ECB,2008-08-07,Economic score,0
+ECB statements,ECB,2008-08-07,Aggregate net score,0
+ECB statements,ECB,2008-09-04,Policy score,0
+ECB statements,ECB,2008-09-04,Economic score,0
+ECB statements,ECB,2008-09-04,Aggregate net score,0
+ECB statements,ECB,2008-10-02,Policy score,0
+ECB statements,ECB,2008-10-02,Economic score,0
+ECB statements,ECB,2008-10-02,Aggregate net score,0
+ECB statements,ECB,2008-10-08,Policy score,0
+ECB statements,ECB,2008-10-08,Economic score,0.1111111111111111
+ECB statements,ECB,2008-10-08,Aggregate net score,0.1111111111111111
+ECB statements,ECB,2008-10-15,Policy score,-0.16666666666666666
+ECB statements,ECB,2008-10-15,Economic score,0
+ECB statements,ECB,2008-10-15,Aggregate net score,-0.16666666666666666
+ECB statements,ECB,2008-11-06,Policy score,0
+ECB statements,ECB,2008-11-06,Economic score,0
+ECB statements,ECB,2008-11-06,Aggregate net score,0
+ECB statements,ECB,2008-12-04,Policy score,0
+ECB statements,ECB,2008-12-04,Economic score,0
+ECB statements,ECB,2008-12-04,Aggregate net score,0
+ECB statements,ECB,2009-01-15,Policy score,0
+ECB statements,ECB,2009-01-15,Economic score,0
+ECB statements,ECB,2009-01-15,Aggregate net score,0
+ECB statements,ECB,2009-02-05,Policy score,0
+ECB statements,ECB,2009-02-05,Economic score,0
+ECB statements,ECB,2009-02-05,Aggregate net score,0
+ECB statements,ECB,2009-03-05,Policy score,0
+ECB statements,ECB,2009-03-05,Economic score,0
+ECB statements,ECB,2009-03-05,Aggregate net score,0
+ECB statements,ECB,2009-04-02,Policy score,0
+ECB statements,ECB,2009-04-02,Economic score,0
+ECB statements,ECB,2009-04-02,Aggregate net score,0
+ECB statements,ECB,2009-05-07,Policy score,0
+ECB statements,ECB,2009-05-07,Economic score,0
+ECB statements,ECB,2009-05-07,Aggregate net score,0
+ECB statements,ECB,2009-06-04,Policy score,0
+ECB statements,ECB,2009-06-04,Economic score,0
+ECB statements,ECB,2009-06-04,Aggregate net score,0
+ECB statements,ECB,2009-07-02,Policy score,0
+ECB statements,ECB,2009-07-02,Economic score,0
+ECB statements,ECB,2009-07-02,Aggregate net score,0
+ECB statements,ECB,2009-08-06,Policy score,0
+ECB statements,ECB,2009-08-06,Economic score,0
+ECB statements,ECB,2009-08-06,Aggregate net score,0
+ECB statements,ECB,2009-09-03,Policy score,0
+ECB statements,ECB,2009-09-03,Economic score,0
+ECB statements,ECB,2009-09-03,Aggregate net score,0
+ECB statements,ECB,2009-10-08,Policy score,0
+ECB statements,ECB,2009-10-08,Economic score,0
+ECB statements,ECB,2009-10-08,Aggregate net score,0
+ECB statements,ECB,2009-11-05,Policy score,0
+ECB statements,ECB,2009-11-05,Economic score,0
+ECB statements,ECB,2009-11-05,Aggregate net score,0
+ECB statements,ECB,2009-12-03,Policy score,0
+ECB statements,ECB,2009-12-03,Economic score,0
+ECB statements,ECB,2009-12-03,Aggregate net score,0
+ECB statements,ECB,2010-01-14,Policy score,0
+ECB statements,ECB,2010-01-14,Economic score,0
+ECB statements,ECB,2010-01-14,Aggregate net score,0
+ECB statements,ECB,2010-02-04,Policy score,0
+ECB statements,ECB,2010-02-04,Economic score,0
+ECB statements,ECB,2010-02-04,Aggregate net score,0
+ECB statements,ECB,2010-03-04,Policy score,0
+ECB statements,ECB,2010-03-04,Economic score,0
+ECB statements,ECB,2010-03-04,Aggregate net score,0
+ECB statements,ECB,2010-04-08,Policy score,0
+ECB statements,ECB,2010-04-08,Economic score,0
+ECB statements,ECB,2010-04-08,Aggregate net score,0
+ECB statements,ECB,2010-05-06,Policy score,0
+ECB statements,ECB,2010-05-06,Economic score,0
+ECB statements,ECB,2010-05-06,Aggregate net score,0
+ECB statements,ECB,2010-06-10,Policy score,0
+ECB statements,ECB,2010-06-10,Economic score,0
+ECB statements,ECB,2010-06-10,Aggregate net score,0
+ECB statements,ECB,2010-07-08,Policy score,0
+ECB statements,ECB,2010-07-08,Economic score,0
+ECB statements,ECB,2010-07-08,Aggregate net score,0
+ECB statements,ECB,2010-08-05,Policy score,0
+ECB statements,ECB,2010-08-05,Economic score,0
+ECB statements,ECB,2010-08-05,Aggregate net score,0
+ECB statements,ECB,2010-09-02,Policy score,0
+ECB statements,ECB,2010-09-02,Economic score,0
+ECB statements,ECB,2010-09-02,Aggregate net score,0
+ECB statements,ECB,2010-10-07,Policy score,0
+ECB statements,ECB,2010-10-07,Economic score,0
+ECB statements,ECB,2010-10-07,Aggregate net score,0
+ECB statements,ECB,2010-11-04,Policy score,0
+ECB statements,ECB,2010-11-04,Economic score,0
+ECB statements,ECB,2010-11-04,Aggregate net score,0
+ECB statements,ECB,2010-12-02,Policy score,0
+ECB statements,ECB,2010-12-02,Economic score,0
+ECB statements,ECB,2010-12-02,Aggregate net score,0
+ECB statements,ECB,2011-01-13,Policy score,0
+ECB statements,ECB,2011-01-13,Economic score,0
+ECB statements,ECB,2011-01-13,Aggregate net score,0
+ECB statements,ECB,2011-02-03,Policy score,0
+ECB statements,ECB,2011-02-03,Economic score,0
+ECB statements,ECB,2011-02-03,Aggregate net score,0
+ECB statements,ECB,2011-03-03,Policy score,0
+ECB statements,ECB,2011-03-03,Economic score,0
+ECB statements,ECB,2011-03-03,Aggregate net score,0
+ECB statements,ECB,2011-04-07,Policy score,0
+ECB statements,ECB,2011-04-07,Economic score,0
+ECB statements,ECB,2011-04-07,Aggregate net score,0
+ECB statements,ECB,2011-05-05,Policy score,0
+ECB statements,ECB,2011-05-05,Economic score,0
+ECB statements,ECB,2011-05-05,Aggregate net score,0
+ECB statements,ECB,2011-06-09,Policy score,0
+ECB statements,ECB,2011-06-09,Economic score,0
+ECB statements,ECB,2011-06-09,Aggregate net score,0
+ECB statements,ECB,2011-07-07,Policy score,0
+ECB statements,ECB,2011-07-07,Economic score,0
+ECB statements,ECB,2011-07-07,Aggregate net score,0
+ECB statements,ECB,2011-08-04,Policy score,0
+ECB statements,ECB,2011-08-04,Economic score,0
+ECB statements,ECB,2011-08-04,Aggregate net score,0
+ECB statements,ECB,2011-09-08,Policy score,0
+ECB statements,ECB,2011-09-08,Economic score,0
+ECB statements,ECB,2011-09-08,Aggregate net score,0
+ECB statements,ECB,2011-10-06,Policy score,0
+ECB statements,ECB,2011-10-06,Economic score,0
+ECB statements,ECB,2011-10-06,Aggregate net score,0
+ECB statements,ECB,2011-11-03,Policy score,0
+ECB statements,ECB,2011-11-03,Economic score,0
+ECB statements,ECB,2011-11-03,Aggregate net score,0
+ECB statements,ECB,2011-12-08,Policy score,0
+ECB statements,ECB,2011-12-08,Economic score,0
+ECB statements,ECB,2011-12-08,Aggregate net score,0
+ECB statements,ECB,2012-01-12,Policy score,0
+ECB statements,ECB,2012-01-12,Economic score,0
+ECB statements,ECB,2012-01-12,Aggregate net score,0
+ECB statements,ECB,2012-02-09,Policy score,0
+ECB statements,ECB,2012-02-09,Economic score,0
+ECB statements,ECB,2012-02-09,Aggregate net score,0
+ECB statements,ECB,2012-03-08,Policy score,0
+ECB statements,ECB,2012-03-08,Economic score,0
+ECB statements,ECB,2012-03-08,Aggregate net score,0
+ECB statements,ECB,2012-04-04,Policy score,0
+ECB statements,ECB,2012-04-04,Economic score,0
+ECB statements,ECB,2012-04-04,Aggregate net score,0
+ECB statements,ECB,2012-05-03,Policy score,0
+ECB statements,ECB,2012-05-03,Economic score,0
+ECB statements,ECB,2012-05-03,Aggregate net score,0
+ECB statements,ECB,2012-06-06,Policy score,0
+ECB statements,ECB,2012-06-06,Economic score,0
+ECB statements,ECB,2012-06-06,Aggregate net score,0
+ECB statements,ECB,2012-07-05,Policy score,0
+ECB statements,ECB,2012-07-05,Economic score,0
+ECB statements,ECB,2012-07-05,Aggregate net score,0
+ECB statements,ECB,2012-08-02,Policy score,0
+ECB statements,ECB,2012-08-02,Economic score,0
+ECB statements,ECB,2012-08-02,Aggregate net score,0
+ECB statements,ECB,2012-09-06,Policy score,0
+ECB statements,ECB,2012-09-06,Economic score,0
+ECB statements,ECB,2012-09-06,Aggregate net score,0
+ECB statements,ECB,2012-10-04,Policy score,0
+ECB statements,ECB,2012-10-04,Economic score,0
+ECB statements,ECB,2012-10-04,Aggregate net score,0
+ECB statements,ECB,2012-11-08,Policy score,0
+ECB statements,ECB,2012-11-08,Economic score,0
+ECB statements,ECB,2012-11-08,Aggregate net score,0
+ECB statements,ECB,2012-12-06,Policy score,0
+ECB statements,ECB,2012-12-06,Economic score,0
+ECB statements,ECB,2012-12-06,Aggregate net score,0
+ECB statements,ECB,2013-01-10,Policy score,0
+ECB statements,ECB,2013-01-10,Economic score,0
+ECB statements,ECB,2013-01-10,Aggregate net score,0
+ECB statements,ECB,2013-02-07,Policy score,0
+ECB statements,ECB,2013-02-07,Economic score,0
+ECB statements,ECB,2013-02-07,Aggregate net score,0
+ECB statements,ECB,2013-03-07,Policy score,0
+ECB statements,ECB,2013-03-07,Economic score,0
+ECB statements,ECB,2013-03-07,Aggregate net score,0
+ECB statements,ECB,2013-04-04,Policy score,0
+ECB statements,ECB,2013-04-04,Economic score,0
+ECB statements,ECB,2013-04-04,Aggregate net score,0
+ECB statements,ECB,2013-05-02,Policy score,0
+ECB statements,ECB,2013-05-02,Economic score,0
+ECB statements,ECB,2013-05-02,Aggregate net score,0
+ECB statements,ECB,2013-06-06,Policy score,0
+ECB statements,ECB,2013-06-06,Economic score,0
+ECB statements,ECB,2013-06-06,Aggregate net score,0
+ECB statements,ECB,2013-07-04,Policy score,0
+ECB statements,ECB,2013-07-04,Economic score,0
+ECB statements,ECB,2013-07-04,Aggregate net score,0
+ECB statements,ECB,2013-08-01,Policy score,0
+ECB statements,ECB,2013-08-01,Economic score,0
+ECB statements,ECB,2013-08-01,Aggregate net score,0
+ECB statements,ECB,2013-09-05,Policy score,0
+ECB statements,ECB,2013-09-05,Economic score,0
+ECB statements,ECB,2013-09-05,Aggregate net score,0
+ECB statements,ECB,2013-10-02,Policy score,0
+ECB statements,ECB,2013-10-02,Economic score,0
+ECB statements,ECB,2013-10-02,Aggregate net score,0
+ECB statements,ECB,2013-11-07,Policy score,0
+ECB statements,ECB,2013-11-07,Economic score,0
+ECB statements,ECB,2013-11-07,Aggregate net score,0
+ECB statements,ECB,2013-12-05,Policy score,0
+ECB statements,ECB,2013-12-05,Economic score,0
+ECB statements,ECB,2013-12-05,Aggregate net score,0
+ECB statements,ECB,2014-01-09,Policy score,0
+ECB statements,ECB,2014-01-09,Economic score,0
+ECB statements,ECB,2014-01-09,Aggregate net score,0
+ECB statements,ECB,2014-02-06,Policy score,0
+ECB statements,ECB,2014-02-06,Economic score,0
+ECB statements,ECB,2014-02-06,Aggregate net score,0
+ECB statements,ECB,2014-03-06,Policy score,0
+ECB statements,ECB,2014-03-06,Economic score,0
+ECB statements,ECB,2014-03-06,Aggregate net score,0
+ECB statements,ECB,2014-04-03,Policy score,0
+ECB statements,ECB,2014-04-03,Economic score,0
+ECB statements,ECB,2014-04-03,Aggregate net score,0
+ECB statements,ECB,2014-05-08,Policy score,0
+ECB statements,ECB,2014-05-08,Economic score,0
+ECB statements,ECB,2014-05-08,Aggregate net score,0
+ECB statements,ECB,2014-06-05,Policy score,0
+ECB statements,ECB,2014-06-05,Economic score,0
+ECB statements,ECB,2014-06-05,Aggregate net score,0
+ECB statements,ECB,2014-07-03,Policy score,0
+ECB statements,ECB,2014-07-03,Economic score,0
+ECB statements,ECB,2014-07-03,Aggregate net score,0
+ECB statements,ECB,2014-08-07,Policy score,0
+ECB statements,ECB,2014-08-07,Economic score,0
+ECB statements,ECB,2014-08-07,Aggregate net score,0
+ECB statements,ECB,2014-09-04,Policy score,0
+ECB statements,ECB,2014-09-04,Economic score,0
+ECB statements,ECB,2014-09-04,Aggregate net score,0
+ECB statements,ECB,2014-10-02,Policy score,0
+ECB statements,ECB,2014-10-02,Economic score,0
+ECB statements,ECB,2014-10-02,Aggregate net score,0
+ECB statements,ECB,2014-11-06,Policy score,0
+ECB statements,ECB,2014-11-06,Economic score,0
+ECB statements,ECB,2014-11-06,Aggregate net score,0
+ECB statements,ECB,2014-12-04,Policy score,0
+ECB statements,ECB,2014-12-04,Economic score,0
+ECB statements,ECB,2014-12-04,Aggregate net score,0
+ECB statements,ECB,2015-01-22,Policy score,0
+ECB statements,ECB,2015-01-22,Economic score,0
+ECB statements,ECB,2015-01-22,Aggregate net score,0
+ECB statements,ECB,2015-03-05,Policy score,0
+ECB statements,ECB,2015-03-05,Economic score,0
+ECB statements,ECB,2015-03-05,Aggregate net score,0
+ECB statements,ECB,2015-04-15,Policy score,0
+ECB statements,ECB,2015-04-15,Economic score,0
+ECB statements,ECB,2015-04-15,Aggregate net score,0
+ECB statements,ECB,2015-06-03,Policy score,0
+ECB statements,ECB,2015-06-03,Economic score,0
+ECB statements,ECB,2015-06-03,Aggregate net score,0
+ECB statements,ECB,2015-07-16,Policy score,0
+ECB statements,ECB,2015-07-16,Economic score,0
+ECB statements,ECB,2015-07-16,Aggregate net score,0
+ECB statements,ECB,2015-09-03,Policy score,0
+ECB statements,ECB,2015-09-03,Economic score,0
+ECB statements,ECB,2015-09-03,Aggregate net score,0
+ECB statements,ECB,2015-10-22,Policy score,0
+ECB statements,ECB,2015-10-22,Economic score,0
+ECB statements,ECB,2015-10-22,Aggregate net score,0
+ECB statements,ECB,2015-12-03,Policy score,0
+ECB statements,ECB,2015-12-03,Economic score,0
+ECB statements,ECB,2015-12-03,Aggregate net score,0
+ECB statements,ECB,2016-01-21,Policy score,0
+ECB statements,ECB,2016-01-21,Economic score,0
+ECB statements,ECB,2016-01-21,Aggregate net score,0
+ECB statements,ECB,2016-03-10,Policy score,-0.2307692307692308
+ECB statements,ECB,2016-03-10,Economic score,0
+ECB statements,ECB,2016-03-10,Aggregate net score,-0.2307692307692308
+ECB statements,ECB,2016-04-21,Policy score,-0.2307692307692308
+ECB statements,ECB,2016-04-21,Economic score,0
+ECB statements,ECB,2016-04-21,Aggregate net score,-0.2307692307692308
+ECB statements,ECB,2016-06-02,Policy score,-0.16666666666666666
+ECB statements,ECB,2016-06-02,Economic score,0
+ECB statements,ECB,2016-06-02,Aggregate net score,-0.16666666666666666
+ECB statements,ECB,2016-07-21,Policy score,-0.2857142857142857
+ECB statements,ECB,2016-07-21,Economic score,-0.09090909090909093
+ECB statements,ECB,2016-07-21,Aggregate net score,-0.3333333333333333
+ECB statements,ECB,2016-09-08,Policy score,-0.2857142857142857
+ECB statements,ECB,2016-09-08,Economic score,-0.09090909090909093
+ECB statements,ECB,2016-09-08,Aggregate net score,-0.3333333333333333
+ECB statements,ECB,2016-10-20,Policy score,-0.2857142857142857
+ECB statements,ECB,2016-10-20,Economic score,-0.09090909090909093
+ECB statements,ECB,2016-10-20,Aggregate net score,-0.3333333333333333
+ECB statements,ECB,2016-12-08,Policy score,-0.5
+ECB statements,ECB,2016-12-08,Economic score,-0.16666666666666666
+ECB statements,ECB,2016-12-08,Aggregate net score,-0.5454545454545454
+ECB statements,ECB,2017-01-19,Policy score,-0.47368421052631576
+ECB statements,ECB,2017-01-19,Economic score,-0.16666666666666666
+ECB statements,ECB,2017-01-19,Aggregate net score,-0.5238095238095238
+ECB statements,ECB,2017-03-09,Policy score,-0.47368421052631576
+ECB statements,ECB,2017-03-09,Economic score,-0.16666666666666666
+ECB statements,ECB,2017-03-09,Aggregate net score,-0.5238095238095238
+ECB statements,ECB,2017-04-27,Policy score,-0.47368421052631576
+ECB statements,ECB,2017-04-27,Economic score,-0.16666666666666666
+ECB statements,ECB,2017-04-27,Aggregate net score,-0.5238095238095238
+ECB statements,ECB,2017-06-08,Policy score,-0.47368421052631576
+ECB statements,ECB,2017-06-08,Economic score,-0.16666666666666666
+ECB statements,ECB,2017-06-08,Aggregate net score,-0.5238095238095238
+ECB statements,ECB,2017-07-20,Policy score,-0.47368421052631576
+ECB statements,ECB,2017-07-20,Economic score,-0.16666666666666666
+ECB statements,ECB,2017-07-20,Aggregate net score,-0.5238095238095238
+ECB statements,ECB,2017-09-07,Policy score,-0.47368421052631576
+ECB statements,ECB,2017-09-07,Economic score,-0.16666666666666666
+ECB statements,ECB,2017-09-07,Aggregate net score,-0.5238095238095238
+ECB statements,ECB,2017-10-26,Policy score,-0.5454545454545454
+ECB statements,ECB,2017-10-26,Economic score,-0.16666666666666666
+ECB statements,ECB,2017-10-26,Aggregate net score,-0.5833333333333334
+ECB statements,ECB,2017-12-14,Policy score,-0.5238095238095238
+ECB statements,ECB,2017-12-14,Economic score,-0.16666666666666666
+ECB statements,ECB,2017-12-14,Aggregate net score,-0.5652173913043478
+ECB statements,ECB,2018-01-25,Policy score,-0.5238095238095238
+ECB statements,ECB,2018-01-25,Economic score,-0.16666666666666666
+ECB statements,ECB,2018-01-25,Aggregate net score,-0.5652173913043478
+ECB statements,ECB,2018-03-08,Policy score,-0.5238095238095238
+ECB statements,ECB,2018-03-08,Economic score,-0.09090909090909093
+ECB statements,ECB,2018-03-08,Aggregate net score,-0.5454545454545454
+ECB statements,ECB,2018-04-26,Policy score,-0.5238095238095238
+ECB statements,ECB,2018-04-26,Economic score,-0.09090909090909093
+ECB statements,ECB,2018-04-26,Aggregate net score,-0.5454545454545454
+ECB statements,ECB,2018-06-14,Policy score,-0.5833333333333334
+ECB statements,ECB,2018-06-14,Economic score,0
+ECB statements,ECB,2018-06-14,Aggregate net score,-0.5384615384615384
+ECB statements,ECB,2018-07-26,Policy score,-0.5454545454545454
+ECB statements,ECB,2018-07-26,Economic score,0
+ECB statements,ECB,2018-07-26,Aggregate net score,-0.5454545454545454
+ECB statements,ECB,2018-09-13,Policy score,-0.5454545454545454
+ECB statements,ECB,2018-09-13,Economic score,0
+ECB statements,ECB,2018-09-13,Aggregate net score,-0.5454545454545454
+ECB statements,ECB,2018-10-25,Policy score,-0.5
+ECB statements,ECB,2018-10-25,Economic score,0
+ECB statements,ECB,2018-10-25,Aggregate net score,-0.5
+ECB statements,ECB,2018-12-13,Policy score,-0.4117647058823529
+ECB statements,ECB,2018-12-13,Economic score,0
+ECB statements,ECB,2018-12-13,Aggregate net score,-0.4117647058823529
+ECB statements,ECB,2019-01-24,Policy score,-0.3333333333333333
+ECB statements,ECB,2019-01-24,Economic score,0
+ECB statements,ECB,2019-01-24,Aggregate net score,-0.3333333333333333
+ECB statements,ECB,2019-03-07,Policy score,-0.47368421052631576
+ECB statements,ECB,2019-03-07,Economic score,0
+ECB statements,ECB,2019-03-07,Aggregate net score,-0.47368421052631576
+ECB statements,ECB,2019-04-10,Policy score,-0.3333333333333333
+ECB statements,ECB,2019-04-10,Economic score,0
+ECB statements,ECB,2019-04-10,Aggregate net score,-0.3333333333333333
+ECB statements,ECB,2019-06-06,Policy score,-0.375
+ECB statements,ECB,2019-06-06,Economic score,0
+ECB statements,ECB,2019-06-06,Aggregate net score,-0.375
+ECB statements,ECB,2019-07-25,Policy score,-0.5
+ECB statements,ECB,2019-07-25,Economic score,0
+ECB statements,ECB,2019-07-25,Aggregate net score,-0.5
+ECB statements,ECB,2019-09-12,Policy score,-0.5238095238095238
+ECB statements,ECB,2019-09-12,Economic score,0.09090909090909093
+ECB statements,ECB,2019-09-12,Aggregate net score,-0.4545454545454546
+ECB statements,ECB,2019-10-24,Policy score,-0.375
+ECB statements,ECB,2019-10-24,Economic score,0.09090909090909093
+ECB statements,ECB,2019-10-24,Aggregate net score,-0.29411764705882354
+ECB statements,ECB,2019-12-12,Policy score,-0.375
+ECB statements,ECB,2019-12-12,Economic score,0.09090909090909093
+ECB statements,ECB,2019-12-12,Aggregate net score,-0.29411764705882354
+ECB statements,ECB,2020-01-23,Policy score,-0.375
+ECB statements,ECB,2020-01-23,Economic score,0.09090909090909093
+ECB statements,ECB,2020-01-23,Aggregate net score,-0.29411764705882354
+ECB statements,ECB,2020-03-12,Policy score,-0.5454545454545454
+ECB statements,ECB,2020-03-12,Economic score,0
+ECB statements,ECB,2020-03-12,Aggregate net score,-0.5
+ECB statements,ECB,2020-04-30,Policy score,-0.6296296296296297
+ECB statements,ECB,2020-04-30,Economic score,0.09090909090909093
+ECB statements,ECB,2020-04-30,Aggregate net score,-0.5714285714285714
+ECB statements,ECB,2020-06-04,Policy score,-0.6153846153846154
+ECB statements,ECB,2020-06-04,Economic score,0
+ECB statements,ECB,2020-06-04,Aggregate net score,-0.5714285714285714
+ECB statements,ECB,2020-07-16,Policy score,-0.6153846153846154
+ECB statements,ECB,2020-07-16,Economic score,0
+ECB statements,ECB,2020-07-16,Aggregate net score,-0.5714285714285714
+ECB statements,ECB,2020-09-10,Policy score,-0.6153846153846154
+ECB statements,ECB,2020-09-10,Economic score,0
+ECB statements,ECB,2020-09-10,Aggregate net score,-0.5714285714285714
+ECB statements,ECB,2020-10-29,Policy score,-0.6296296296296297
+ECB statements,ECB,2020-10-29,Economic score,0
+ECB statements,ECB,2020-10-29,Aggregate net score,-0.5862068965517241
+ECB statements,ECB,2020-12-10,Policy score,-0.5333333333333333
+ECB statements,ECB,2020-12-10,Economic score,0.09090909090909093
+ECB statements,ECB,2020-12-10,Aggregate net score,-0.4838709677419355
+ECB statements,ECB,2021-01-21,Policy score,-0.6774193548387096
+ECB statements,ECB,2021-01-21,Economic score,0
+ECB statements,ECB,2021-01-21,Aggregate net score,-0.6363636363636364
+ECB statements,ECB,2021-03-11,Policy score,-0.6666666666666666
+ECB statements,ECB,2021-03-11,Economic score,-0.07692307692307693
+ECB statements,ECB,2021-03-11,Aggregate net score,-0.6363636363636364
+ECB statements,ECB,2021-04-22,Policy score,-0.6666666666666666
+ECB statements,ECB,2021-04-22,Economic score,-0.07692307692307693
+ECB statements,ECB,2021-04-22,Aggregate net score,-0.6363636363636364
+ECB statements,ECB,2021-06-10,Policy score,-0.6774193548387096
+ECB statements,ECB,2021-06-10,Economic score,-0.07692307692307693
+ECB statements,ECB,2021-06-10,Aggregate net score,-0.6470588235294118
+ECB statements,ECB,2021-07-22,Policy score,-0.7142857142857143
+ECB statements,ECB,2021-07-22,Economic score,0.125
+ECB statements,ECB,2021-07-22,Aggregate net score,-0.5609756097560976
+ECB statements,ECB,2021-09-09,Policy score,-0.75
+ECB statements,ECB,2021-09-09,Economic score,0
+ECB statements,ECB,2021-09-09,Aggregate net score,-0.6818181818181818
+ECB statements,ECB,2021-10-28,Policy score,-0.75
+ECB statements,ECB,2021-10-28,Economic score,0
+ECB statements,ECB,2021-10-28,Aggregate net score,-0.6818181818181818
+ECB statements,ECB,2021-12-16,Policy score,-0.6774193548387096
+ECB statements,ECB,2021-12-16,Economic score,0.16666666666666666
+ECB statements,ECB,2021-12-16,Aggregate net score,-0.5757575757575758
+ECB statements,ECB,2022-02-03,Policy score,-0.6551724137931034
+ECB statements,ECB,2022-02-03,Economic score,0.16666666666666666
+ECB statements,ECB,2022-02-03,Aggregate net score,-0.5483870967741935
+ECB statements,ECB,2022-03-10,Policy score,-0.7058823529411765
+ECB statements,ECB,2022-03-10,Economic score,0.09090909090909093
+ECB statements,ECB,2022-03-10,Aggregate net score,-0.6571428571428571
+ECB statements,ECB,2022-04-14,Policy score,-0.6666666666666666
+ECB statements,ECB,2022-04-14,Economic score,0
+ECB statements,ECB,2022-04-14,Aggregate net score,-0.625
+ECB statements,ECB,2022-06-09,Policy score,-0.5333333333333333
+ECB statements,ECB,2022-06-09,Economic score,0.125
+ECB statements,ECB,2022-06-09,Aggregate net score,-0.3888888888888889
+ECB statements,ECB,2022-07-21,Policy score,-0.3076923076923077
+ECB statements,ECB,2022-07-21,Economic score,0
+ECB statements,ECB,2022-07-21,Aggregate net score,-0.3076923076923077
+ECB statements,ECB,2022-09-08,Policy score,-0.2258064516129032
+ECB statements,ECB,2022-09-08,Economic score,0.2
+ECB statements,ECB,2022-09-08,Aggregate net score,-0.1111111111111111
+ECB statements,ECB,2022-10-27,Policy score,-0.1111111111111111
+ECB statements,ECB,2022-10-27,Economic score,0.2
+ECB statements,ECB,2022-10-27,Aggregate net score,0
+ECB statements,ECB,2022-12-15,Policy score,-0.04
+ECB statements,ECB,2022-12-15,Economic score,0.1111111111111111
+ECB statements,ECB,2022-12-15,Aggregate net score,0.0303030303030303
+ECB statements,ECB,2023-02-02,Policy score,-0.03703703703703703
+ECB statements,ECB,2023-02-02,Economic score,0
+ECB statements,ECB,2023-02-02,Aggregate net score,-0.03448275862068965
+ECB statements,ECB,2023-03-16,Policy score,-0.14285714285714285
+ECB statements,ECB,2023-03-16,Economic score,0.29411764705882354
+ECB statements,ECB,2023-03-16,Aggregate net score,0.07142857142857142
+ECB statements,ECB,2023-05-04,Policy score,-0.13043478260869565
+ECB statements,ECB,2023-05-04,Economic score,0.2
+ECB statements,ECB,2023-05-04,Aggregate net score,0
+ECB statements,ECB,2023-06-15,Policy score,-0.08333333333333333
+ECB statements,ECB,2023-06-15,Economic score,0.17647058823529413
+ECB statements,ECB,2023-06-15,Aggregate net score,0.03225806451612903
+ECB statements,ECB,2023-07-27,Policy score,-0.04
+ECB statements,ECB,2023-07-27,Economic score,0.2222222222222222
+ECB statements,ECB,2023-07-27,Aggregate net score,0.09090909090909093
+ECB statements,ECB,2023-09-14,Policy score,0.04
+ECB statements,ECB,2023-09-14,Economic score,0.04761904761904761
+ECB statements,ECB,2023-09-14,Aggregate net score,0.05555555555555555
+ECB statements,ECB,2023-10-26,Policy score,-0.2631578947368421
+ECB statements,ECB,2023-10-26,Economic score,0.25
+ECB statements,ECB,2023-10-26,Aggregate net score,-0.04
+ECB statements,ECB,2023-12-14,Policy score,-0.3
+ECB statements,ECB,2023-12-14,Economic score,0.13043478260869565
+ECB statements,ECB,2023-12-14,Aggregate net score,-0.09090909090909093
+ECB statements,ECB,2024-01-25,Policy score,-0.2222222222222222
+ECB statements,ECB,2024-01-25,Economic score,0.07692307692307693
+ECB statements,ECB,2024-01-25,Aggregate net score,-0.14285714285714285
+ECB statements,ECB,2024-03-07,Policy score,-0.2222222222222222
+ECB statements,ECB,2024-03-07,Economic score,0.04761904761904761
+ECB statements,ECB,2024-03-07,Aggregate net score,-0.10344827586206896
+ECB statements,ECB,2024-04-11,Policy score,-0.2
+ECB statements,ECB,2024-04-11,Economic score,0.2
+ECB statements,ECB,2024-04-11,Aggregate net score,0
+ECB statements,ECB,2024-06-06,Policy score,-0.4166666666666667
+ECB statements,ECB,2024-06-06,Economic score,0.4166666666666667
+ECB statements,ECB,2024-06-06,Aggregate net score,0
+ECB statements,ECB,2024-07-18,Policy score,-0.29411764705882354
+ECB statements,ECB,2024-07-18,Economic score,0.4444444444444444
+ECB statements,ECB,2024-07-18,Aggregate net score,0.12
+ECB statements,ECB,2024-09-12,Policy score,-0.3684210526315789
+ECB statements,ECB,2024-09-12,Economic score,0.4545454545454546
+ECB statements,ECB,2024-09-12,Aggregate net score,0.0967741935483871
+ECB statements,ECB,2024-10-17,Policy score,-0.3684210526315789
+ECB statements,ECB,2024-10-17,Economic score,0.3333333333333333
+ECB statements,ECB,2024-10-17,Aggregate net score,-0.08333333333333333
+ECB statements,ECB,2024-12-12,Policy score,-0.391304347826087
+ECB statements,ECB,2024-12-12,Economic score,0.14285714285714285
+ECB statements,ECB,2024-12-12,Aggregate net score,-0.25925925925925924
+ECB statements,ECB,2025-01-30,Policy score,-0.391304347826087
+ECB statements,ECB,2025-01-30,Economic score,0.25
+ECB statements,ECB,2025-01-30,Aggregate net score,-0.1724137931034483
+ECB statements,ECB,2025-03-06,Policy score,-0.3636363636363637
+ECB statements,ECB,2025-03-06,Economic score,0.2222222222222222
+ECB statements,ECB,2025-03-06,Aggregate net score,-0.13333333333333333
+ECB statements,ECB,2025-04-17,Policy score,-0.47368421052631576
+ECB statements,ECB,2025-04-17,Economic score,0.14285714285714285
+ECB statements,ECB,2025-04-17,Aggregate net score,-0.2
+ECB statements,ECB,2025-06-05,Policy score,-0.5
+ECB statements,ECB,2025-06-05,Economic score,0
+ECB statements,ECB,2025-06-05,Aggregate net score,-0.3333333333333333
+ECB statements,ECB,2025-07-24,Policy score,-0.375
+ECB statements,ECB,2025-07-24,Economic score,0.2307692307692308
+ECB statements,ECB,2025-07-24,Aggregate net score,-0.15789473684210523
+ECB statements,ECB,2025-09-11,Policy score,-0.3333333333333333
+ECB statements,ECB,2025-09-11,Economic score,0.16666666666666666
+ECB statements,ECB,2025-09-11,Aggregate net score,-0.17647058823529413
+ECB statements,ECB,2025-10-30,Policy score,-0.375
+ECB statements,ECB,2025-10-30,Economic score,0
+ECB statements,ECB,2025-10-30,Aggregate net score,-0.3333333333333333
+ECB statements,ECB,2025-12-18,Policy score,-0.3333333333333333
+ECB statements,ECB,2025-12-18,Economic score,0.2
+ECB statements,ECB,2025-12-18,Aggregate net score,-0.1
+ECB statements,ECB,2026-02-05,Policy score,-0.375
+ECB statements,ECB,2026-02-05,Economic score,0.07692307692307693
+ECB statements,ECB,2026-02-05,Aggregate net score,-0.2631578947368421
+ECB statements,ECB,2026-03-19,Policy score,-0.375
+ECB statements,ECB,2026-03-19,Economic score,0.23809523809523808
+ECB statements,ECB,2026-03-19,Aggregate net score,-0.03703703703703703

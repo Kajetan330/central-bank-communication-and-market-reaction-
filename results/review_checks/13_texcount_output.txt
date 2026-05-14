@@ -1,0 +1,4 @@
+texcount was not run automatically.
+To fill Pages: XXX and Characters: XXX, compile the final PDF in Overleaf and use TeXcount/word count.
+In Overleaf: Menu -> Word Count, or run locally:
+texcount -total -inc main.tex

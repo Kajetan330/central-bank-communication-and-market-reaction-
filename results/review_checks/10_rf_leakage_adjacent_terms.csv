@@ -1,0 +1,9 @@
+corpus,corpus_long,term_display,signed_importance,direction_label,MeanDecreaseGini,direction
+ecb_stmt,ECB statements,govern council,-22.307217768672704,dovish,22.307217768672704,-5.020483025871981e-4
+ecb_stmt,ECB statements,bank ecb,-1.9597960531682252,dovish,1.9597960531682252,-0.0060667313507133
+fomc_stmt,FOMC statements,dudley vice,7.379839780558461,hawkish,7.379839780558461,0.00118860995668365
+fomc_stmt,FOMC statements,releas inform,6.161704404091081,hawkish,6.161704404091081,1.937111283062142e-4
+fomc_stmt,FOMC statements,waller vote,-3.66465381083687,dovish,3.66465381083687,-0.00410233696374266
+fomc_stmt,FOMC statements,quarl vote,-2.463317605748929,dovish,2.463317605748929,-0.00288126761612875
+fomc_stmt,FOMC statements,object vote,2.139425015307792,hawkish,2.139425015307792,0.00864748747526071
+fomc_stmt,FOMC statements,yellen vote,1.30758136985797,hawkish,1.30758136985797,0

@@ -1,0 +1,25 @@
+corpus,outcome,n,delta_C_minus_A,corpus_long,spec_raw,r2,spec
+FOMC stmt,SP500,232,0.0054,FOMC statements,r2_A_net,0.0509,A: net score
+FOMC stmt,SP500,232,0.0054,FOMC statements,r2_B_pol_ec,0.0508,B: policy + econ
+FOMC stmt,SP500,232,0.0054,FOMC statements,r2_C_full,0.0562,C: full decomposition
+FOMC stmt,EURUSD,230,0.0122,FOMC statements,r2_A_net,0.0612,A: net score
+FOMC stmt,EURUSD,230,0.0122,FOMC statements,r2_B_pol_ec,0.0607,B: policy + econ
+FOMC stmt,EURUSD,230,0.0122,FOMC statements,r2_C_full,0.0733,C: full decomposition
+FOMC stmt,UST2Y,242,0.0128,FOMC statements,r2_A_net,0.1912,A: net score
+FOMC stmt,UST2Y,242,0.0128,FOMC statements,r2_B_pol_ec,0.193,B: policy + econ
+FOMC stmt,UST2Y,242,0.0128,FOMC statements,r2_C_full,0.204,C: full decomposition
+FOMC stmt,UST10Y,242,0.0097,FOMC statements,r2_A_net,0.0219,A: net score
+FOMC stmt,UST10Y,242,0.0097,FOMC statements,r2_B_pol_ec,0.0237,B: policy + econ
+FOMC stmt,UST10Y,242,0.0097,FOMC statements,r2_C_full,0.0316,C: full decomposition
+ECB stmt,SX5E,253,0.0204,ECB statements,r2_A_net,0.1782,A: net score
+ECB stmt,SX5E,253,0.0204,ECB statements,r2_B_pol_ec,0.1842,B: policy + econ
+ECB stmt,SX5E,253,0.0204,ECB statements,r2_C_full,0.1986,C: full decomposition
+ECB stmt,EURUSD,253,0.0086,ECB statements,r2_A_net,0.0044,A: net score
+ECB stmt,EURUSD,253,0.0086,ECB statements,r2_B_pol_ec,0.0046,B: policy + econ
+ECB stmt,EURUSD,253,0.0086,ECB statements,r2_C_full,0.0129,C: full decomposition
+ECB stmt,OIS MP2,244,0.0702,ECB statements,r2_A_net,0.2103,A: net score
+ECB stmt,OIS MP2,244,0.0702,ECB statements,r2_B_pol_ec,0.2192,B: policy + econ
+ECB stmt,OIS MP2,244,0.0702,ECB statements,r2_C_full,0.2804,C: full decomposition
+ECB stmt,OIS 10Y,113,0.0809,ECB statements,r2_A_net,0.0158,A: net score
+ECB stmt,OIS 10Y,113,0.0809,ECB statements,r2_B_pol_ec,0.0261,B: policy + econ
+ECB stmt,OIS 10Y,113,0.0809,ECB statements,r2_C_full,0.0968,C: full decomposition

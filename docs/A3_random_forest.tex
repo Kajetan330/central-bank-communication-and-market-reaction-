@@ -1,0 +1,267 @@
+% ══════════════════════════════════════════════════════════════════════════════
+% APPENDIX A3 — RANDOM FOREST AND RoBERTa SUPPLEMENTARY MATERIAL
+% ══════════════════════════════════════════════════════════════════════════════
+
+\section{Blocklist}
+\label{app:blocklist}
+
+The following stemmed bigrams are blocked from the TF-IDF feature
+matrix to prevent identity leakage and institutional boilerplate
+from acting as spurious predictors. The blocklist contains
+\textbf{94 bigrams in total}, organised into three thematic groups.
+
+\subsection*{Institutional boilerplate (51 bigrams)}
+\small
+\texttt{cleveland richmond, richmond atlanta, atlanta boston,
+chicago st, chicago minneapoli, loui minneapoli,
+st loui, kansa citi, san francisco, new york,
+reserv bank, feder reserv,
+york philadelphia, philadelphia cleveland, cleveland atlanta,
+atlanta chicago, minneapoli kansa, dalla san,
+discount rate, request submit, board approv,
+relat action, committe continu, submit board,
+approv request, governor approv, request discount,
+charg depositori, depositori institut,
+press confer, confer start, relat content,
+consider under, polici measur, polici decis,
+press releas, monetari polici, polici transmiss,
+communic reproduct, reproduct permit, permit provid,
+council steer, pre commit,
+minimum bid, bid rate, futur roll, avoid interfer,
+time return,
+american famili, social partner, mandat goal.}
+
+\subsection*{Personal names and places (43 bigrams)}
+\small
+\texttt{alan greenspan, greenspan chairman, chairman greenspan,
+ben bernank, bernank chairman, chairman bernank,
+janet yellen, yellen chairman, chairman yellen,
+jerom powel, powel chairman, chairman powel,
+chairman susan, susan bie, bie roger,
+roger fergus, frederic mishkin, donald kohn,
+randal kroszner, kroszner freder, kevin warsh,
+wim duisenberg, jean claud, claud trichet,
+mario draghi, christin lagard, lagard christin,
+luca papademo, vitor constanci, constanci vitor,
+de guindo, philip lane, isabel schnabel,
+piero cipollon,
+washington dc, constitut avenu, 20th street,
+frankfurt main, sonnemannstrass 20,
+european central, central bank,
+centuri low, new centuri.}
+
+The blocklist was developed iteratively. The institutional-boilerplate
+group was the largest contributor: an early version of the model
+placed Reserve Bank city-pair bigrams (``cleveland richmond,''
+``philadelphia cleveland,'' etc.) and standard FOMC roll-call
+boilerplate (``board approv,'' ``governor approv,'' ``request
+submit'') in the top features by Gini importance, but these are
+pure leakage: they reflect the institutional structure of the
+document rather than its policy stance, and a model classifying
+decisions on ``cleveland richmond'' is exploiting the geographic
+ordering of the dissent line rather than any economic content. The
+personal-names group prevents the model from learning
+chair-specific patterns, which are confounded with the era of each
+chair's tenure (Greenspan with the Great Moderation, Bernanke with
+the GFC, etc.). Removing these names forces the model to predict
+from policy-relevant language rather than from chair identity.
+
+
+\section{Random Forest Performance}
+\label{app:rf_performance}
+
+\Cref{tab:rf_performance} reports the Lasso + balanced Random
+Forest performance for each corpus. The forest comprises $B = 100$
+trees per corpus with inverse-frequency case weights. The Lasso
+pre-screening step selects a small subset of discriminative bigrams
+from the full TF-IDF feature space, and the class-balanced forest
+is trained on only these features.
+
+\begin{table}[H]
+\centering
+\caption{Random Forest performance (Lasso + balanced RF, $B=100$)}
+\label{tab:rf_performance}
+\begin{threeparttable}
+\begin{tabular}{lrrrr}
+\toprule
+Corpus    & OOB Acc. & Bal.\ Acc. & Holdout & Lasso features \\
+\midrule
+%%% TODO: Fill from rf_rq1_performance_v31.csv
+FOMC Stmt & [TODO] & [TODO] & [TODO] & [TODO] \\
+FOMC PC   & [TODO] & [TODO] & [TODO] & [TODO] \\
+ECB Stmt  & [TODO] & [TODO] & [TODO] & [TODO] \\
+ECB PC    & [TODO] & [TODO] & [TODO] & [TODO] \\
+\bottomrule
+\end{tabular}
+\begin{tablenotes}\footnotesize
+  \item[] OOB Acc.\ = overall out-of-bag accuracy; Bal.\ Acc.\ =
+    macro-averaged per-class recall; Holdout = accuracy on the
+    chronological 20\% holdout. Features = number of Lasso-selected
+    bigrams.
+\end{tablenotes}
+\end{threeparttable}
+\end{table}
+
+
+\section{OOB Confusion Matrices}
+\label{app:rf_confusion}
+
+The OOB confusion matrices for each corpus are produced by the
+pipeline and stored in \texttt{confusion\_matrices\_long\_v31.csv}.
+The diagonal cells correspond to correct classifications
+(cut$\to$cut, hold$\to$hold, hike$\to$hike); the OOB accuracy is
+the proportion of observations on the diagonal, and the balanced
+accuracy is the mean of the three per-class recall rates.
+
+%%% TODO: Insert per-corpus 3x3 OOB confusion matrices from the
+%%% pipeline output. Can be formatted as small tables or imported
+%%% from confusion_matrices_long_v31.csv.
+
+
+\section{Top Hawkish and Dovish Bigrams by Corpus}
+\label{app:rf_features}
+
+The Random Forest's top variable-importance features
+(per-corpus, ranked by Gini importance times direction) were
+extracted from \texttt{rf\_feature\_importance\_v31.csv} for each
+of the four corpora. The full list is too long to reproduce
+inline; the top-25 features per corpus are summarised
+qualitatively in Section~\ref{sec:res_rf} of the main text.
+The dominant patterns are:
+
+\begin{description}[leftmargin=*]
+  \item[FOMC statements:] Hawkish-leaning bigrams centre on
+    explicit policy-action language (``rais target,'' ``increas
+    target,'' ``ongo increas''), inflation-overshoot descriptors,
+    and tightening-cycle vocabulary (``further increas'').
+    Dovish-leaning bigrams centre on accommodation language
+    (``maintain accommod,'' ``polici accommod''), crisis
+    terminology (``zero lower,'' ``effect lower''), and
+    downside-risk markers (``downsid risk'').
+  \item[FOMC press conferences:] More diverse top features
+    reflecting the wider vocabulary of the Q\&A. Hawkish features
+    include policy-action bigrams (``raise rate,'' ``rate
+    increas''), inflation framing (``price pressur,'' ``higher
+    inflat''), and forward-guidance language. Dovish features
+    include explicit easing language (``cut rate,'' ``rate cut''),
+    employment weakness (``labor market''), and conditionality
+    (``data depend'').
+  \item[ECB statements:] Top hawkish features include
+    ``rate increas,'' ``key rate'' (often in tightening-decision
+    contexts), and inflation-target overshoot phrasings
+    (``return inflat,'' ``well above''). Dovish features include
+    ``rate cut,'' ``deposit facil'' (the deposit-facility-rate cuts
+    of 2014--2016 and 2024--2025), and accommodation language.
+  \item[ECB press conferences:] Largest feature space and richest
+    variable-importance distribution. Hawkish features include
+    inflation language (``second-round,'' ``broad-bas,'' ``wage
+    growth'') and policy-action bigrams. Dovish features include
+    sovereign-debt-crisis vocabulary (``transmiss mechan,''
+    ``sovereign yield''), forward-guidance commitment (``stand
+    readi''), and accommodation phrases.
+\end{description}
+
+The full top-25 lists for each corpus can be reconstructed by
+filtering \texttt{rf\_feature\_importance\_v31.csv} on the
+\texttt{corpus} column and sorting by the product of
+\texttt{MeanDecreaseGini} and the absolute value of
+\texttt{direction}. The qualitative observation that 40--60\% of
+the top RF features overlap with the hand-crafted dictionary is
+robust across corpora and is the empirical anchor for the
+``overlapping but not identical'' interpretation in
+Section~\ref{sec:res_horserace}.
+
+
+\section{Lasso Feature Selection Details}
+\label{app:lasso}
+
+The Lasso pre-screening step uses an $\ell_1$-penalised multinomial
+logit (for the RQ1 classification RF) or Gaussian-family Lasso (for
+the RQ2 continuous-target RF) fit on the full TF-IDF matrix (after
+blocklist), with the penalty parameter chosen by 10-fold
+cross-validation at the 1-standard-error rule
+(\texttt{lambda.1se}). If fewer than 5 features survive at
+$\lambda_{\text{1se}}$, $\lambda_{\min}$ is used. If still fewer
+than 5 features survive, the pipeline falls back to the 200 most
+frequent bigrams in the training set, allowing the Random Forest to
+perform implicit feature selection through its splitting criterion.
+The features retained are the union of features with non-zero
+coefficients across the three classes (cut, hold, hike).
+
+\begin{table}[H]
+\centering
+\caption{Lasso feature selection: starting and selected feature counts}
+\label{tab:lasso_summary}
+\begin{tabular}{lrrr}
+\toprule
+Corpus     & Starting features & Lasso-selected & Selection ratio \\
+\midrule
+%%% TODO: Fill from v31 pipeline output.
+FOMC Stmt  & [TODO] & [TODO] & [TODO] \\
+FOMC PC    & [TODO] & [TODO] & [TODO] \\
+ECB Stmt   & [TODO] & [TODO] & [TODO] \\
+ECB PC     & [TODO] & [TODO] & [TODO] \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+The selection ratio is typically highest for the shorter-document
+corpora (ECB statements) and lowest for the press-conference
+corpora, which start from a much larger feature space (up to the
+2{,}000-bigram cap on the TF-IDF vocabulary). The
+feature-to-document ratio after Lasso is well below 1:1 in every
+corpus, substantially mitigating the overfitting risk that motivated
+the pre-screening step.
+
+
+\section{RoBERTa Classifier Supplementary}
+\label{app:bert_supplementary}
+
+\subsection*{BERT, Dictionary, and RF Score Correlations}
+
+\Cref{tab:bert_correlations} reports pairwise correlations between
+the three document-level scores for each corpus.
+
+\begin{table}[H]
+\centering
+\caption{Pairwise correlations: \bertscore{}, \netscore{}, and \rfscore{}}
+\label{tab:bert_correlations}
+\begin{tabular}{lrr}
+\toprule
+Corpus    & Corr(BERT, dict) & Corr(BERT, RF) \\
+\midrule
+%%% TODO: Fill from bert_diagnostic_correlations.csv
+FOMC Stmt & [TODO] & [TODO] \\
+FOMC PC   & [TODO] & [TODO] \\
+ECB Stmt  & [TODO] & [TODO] \\
+ECB PC    & [TODO] & [TODO] \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\subsection*{Expanding-Window RoBERTa Forecast Performance}
+
+\Cref{tab:bert_xw_performance} reports the out-of-sample
+performance of the expanding-window RoBERTa forecasts for each
+target and corpus.
+
+\begin{table}[H]
+\centering
+\caption{RoBERTa expanding-window forecast performance}
+\label{tab:bert_xw_performance}
+\begin{threeparttable}
+\begin{tabular}{llrrr}
+\toprule
+Corpus & Target & $N$ forecasts & XW $R^2$ & XW RMSE \\
+\midrule
+%%% TODO: Fill from rq2_bert_method_comparison_v31.csv
+\bottomrule
+\end{tabular}
+\begin{tablenotes}\footnotesize
+  \item[] XW $R^2$ and RMSE are computed on pooled out-of-sample
+    predictions from the expanding-window OLS regressions with
+    \bertscore{} as the sole text regressor plus the inertia
+    control (bps\_curr or y2\_curr).
+\end{tablenotes}
+\end{threeparttable}
+\end{table}

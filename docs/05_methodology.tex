@@ -1,0 +1,1428 @@
+% ══════════════════════════════════════════════════════════════════════════════
+% CHAPTER 5 — METHODOLOGY  [restructured, formula-corrected]
+% ══════════════════════════════════════════════════════════════════════════════
+
+This chapter details the methods used to measure the tone of central
+bank communication and to estimate its association with financial
+market outcomes and future rate decisions. The chapter is organised
+around the three-pipeline structure illustrated in
+\Cref{fig:framework}: a hand-crafted dictionary
+(\Cref{sec:meth_dictionary}), a data-driven Random Forest
+(\Cref{sec:meth_rf}), and a fine-tuned RoBERTa sentence-level
+classifier (\Cref{sec:meth_bert}) run in parallel on the same
+cleaned corpus, each producing a continuous score and a discrete
+label. \Cref{sec:meth_regressions} specifies the common econometric
+framework (market-reaction regressions for RQ1, next-rate prediction
+for RQ2, and the comparison tests) into which all three score
+streams feed.
+
+Before turning to the technical details, \Cref{fig:framework}
+summarises the analysis framework. A hand-crafted Dictionary, a
+data-driven Random Forest, and a fine-tuned RoBERTa classifier run
+as parallel pipelines on the same cleaned document corpus, each
+producing a continuous score and a discrete label. All three score
+streams enter a common econometric framework (market-reaction
+regressions for RQ1 and next-rate prediction for RQ2) so that the
+three methods can be compared directly on identical outcome
+variables and identical samples.
+
+% --------------------------------------------------------------------------
+% Fig 5.1 — Three-pipeline framework  [redesigned for v31]
+% Solid lines = dictionary; dashed = RF; dotted = RoBERTa
+% --------------------------------------------------------------------------
+\begin{figure}[htbp]
+\centering
+\begin{tikzpicture}[
+  every node/.style={font=\footnotesize, align=center},
+  inputbox/.style={rectangle, draw=black, thick, minimum height=1.0cm,
+                   minimum width=8.0cm, rounded corners=4pt, fill=gray!12,
+                   inner sep=5pt},
+  dictbox/.style={rectangle, draw=black, thick, minimum height=1.0cm,
+                  minimum width=3.2cm, rounded corners=4pt, fill=white,
+                  inner sep=5pt},
+  rfbox/.style={rectangle, draw=black, thick, minimum height=1.0cm,
+                minimum width=3.2cm, rounded corners=4pt, fill=white,
+                inner sep=5pt, dashed},
+  bertbox/.style={rectangle, draw=black, thick, minimum height=1.0cm,
+                  minimum width=3.2cm, rounded corners=4pt, fill=white,
+                  inner sep=5pt, dotted},
+  scorebox/.style={rectangle, draw=black, minimum height=0.85cm,
+                   minimum width=2.6cm, rounded corners=3pt, fill=gray!6,
+                   inner sep=4pt},
+  regbox/.style={rectangle, draw=black, thick, minimum height=1.3cm,
+                 minimum width=11.0cm, rounded corners=6pt, fill=gray!12,
+                 inner sep=6pt},
+  cmpbox/.style={rectangle, draw=black, thick, minimum height=0.8cm,
+                 minimum width=9.0cm, rounded corners=4pt, fill=gray!6,
+                 inner sep=5pt},
+  arrow/.style={->, thick, >=stealth}
+]
+  \node[inputbox] (corpus) at (0, 8.5)
+    {Cleaned document corpus\\\scriptsize\itshape 884 documents across 4 corpora};
+  \node[dictbox] (dict) at (-4.2, 6.3)
+    {\textbf{Dictionary}\\288 terms $\cdot$ 4 categories};
+  \node[rfbox]   (rf)   at (0, 6.3)
+    {\textbf{Random Forest}\\bigram TF-IDF $+$ Lasso};
+  \node[bertbox] (bert) at (4.2, 6.3)
+    {\textbf{RoBERTa}\\sentence-level};
+  \node[scorebox] (ns) at (-4.2, 4.4)
+    {\netscore{} $\in [-1,1]$\\H / N / D};
+  \node[scorebox, dashed] (rs) at (0, 4.4)
+    {\rfscore{} $\in [-1,1]$\\cut / hold / hike};
+  \node[scorebox, dotted] (bs) at (4.2, 4.4)
+    {\bertscore{} $\in [-1,1]$\\H / N / D};
+  \node[font=\scriptsize, text=black!60, anchor=east] at (-6.2, 5.3)
+    {4 sub-scores\\fwd/bwd split};
+  \node[font=\scriptsize, text=black!60, anchor=west] at (6.2, 5.3)
+    {sentence probs\\fwd variant};
+  \node[regbox] (regs) at (0, 2.4)
+    {\textbf{Common econometric framework}\\[2pt]
+     \scriptsize RQ1: market reaction regressions
+     \hspace{1.0cm} RQ2: next-rate prediction};
+  \node[cmpbox] (cmp) at (0, 0.6)
+    {\textbf{Comparison}: agreement $\cdot$ horse race $\cdot$
+     confusion matrices $\cdot$ score distributions};
+  \draw[arrow] (corpus.south) ++(-2.5,0) -- (dict.north);
+  \draw[arrow] (corpus.south) -- (rf.north);
+  \draw[arrow] (corpus.south) ++(2.5,0) -- (bert.north);
+  \draw[arrow] (dict)   -- (ns);
+  \draw[arrow, dashed] (rf) -- (rs);
+  \draw[arrow, dotted] (bert) -- (bs);
+  \draw[arrow] (ns.south) -- ++(0,-0.4) -| ([xshift=-2.5cm]regs.north);
+  \draw[arrow, dashed] (rs.south) -- ++(0,-0.4) -- ([xshift=0cm]regs.north);
+  \draw[arrow, dotted] (bs.south) -- ++(0,-0.4) -| ([xshift=2.5cm]regs.north);
+  \draw[arrow] (regs)   -- (cmp);
+\end{tikzpicture}
+\caption[Three-pipeline analysis framework]{Three-pipeline analysis
+framework. The same cleaned corpus is processed in parallel by a
+hand-crafted Dictionary (\Cref{sec:meth_dictionary}, solid lines),
+a data-driven Random Forest (\Cref{sec:meth_rf}, dashed lines),
+and a fine-tuned RoBERTa classifier (\Cref{sec:meth_bert}, dotted
+lines). Each pipeline produces a continuous score bounded in
+$[-1,1]$ and a discrete label. All three streams enter a common
+econometric framework (\Cref{sec:meth_regressions}), enabling
+direct comparison on identical outcome variables and samples.}
+\label{fig:framework}
+\end{figure}
+
+
+% ══════════════════════════════════════════════════════════════════════════════
+\section{Dictionary-Based Tone Scoring}
+\label{sec:meth_dictionary}
+% ══════════════════════════════════════════════════════════════════════════════
+
+\subsection{Design and Term Selection}
+\label{sec:meth_dict_motivation}
+\label{sec:meth_dict_selection}
+
+The dictionary approach rests on the premise that the hawkish--dovish
+stance of a central bank communication can be inferred from the
+relative frequency of stance-bearing terms. This premise is
+supported by the empirical finding that even simple word-counting
+methods capture economically meaningful information from financial
+texts \citep{tetlock2007}, provided that the vocabulary is
+domain-specific rather than drawn from a general-purpose sentiment
+lexicon \citep{loughran2011}.
+
+Prior monetary policy dictionaries have taken two approaches.
+\citet{lucca2009} compute the ``semantic orientation'' of FOMC
+statements by measuring their linguistic proximity to hawkish and
+dovish anchor texts, effectively treating the entire document as the
+unit of comparison. \citet{picault2017} construct a more granular
+ECB-specific dictionary that classifies individual terms as hawkish
+or dovish, with a gradation system that distinguishes between terms
+of different signal strength. \citet{apel2014} apply a similar
+word-list approach to Riksbank minutes. The present dictionary
+follows the term-level classification approach of
+\citet{picault2017} and extends it in three ways: (i)~coverage of
+both FOMC and ECB vocabulary in a single dictionary,
+(ii)~systematic treatment of multi-word expressions (bigrams and
+trigrams), and (iii)~organisation into four semantic categories
+that mirror the dual-mandate reaction function.
+
+The dictionary was constructed through an iterative, domain-informed
+process. The initial term set (versions~14--15) was developed by
+reading a sample of FOMC statements, ECB introductory statements,
+and press conference transcripts, and identifying words and phrases
+that appeared predominantly in communications associated with rate
+hikes (hawkish) or rate cuts (dovish). Terms were retained only if
+they satisfied two criteria: (i)~the term carries a clear
+directional signal in the context of monetary policy communication
+(not merely in general economic discourse), and (ii)~the term
+appears with sufficient frequency across the sample to contribute
+meaningfully to the score.
+
+Version~34, used in this thesis, expanded the dictionary through
+successive structured review rounds. Each candidate term was
+evaluated against the two criteria above and either accepted,
+rejected, or reclassified. Eight entries from version~33 were
+pruned because they matched fewer than three documents across the
+full corpus. The full dictionary is reported in
+\Cref{app:dictionary}.
+
+A distinctive feature of this dictionary is the systematic
+inclusion of bigrams and trigrams alongside unigrams. Many
+policy-relevant signals are inherently phrasal: ``rate hike'' is a
+hawkish bigram, but neither ``rate'' nor ``hike'' in isolation
+carries an unambiguous stance signal (``rate'' appears in neutral
+contexts; ``hike'' rarely appears alone in central bank text).
+Similarly, ``well above'' signals that inflation exceeds the
+target, but ``well'' and ``above'' individually are uninformative.
+The trigram ``decided to raise'' captures the precise moment of a
+policy action that no unigram can convey.
+
+To match multi-word expressions in the text, the scoring function
+tokenises each document into unigrams, bigrams, and trigrams using
+sliding windows. Each n-gram is Porter-stemmed (both sides of
+bigrams and all three components of trigrams are stemmed
+independently), and the stemmed n-grams are matched against the
+pre-stemmed dictionary entries. This ensures that ``raising rates''
+matches the dictionary entry ``raise rates'' (both stemming to
+``rais rate'') and that ``decided to raise'' matches regardless of
+whether it appears as ``decides to raise'' or ``has decided to
+raise'' in the text.
+
+The matching procedure counts occurrences independently at each
+n-gram level: a sentence containing ``decided to raise rates'' will
+generate one trigram match (``decided to raise'') \emph{and} one
+bigram match (``raise rates'') \emph{and} one unigram match
+(``raise''). This additive counting is intentional: a sentence that
+uses multiple stance-bearing expressions at different n-gram levels
+is indeed making a stronger stance signal than one that uses a
+single expression.
+
+
+\subsection{Semantic Categories and Dual-Mandate Decomposition}
+\label{sec:meth_dict_categories}
+\label{sec:meth_dual_mandate}
+
+The dictionary terms are organised into four semantic categories
+that reflect the structure of central bank communications and the
+dual-mandate reaction function. Both FOMC statements and ECB
+introductory statements typically follow a predictable template:
+an assessment of current economic conditions (inflation, growth,
+employment, financial conditions), followed by the policy decision
+and a forward-looking paragraph on the expected path. The dictionary
+categories mirror this structure. \Cref{fig:dict_arch} visualises
+the architecture, and \Cref{tab:dict_counts} reports the realised
+term counts.
+
+The first category, \textbf{rate action}, captures the most direct
+signals of policy stance: terms describing actual or intended rate
+changes. Hawkish examples include ``decided to raise,'' ``rate
+hike,'' ``point increase,'' ``further increases,'' and ``raise
+rates.'' Dovish examples include ``to lower,'' ``point reduction,''
+``decrease,'' and ``reduction.'' These terms are unambiguous: their
+presence in a statement almost invariably accompanies the
+corresponding policy action. This category draws on the direct
+policy action language documented by \citet{lucca2009}.
+
+The second category, \textbf{inflation assessment}, covers the
+choice of descriptors that reveals the central bank's assessment
+of price developments. Hawkish inflation terms include ``high
+inflation,'' ``rising inflation,'' ``price pressures,''
+``overheating,'' ``inflation expectations unanchored,'' ``cost
+pressures,'' and ``second-round effects.'' Dovish inflation terms
+include ``low inflation,'' ``subdued inflation,'' ``disinflation,''
+``deflation,'' ``undershooting,'' and ``inflation declined.''
+Terms describing inflation relative to the target (``well above''
+or ``above target'' (hawkish) versus ``well below'' or ``below
+target'' (dovish)) explicitly reference the policy objective.
+The inclusion of ``second-round effects'' and ``wage-price spiral''
+reflects ECB-specific vocabulary grounded in the ECB's two-pillar
+analytical framework \citep{ehrmann2009}.
+
+The third category, \textbf{growth, demand, and employment},
+reflects the FOMC's dual mandate with vocabulary covering output
+and labour market conditions. Hawkish growth terms include
+``strong growth,'' ``robust growth,'' ``rapid growth,'' and
+``demand exceeds [supply].'' Dovish growth terms include ``weak
+growth,'' ``slower growth,'' ``modest growth,'' ``economic
+weakness,'' and ``contraction.'' Employment terms are primarily
+dovish (``high unemployment,'' ``rising unemployment,''
+``layoffs,'' ``labor market slack''), reflecting that employment
+weakness typically supports easing, while employment strength is
+captured indirectly through growth and wage terms (``hiring,''
+``rising wages''). This asymmetry reflects the FOMC's dual mandate;
+ECB communications use fewer employment-specific terms, consistent
+with the single mandate focused on price stability
+(Section~\ref{sec:inst_ecb_mandate}).
+
+The fourth category, \textbf{residual}, collects policy stance and
+commitment language (``sufficiently restrictive,'' ``tightening,''
+``easing,'' ``accommodation''), risk assessment vocabulary
+(``upside risks'' vs ``downside risks,'' ``tilted to the
+downside''), and crisis and unconventional policy language
+(``turmoil,'' ``recession,'' ``zero lower bound,'' ``for an
+extended period,'' ``fragmentation''). Forward-looking commitment
+language (``will respond,'' ``determined to return,'' ``stand
+ready'') signals future policy intentions, connecting to the
+Odyssean forward guidance concept of \citet{campbell2012}.
+
+% --------------------------------------------------------------------------
+% Fig 5.2 — Dictionary architecture  [redesigned, formula-corrected]
+% --------------------------------------------------------------------------
+\begin{figure}[htbp]
+\centering
+\begin{tikzpicture}[
+  every node/.style={font=\footnotesize, align=center},
+  rootbox/.style={rectangle, draw=black, thick, minimum height=0.85cm,
+                  minimum width=4.5cm, rounded corners=4pt, fill=gray!12},
+  dirbox/.style={rectangle, draw=black, thick, minimum height=0.75cm,
+                 minimum width=3.0cm, rounded corners=3pt, fill=gray!6},
+  catbox/.style={rectangle, draw=black, minimum height=1.0cm,
+                 minimum width=1.8cm, fill=white, font=\scriptsize,
+                 inner sep=3pt, rounded corners=2pt},
+  aggbox/.style={rectangle, draw=black, thick, minimum height=2.0cm,
+                 minimum width=13.0cm, fill=gray!6, align=left,
+                 text width=12.5cm, font=\scriptsize, inner sep=6pt,
+                 rounded corners=2pt},
+  arrow/.style={->, thick, >=stealth}
+]
+  \node[rootbox] (root) at (0, 5.5) {Dictionary (288 raw terms)};
+  \node[dirbox] (haw) at (-3.8, 4.0) {\textbf{Hawkish} (143)};
+  \node[dirbox] (dov) at ( 3.8, 4.0) {\textbf{Dovish} (145)};
+  \node[catbox] (h1) at (-6.2, 2.2) {Policy\\\textbf{53}};
+  \node[catbox] (h2) at (-4.4, 2.2) {Inflation\\\textbf{47}};
+  \node[catbox] (h3) at (-2.6, 2.2) {Employ.\\\textbf{28}};
+  \node[catbox] (h4) at (-1.0, 2.2) {Residual\\\textbf{15}};
+  \node[catbox] (d1) at ( 1.0, 2.2) {Policy\\\textbf{57}};
+  \node[catbox] (d2) at ( 2.8, 2.2) {Inflation\\\textbf{32}};
+  \node[catbox] (d3) at ( 4.6, 2.2) {Employ.\\\textbf{25}};
+  \node[catbox] (d4) at ( 6.2, 2.2) {Residual\\\textbf{31}};
+  \draw[arrow] (root) -- (haw);
+  \draw[arrow] (root) -- (dov);
+  \foreach \cat in {h1, h2, h3, h4} \draw[arrow] (haw) -- (\cat);
+  \foreach \cat in {d1, d2, d3, d4} \draw[arrow] (dov) -- (\cat);
+  \node[aggbox] at (0, 0.0)
+    {\textbf{Dual-mandate aggregation.} Per-category:
+     $\text{score}^c_i = (H^c_i - D^c_i)/(H^c_i + D^c_i + \alpha)
+     \in [-1,+1]$, $\alpha=10$.\\[2pt]
+     Aggregates \textbf{pool counts} across categories before
+     applying the formula:\\[2pt]
+     \quad $\econscore_i =
+     (H^I_i{+}H^E_i{+}H^R_i - D^I_i{-}D^E_i{-}D^R_i)\;/\;
+     (H^I_i{+}H^E_i{+}H^R_i + D^I_i{+}D^E_i{+}D^R_i + \alpha)$
+     \hfill (economic-conditions language)\\
+     \quad $\netscore_i =
+     (\sum_c H^c_i - \sum_c D^c_i)\;/\;
+     (\sum_c H^c_i + \sum_c D^c_i + \alpha)$
+     \hfill (full hawk-minus-dove)};
+\end{tikzpicture}
+\caption[Dictionary architecture]{Dictionary architecture. The 288
+raw terms split by direction (143 hawkish, 145 dovish), then
+across four semantic categories. The lower panel defines the
+dual-mandate aggregation: the four category scores enter
+individually (Spec~C), as a policy/economic split (Spec~B), or
+pooled into $\netscore{}$ (Spec~A). Aggregate scores pool hawkish
+and dovish counts across categories before applying the Laplace-smoothed
+$(H{-}D)/(H{+}D{+}\alpha)$ formula, ensuring they remain bounded in
+$[-1,+1]$.}
+\label{fig:dict_arch}
+\end{figure}
+
+\begin{table}[htbp]
+\centering
+\caption{Dictionary term counts by category, direction, and n-gram type}
+\label{tab:dict_counts}
+\begin{threeparttable}
+\begin{tabular}{lrrrr}
+\toprule
+Category    & Hawkish & Dovish & Total \\
+\midrule
+Policy      & 53  & 57 & 110 \\
+Inflation   & 47  & 32 & 79  \\
+Employment  & 28  & 25 & 53  \\
+Residual    & 15  & 31 & 46  \\
+\midrule
+\textbf{Total} & \textbf{143} & \textbf{145} & \textbf{288} \\
+\bottomrule
+\end{tabular}
+\begin{tablenotes}\footnotesize
+  \item[] Counts are raw phrase entries before stemming. After
+    Porter stemming and deduplication, 282 unique bigram/trigram
+    terms remain. Version~34 of the dictionary; eight entries with
+    fewer than three corpus-wide matches were pruned from
+    version~33.
+\end{tablenotes}
+\end{threeparttable}
+\end{table}
+
+The dictionary contains \textbf{288 raw phrase entries} (143
+hawkish, 145~dovish), which reduce to 282 unique stemmed
+bigram/trigram terms after Porter stemming and deduplication. The
+hawkish and dovish vocabularies are approximately balanced. The
+Policy category is the largest sub-dictionary (110~terms combined),
+followed by Inflation (79~terms), Employment (53~terms), and
+Residual (46~terms), matching the order in which these themes
+appear in central bank communications. All entries are bigrams or
+trigrams; single-word entries that resulted from stop-word removal
+were dropped because isolated stems carry insufficient directional
+signal in monetary policy text.
+
+\Cref{fig:dict_wordcloud} provides a visual summary of the
+dictionary vocabulary. Term size reflects the frequency of matches
+across the full 884-document corpus; colour distinguishes hawkish
+from dovish direction. The four panels correspond to the semantic
+categories defined above. The dominance of multi-word expressions
+is immediately visible: the largest terms in every panel are bigrams
+and trigrams rather than isolated words, consistent with the design
+rationale for phrasal matching.
+
+% --------------------------------------------------------------------------
+% Fig 5.6 — Dictionary word cloud by semantic category
+% Generated by: scripts/fig_dict_wordcloud.R
+% --------------------------------------------------------------------------
+\begin{figure}[htbp]
+  \centering
+  \includegraphics[width=\textwidth]{dict_wordcloud_panel.png}
+  \caption[Dictionary term frequency by semantic category]{Dictionary
+    terms visualised by corpus match frequency. Each panel shows one
+    semantic category; term size is proportional to the number of
+    matches across all 884 documents. Dark grey terms are hawkish;
+    light grey terms are dovish. Only terms with $\geq 3$ total
+    matches are shown to avoid clutter.}
+  \label{fig:dict_wordcloud}
+\end{figure}
+
+
+\subsection{Scoring Formula and Classification}
+\label{sec:meth_scoring}
+\label{sec:meth_dict_stemming}
+\label{sec:meth_dict_ngrams}
+\label{sec:meth_threshold}
+
+All text (both dictionary terms and document content) undergoes
+Porter stemming \citep{porter1980} using the \texttt{SnowballC}
+package. The Porter algorithm applies a cascade of suffix-stripping
+rules that reduce inflected forms to a common root (e.g.,
+``raises'' $\to$ ``rais,'' ``tightening'' $\to$ ``tighten,''
+``committed'' $\to$ ``commit''). This conflation ensures that the
+dictionary matches all morphological variants of each term without
+requiring exhaustive enumeration.
+
+Prior to scoring, a custom stop-word list of 44 non-directional
+function words is removed from the text. The list comprises
+articles (\emph{a, an, the}), copula and auxiliary verbs
+(\emph{is, are, was, were, be, been, has, have, do, does, did}),
+pronouns (\emph{it, its, our, their, we, they, I, me, my, he, she,
+him, her, his}), and safe prepositions and connectors (\emph{of, to,
+at, by, with, on, in, for, and, or, but, that, which}). Crucially,
+directional words such as \emph{above}, \emph{below}, \emph{further},
+\emph{more}, \emph{not}, and \emph{still} are \textbf{deliberately
+retained} because they form essential components of stance-bearing
+bigrams (e.g., ``above target,'' ``further tightening,'' ``not
+raise''). The dictionary phrases are written with these same stop
+words already stripped, ensuring alignment between dictionary entries
+and text n-grams after identical stop-word removal.
+
+Each document~$i$ is scored at the level of the four semantic
+categories. For category $c \in \{P,I,E,R\}$ (Policy, Inflation,
+Employment, Residual), let $H^c_i$ count hawkish matches in
+category~$c$ across all n-gram types (bigrams, trigrams), and
+$D^c_i$ the analogous dovish count. The \textbf{category score}
+applies a Laplace-smoothed normalisation inspired by
+\citet{gorodnichenko2023}:
+%
+\begin{equation}
+\label{eq:catscore}
+\text{score}^c_i \;=\; \frac{H^c_i - D^c_i}{H^c_i + D^c_i + \alpha},
+  \qquad c \in \{P,I,E,R\},
+\end{equation}
+%
+where $\alpha = 10$ is a Laplace smoothing constant. The smoothing
+serves two purposes: it shrinks scores toward zero for documents
+with few directional matches, preventing a single match from
+producing an extreme score, and it avoids division by zero when
+$H^c_i + D^c_i = 0$. A document must accumulate approximately
+$\alpha$ directional matches before the score begins to approach
+$\pm 1$. Without smoothing, a document with a single hawkish match
+and no dovish matches would receive the maximum score of $+1$
+despite the weak evidence; with $\alpha = 10$, the same document
+receives $1/11 \approx 0.09$. The smoothed score remains bounded in
+$[-1,+1]$ and is invariant to document length, making scores
+comparable across the substantial length differences between
+statements (300--800 words) and press conference transcripts
+(3{,}000--6{,}000 words).
+
+The four category scores can enter the regression analysis
+individually under the dual-mandate decomposition
+(\Cref{sec:meth_dm_decomposition}). Two aggregate measures are
+also constructed. The aggregates \textbf{pool hawkish and dovish
+counts} across categories before applying the smoothed formula,
+rather than summing category scores (which could exceed $[-1,+1]$):
+%
+\begin{align}
+\econscore_i &\;=\;
+   \frac{(H^I_i + H^E_i + H^R_i) - (D^I_i + D^E_i + D^R_i)}
+        {(H^I_i + H^E_i + H^R_i) + (D^I_i + D^E_i + D^R_i) + \alpha},
+   \label{eq:econscore}\\[4pt]
+\netscore_i &\;=\;
+   \frac{\sum_c H^c_i - \sum_c D^c_i}
+        {\sum_c H^c_i + \sum_c D^c_i + \alpha}
+   \;=\; \frac{H_i - D_i}{H_i + D_i + \alpha},
+   \label{eq:netscore}
+\end{align}
+%
+where $H_i = \sum_c H^c_i$ and $D_i = \sum_c D^c_i$ are the total
+hawkish and dovish counts. The denominator normalises by total
+directional content plus the smoothing constant rather than by
+document length: a document with many hawkish matches and few dovish
+matches produces a score approaching $+1$ as directional content
+grows. Positive values indicate net hawkish tone; negative values
+indicate net dovish tone; values near zero indicate balanced or
+neutral communication.
+
+For the agreement analysis and label-based comparisons, the
+continuous score is discretised using a symmetric $\pm 0.05$
+neutral band:
+%
+\begin{equation}
+\label{eq:classification}
+\text{label}_i =
+\begin{cases}
+\text{\textsc{hawkish}} & \text{if } \netscore_i > +0.05 \\
+\text{\textsc{dovish}}  & \text{if } \netscore_i < -0.05 \\
+\text{\textsc{neutral}} & \text{otherwise}
+\end{cases}
+\end{equation}
+%
+The $\pm 0.05$ threshold defines a narrow symmetric neutral band.
+Given the Laplace smoothing, a score of $0.05$ requires a modest
+imbalance between hawkish and dovish counts (e.g., roughly 11
+hawkish versus 10 dovish, depending on total matches). Documents
+with near-balanced directional content are classified as neutral
+rather than forcing a directional label onto noisy measurements.
+For the regression analysis, the continuous \netscore{} is used
+directly, and the threshold plays no role.
+
+\Cref{fig:scoring_example} works through these equations on a
+representative excerpt to show how the abstract formulae translate
+into a concrete score and label.
+
+% --------------------------------------------------------------------------
+% Fig 5.3 — Worked example  [redesigned, formula-corrected]
+% --------------------------------------------------------------------------
+\begin{figure}[htbp]
+\centering
+\begin{tikzpicture}[
+  every node/.style={font=\footnotesize, align=left},
+  textbox/.style={rectangle, draw=black, thick, minimum width=13.0cm,
+                  inner sep=8pt, rounded corners=3pt, fill=gray!6,
+                  text width=12.3cm},
+  compbox/.style={rectangle, draw=black, thick, minimum width=13.0cm,
+                  inner sep=8pt, rounded corners=3pt, fill=gray!10,
+                  text width=12.3cm},
+  arrow/.style={->, thick, >=stealth, shorten <=2pt, shorten >=2pt}
+]
+  % Input text with inline annotations
+  \node[textbox] (txt) at (0, 6.0)
+    {\textbf{Input} \quad (stylised FOMC-style excerpt)\\[4pt]
+     \itshape ``The Committee judges that
+     \textbf{ongoing increases}\textsuperscript{\,\textrm{\scriptsize P}}
+     in the target range will be appropriate.
+     \textbf{Inflation pressures}\textsuperscript{\,\textrm{\scriptsize I}}
+     remain elevated, and the labor market continues to be
+     \textbf{robust}\textsuperscript{\,\textrm{\scriptsize E}}.
+     The Committee is
+     \textbf{strongly committed}\textsuperscript{\,\textrm{\scriptsize P}}
+     to returning inflation to its 2~percent objective,
+     though
+     \textbf{downside risks}\textsuperscript{\,\textrm{\scriptsize R}}
+     to the outlook persist.''
+     \rmfamily\\[4pt]
+     Bold $=$ dictionary match.\quad
+     Superscripts: P\,$=$\,Policy,
+     I\,$=$\,Inflation,
+     E\,$=$\,Employment,
+     R\,$=$\,Residual.\quad
+     Hawkish: 4.\; Dovish: 1.};
+
+  % Computation summary
+  \node[compbox] (comp) at (0, 0.8)
+    {\textbf{Score computation}
+     (Eqs.~\ref{eq:catscore}--\ref{eq:netscore})\\[4pt]
+     \begin{tabular}{@{}lllll@{}}
+     \toprule
+     & Policy & Inflation & Employment & Residual \\
+     \midrule
+     Hawkish ($H^c_i$) & 2 & 1 & 1 & 0 \\
+     Dovish ($D^c_i$)  & 0 & 0 & 0 & 1 \\
+     $\text{score}^c_i = \frac{H^c-D^c}{H^c+D^c+\alpha}$
+       & $2/12 = 0.17$
+       & $1/11 = 0.09$
+       & $1/11 = 0.09$
+       & $-1/11 = -0.09$ \\
+     \bottomrule
+     \end{tabular}\\[6pt]
+     $\econscore_i = (1{+}1{+}0 - 0{-}0{-}1)/(1{+}1{+}0 + 0{+}0{+}1 + 10)
+     = 1/13 = 0.08$.\qquad
+     $\netscore_i = (4-1)/(4+1+10) = \mathbf{0.20}$.\qquad
+     $> +0.05 \;\Rightarrow\;$ \textbf{\textsc{hawkish}}.};
+
+  \draw[arrow] (txt) -- (comp);
+\end{tikzpicture}
+\caption[Worked example: text-to-score pipeline]{Worked example
+applying the scoring formula to a stylised FOMC-style excerpt.
+Matched terms are shown in bold with superscript category labels.
+The category scores use $(H^c{-}D^c)/(H^c{+}D^c{+}\alpha)$ per category;
+the aggregate $\netscore$ pools all hawkish and dovish counts before
+dividing. The $\pm 0.05$ classification threshold assigns a
+\textsc{hawkish} label. Note that $\netscore \neq \sum_c
+\text{score}^c$: the pooled-count aggregation preserves the $[-1,1]$
+bound.}
+\label{fig:scoring_example}
+\end{figure}
+
+
+\subsection{Forward/Backward Sentence Decomposition}
+\label{sec:meth_fwd_bwd}
+
+To test whether forward-looking and backward-looking language carry
+differential market signals, each document is split at the sentence
+level prior to scoring. Sentence boundaries are detected by
+splitting on terminal punctuation followed by whitespace.
+
+A sentence is classified as \emph{forward-looking} if it contains
+at least one match to a set of 30+ regular expression patterns
+representing futurity, conditionality, commitment, or
+data-dependence. These patterns fall into four groups, each
+grounded in the forward guidance literature.
+\emph{Futurity markers} (``will,'' ``expected,'' ``anticipat*,''
+``forthcoming,'' ``future,'' ``prospect,'' ``outlook'') indicate
+that the sentence describes expected rather than current conditions.
+\emph{Commitment language} (``intend,'' ``commit to,'' ``prepared
+to,'' ``stand ready,'' ``at least until'') represents Odyssean
+forward guidance in the taxonomy of \citet{campbell2012}.
+\emph{Projection language} (``project,'' ``forecast,'' ``foresee,''
+``envisage,'' ``on track to,'' ``trajectory'') represents Delphic
+forward guidance conveying the central bank's forecast.
+\emph{Conditionality and data-dependence markers} (``data
+dependent,'' ``meeting by meeting,'' ``conditional,'' ``contingent,''
+``if warranted,'' ``remains to be seen'') tie future actions to
+incoming data, characteristic of recent FOMC and ECB communication.
+
+\Cref{fig:fwbw_taxonomy} presents these four groups together with
+their mapping to the \citet{campbell2012} typology.
+
+% --------------------------------------------------------------------------
+% Fig 5.4 — Forward/backward taxonomy  [redesigned: table format]
+% --------------------------------------------------------------------------
+\begin{figure}[htbp]
+\centering
+\begin{tikzpicture}[
+  every node/.style={font=\footnotesize, align=center}
+]
+  % Top rule box
+  \node[rectangle, draw=black, thick, fill=gray!10,
+        minimum width=13.0cm, minimum height=0.8cm,
+        rounded corners=3pt, inner sep=4pt]
+    at (0, 5.7)
+    {\textbf{Forward-looking}: sentence matches $\geq 1$ marker
+     from any group below};
+
+  % Column headers
+  \node[rectangle, draw=black, fill=gray!6,
+        minimum width=3.0cm, minimum height=0.7cm, inner sep=3pt]
+    at (-4.8, 4.5) {\textbf{Futurity}};
+  \node[rectangle, draw=black, fill=gray!6,
+        minimum width=3.0cm, minimum height=0.7cm, inner sep=3pt]
+    at (-1.6, 4.5) {\textbf{Commitment}};
+  \node[rectangle, draw=black, fill=gray!6,
+        minimum width=3.0cm, minimum height=0.7cm, inner sep=3pt]
+    at (1.6, 4.5) {\textbf{Projection}};
+  \node[rectangle, draw=black, fill=gray!6,
+        minimum width=3.0cm, minimum height=0.7cm, inner sep=3pt]
+    at (4.8, 4.5) {\textbf{Conditionality}};
+
+  % Keyword columns
+  \node[rectangle, draw=black, fill=white,
+        minimum width=3.0cm, minimum height=2.4cm,
+        inner sep=3pt, font=\scriptsize, text width=2.6cm,
+        align=center] at (-4.8, 2.7)
+    {``will''\\``expected''\\``anticipat*''\\``prospect''\\``outlook''};
+  \node[rectangle, draw=black, fill=white,
+        minimum width=3.0cm, minimum height=2.4cm,
+        inner sep=3pt, font=\scriptsize, text width=2.6cm,
+        align=center] at (-1.6, 2.7)
+    {``intend''\\``commit to''\\``stand ready''\\``prepared to''\\``at least until''};
+  \node[rectangle, draw=black, fill=white,
+        minimum width=3.0cm, minimum height=2.4cm,
+        inner sep=3pt, font=\scriptsize, text width=2.6cm,
+        align=center] at (1.6, 2.7)
+    {``forecast''\\``envisage''\\``foresee''\\``on track to''\\``trajectory''};
+  \node[rectangle, draw=black, fill=white,
+        minimum width=3.0cm, minimum height=2.4cm,
+        inner sep=3pt, font=\scriptsize, text width=2.6cm,
+        align=center] at (4.8, 2.7)
+    {``data dependent''\\``meeting by\\meeting''\\``conditional''\\``if warranted''\\``contingent''};
+
+  % Campbell et al. mapping row
+  \node[font=\scriptsize\itshape, text=black!60] at (-4.8, 1.15)
+    {Delphic or Odyssean};
+  \node[font=\scriptsize\itshape, text=black!60] at (-1.6, 1.15)
+    {Odyssean};
+  \node[font=\scriptsize\itshape, text=black!60] at (1.6, 1.15)
+    {Delphic};
+  \node[font=\scriptsize\itshape, text=black!60] at (4.8, 1.15)
+    {Delphic or Odyssean};
+
+  % Bottom else-case box
+  \node[rectangle, draw=black, thick, fill=gray!10,
+        minimum width=13.0cm, minimum height=0.8cm,
+        rounded corners=3pt, inner sep=4pt]
+    at (0, 0.15)
+    {\textbf{Backward-looking / current assessment}: no markers
+     matched};
+\end{tikzpicture}
+\caption[Forward-looking sentence taxonomy]{Forward-looking sentence
+classification. A sentence is classified as forward-looking if it
+matches at least one marker from any of the four groups; otherwise
+it is backward-looking. The italic labels map each group to the
+\citet{campbell2012} forward guidance typology. The decomposition
+produces $\netscore^{\text{fwd}}_i$ and $\netscore^{\text{curr}}_i$.}
+\label{fig:fwbw_taxonomy}
+\end{figure}
+
+All remaining sentences are classified as \emph{backward-looking}
+or \emph{current-assessment}. Each subset is scored independently
+using Equation~\eqref{eq:netscore}, producing
+$\netscore^{\text{fwd}}_i$ and $\netscore^{\text{curr}}_i$.
+
+This decomposition provides a textual analogue to the structural
+decomposition of \citet{gurkaynak2005}: if $\netscore^{\text{fwd}}$
+captures forward guidance content while $\netscore^{\text{curr}}$
+captures the assessment of current conditions, then finding
+$|\beta_{\text{fwd}}| > |\beta_{\text{curr}}|$ in the market
+regressions would be consistent with the path factor dominating
+the target factor.
+
+
+% ══════════════════════════════════════════════════════════════════════════════
+\section{Random Forest Classifier}
+\label{sec:meth_rf}
+% ══════════════════════════════════════════════════════════════════════════════
+
+\subsection{Pipeline Design and Feature Engineering}
+\label{sec:meth_rf_design}
+\label{sec:meth_rf_tfidf}
+
+As a data-driven complement to the hand-crafted dictionary, a
+Random Forest classifier \citep{breiman2001} is trained to predict
+the direction of the interest rate decision from the textual
+content of each document. The target variable is:
+%
+\begin{equation}
+\label{eq:rf_target}
+y_i = \text{sign}(\bpschange_i) \in
+  \{\text{cut},\; \text{hold},\; \text{hike}\}
+\end{equation}
+
+This is a \emph{same-meeting} (descriptive) design: the classifier
+predicts the decision that accompanies each document, not a future
+decision. Separate models are trained for each of the four corpora,
+allowing each classifier to learn institution-specific and
+document-type-specific language patterns. Documents with missing
+rate decisions, missing text, or text shorter than 100 characters
+are excluded. All documents are sorted chronologically before
+training. The random seed is set to 42.
+
+The full pipeline is summarised in \Cref{fig:rf_pipeline}; the
+remainder of this section details each stage.
+
+% --------------------------------------------------------------------------
+% Fig 5.5 — RF pipeline  [redesigned: B&W with stage-group braces]
+% --------------------------------------------------------------------------
+\begin{figure}[htbp]
+\centering
+\begin{tikzpicture}[
+  every node/.style={font=\footnotesize, align=center},
+  pipeblock/.style={rectangle, draw=black, thick, minimum height=0.75cm,
+                    minimum width=9.0cm, fill=white, inner sep=4pt,
+                    rounded corners=3pt},
+  inputblock/.style={pipeblock, fill=gray!12},
+  outputblock/.style={pipeblock, fill=gray!12},
+  groupbrace/.style={decorate, decoration={brace, amplitude=6pt,
+                     mirror, raise=4pt}, thick},
+  grouplabel/.style={font=\scriptsize\itshape, anchor=west},
+  arrow/.style={->, thick, >=stealth, shorten <=2pt, shorten >=2pt}
+]
+  \node[inputblock] (in) at (0, 9.5) {Cleaned text (per corpus)};
+  \node[pipeblock] (pp) at (0, 8.2)
+    {\textbf{Preprocessing}\\\scriptsize bigram tokenisation
+     $\cdot$ stop-word filter $\cdot$ Porter stem
+     $\cdot$ blocklist of 94 bigrams};
+  \node[pipeblock] (df) at (0, 6.9)
+    {Document-frequency filter ($\geq 3$ docs)
+     $+$ top 2{,}000 by doc-freq};
+  \node[pipeblock] (tf) at (0, 5.6)
+    {TF-IDF weighting $\;\Rightarrow\;$
+     $\mathbf{X}\in\mathbb{R}^{n\times p}$};
+  \node[pipeblock] (la) at (0, 4.3)
+    {Multinomial Lasso pre-screen ($\lambda_{1\text{se}}$)};
+  \node[pipeblock] (bb) at (0, 3.0)
+    {\textbf{Class-balanced bootstrap Random Forest}\\
+     \scriptsize $B=100$ trees, inverse-frequency case weights};
+  \node[pipeblock] (oo) at (0, 1.7)
+    {OOB class probabilities:
+     $\hat{P}_i(\text{cut}),\;\hat{P}_i(\text{hold}),\;
+      \hat{P}_i(\text{hike})$};
+  \node[outputblock] (out) at (0, 0.4)
+    {\rfscore{} $= \hat{P}(\text{hike}) - \hat{P}(\text{cut})$
+     \qquad Label $= \arg\max_k \hat{P}(k)$};
+  \draw[arrow] (in) -- (pp);
+  \draw[arrow] (pp) -- (df);
+  \draw[arrow] (df) -- (tf);
+  \draw[arrow] (tf) -- (la);
+  \draw[arrow] (la) -- (bb);
+  \draw[arrow] (bb) -- (oo);
+  \draw[arrow] (oo) -- (out);
+  % Stage group braces
+  \draw[groupbrace] (5.2, 8.6) -- (5.2, 5.2);
+  \node[grouplabel] at (5.7, 6.9) {Feature\\engineering};
+  \draw[groupbrace] (5.2, 4.7) -- (5.2, 2.6);
+  \node[grouplabel] at (5.7, 3.65) {Model\\training};
+  \draw[groupbrace] (5.2, 2.1) -- (5.2, 0.0);
+  \node[grouplabel] at (5.7, 1.05) {Score\\output};
+\end{tikzpicture}
+\caption[Random Forest pipeline]{Random Forest classifier pipeline.
+Each corpus is processed independently. Stage groupings are shown
+on the right: the feature engineering block reduces the raw bigram
+vocabulary through filtering and TF-IDF weighting; the model
+training block applies Lasso pre-screening and fits the
+class-balanced forest; the score output block converts OOB
+probabilities into a continuous score and discrete label.}
+\label{fig:rf_pipeline}
+\end{figure}
+
+The feature matrix is constructed through a six-step pipeline:
+
+\begin{enumerate}
+  \item \textbf{Tokenisation.} Each document is lowercased and
+    tokenised into bigrams. Unigrams are excluded based on
+    preliminary experiments showing that bigrams capture
+    stance-relevant multi-word expressions that isolated unigrams
+    miss, consistent with the importance of phrasal expressions
+    documented in Section~\ref{sec:meth_dict_ngrams}.
+
+  \item \textbf{Stop-word filtering.} Bigrams where \emph{either}
+    word appears in the stop-word list are removed.
+
+  \item \textbf{Stemming.} Both words in each surviving bigram are
+    Porter-stemmed.
+
+  \item \textbf{Blocklist filtering.} 94 stemmed bigrams are removed
+    to prevent identity leakage (see below).
+
+  \item \textbf{Document frequency filter.} Bigrams appearing in
+    fewer than $\text{MIN\_DOC\_FREQ} = 3$ documents are removed.
+    The remaining are ranked by document frequency and the top
+    $\text{MAX\_FEATURES} = 2{,}000$ retained.
+
+  \item \textbf{TF-IDF weighting.} Term frequency--inverse document
+    frequency weighting produces a document-term matrix
+    $\mathbf{X} \in \mathbb{R}^{n \times p}$ where
+    $p \leq 2{,}000$.
+\end{enumerate}
+
+
+\subsection{Blocklist, Class Balancing, and Feature Selection}
+\label{sec:meth_rf_blocklist}
+\label{sec:meth_rf_balanced}
+\label{sec:meth_lasso}
+
+An underappreciated problem in text classification of institutional
+documents is \emph{identity leakage}: features that predict the
+outcome through the identity of the speaker or the historical era
+rather than through stance-bearing language. Feature-importance
+inspection of earlier model versions revealed three categories of
+leaking bigrams:
+
+\emph{Institutional boilerplate}: Regional Federal Reserve Bank
+name pairs (``cleveland richmond,'' ``kansa citi'') from the
+discount-rate voting roll call, and ECB header/footer phrases
+(``press confer,'' ``reproduct permit'').
+
+\emph{Personal names}: FOMC Chairs (``alan greenspan,'' ``jerom
+powel'') and ECB Presidents (``mario draghi,'' ``christin lagard'')
+were classified as hawkish or dovish because each served during
+specific rate regimes, not because their names carry stance content.
+
+\emph{Addresses and era markers}: ``washington dc'' and ``constitut
+avenu'' (the Federal Reserve's address) appeared in boilerplate
+common during certain periods. ``centuri low'' (``century lows'')
+appeared only during the low-rate era.
+
+The blocklist removes 94 stemmed bigrams (51 institutional
+boilerplate, 43 names/places/era markers) to ensure that the
+classifier relies on genuine stance-bearing language. The full
+list is reported in \Cref{app:blocklist}.
+
+``Hold'' decisions constitute 60--70\% of meetings. Without
+correction, the classifier would achieve high overall accuracy by
+defaulting to the majority class \citep{he2009}. The Random Forest
+is therefore trained as a \emph{weighted random forest} in the
+sense of \citet{chen2004}: each observation receives a case weight
+inversely proportional to its class frequency, so that observations
+from the rare cut and hike classes are oversampled in the bootstrap
+draws of each tree relative to hold observations. Specifically, an
+observation in class $k$ receives weight
+$w_i \propto 1/n_k$, normalised so $\sum_i w_i = n$. The weights
+enter ranger's bootstrap via the \texttt{case.weights} argument,
+producing trees that approximate equal class representation
+without the rigidity of strict undersampling. The forest comprises
+$B = 100$ trees per corpus.
+
+When the number of features (bigrams) approaches or exceeds the
+number of documents, overfitting becomes a concern. A multinomial
+logistic regression with $L_1$ penalty is fitted to select the most
+discriminative features \citep{tibshirani1996, friedman2010}:
+%
+\begin{equation}
+\label{eq:lasso}
+\hat{\boldsymbol{\beta}}^{\text{Lasso}} = \arg\min_{\boldsymbol{\beta}}
+  \left\{
+    -\ell(\boldsymbol{\beta}; \mathbf{X}, \mathbf{y})
+    + \lambda \sum_{j=1}^{p} \|\boldsymbol{\beta}_j\|_1
+  \right\}
+\end{equation}
+%
+The regularisation parameter is set to $\lambda_{\text{1se}}$ (the
+largest $\lambda$ within one standard error of the cross-validated
+minimum), favouring parsimony. If fewer than 5~features survive at
+$\lambda_{\text{1se}}$, $\lambda_{\min}$ is used. If the Lasso
+still selects fewer than 5~features at $\lambda_{\min}$, the
+pipeline falls back to the 200 most frequent bigrams in the
+training set, allowing the Random Forest to perform implicit
+feature selection through its splitting criterion. The selected
+features are the union of nonzero coefficients across all three
+classes, and the class-balanced Random Forest is trained on only
+these features.
+
+Model performance is assessed via OOB accuracy, balanced accuracy
+(Equation~\ref{eq:balanced_acc}), and chronological holdout
+accuracy (80/20 split by date):
+%
+\begin{equation}
+\label{eq:balanced_acc}
+\text{Balanced Accuracy} = \frac{1}{K} \sum_{k=1}^{K}
+  \frac{\text{TP}_k}{\text{TP}_k + \text{FN}_k},
+  \qquad K=3.
+\end{equation}
+
+
+\subsection{Score Construction and Feature Importance}
+\label{sec:meth_rf_score}
+\label{sec:meth_rf_importance}
+\label{sec:meth_model_selection}
+
+OOB class probability estimates are used to construct a continuous
+score analogous to \netscore{}:
+%
+\begin{equation}
+\label{eq:rfscore}
+\rfscore_i \;=\; \hat{P}_i(\text{hike}) - \hat{P}_i(\text{cut})
+\end{equation}
+%
+ranging from $-1$ (certain cut) to $+1$ (certain hike). The OOB
+probabilities provide an internally cross-validated estimate that
+avoids overfitting \citep{breiman2001}. The discrete label is:
+$\text{rf\_label}_i = \arg\max_k \hat{P}_i(k)$.
+
+Feature importance is measured by Mean Decrease in Gini impurity
+(MDG). Direction is assigned by comparing mean TF-IDF values across
+classes:
+%
+\begin{equation}
+\label{eq:direction}
+\text{direction}_j =
+  \overline{x}_{j|\text{hike}} - \overline{x}_{j|\text{cut}}
+\end{equation}
+%
+Positive direction indicates hawkish; negative indicates dovish.
+Top features ranked by $\text{MDG}_j \times |\text{direction}_j|$
+form a data-driven dictionary of stance-bearing bigrams.
+
+
+\subsection{Forecasting Variants and Expanding Window}
+\label{sec:meth_rf_rq2}
+
+The same-meeting Random Forest described above produces $\rfscore_i$
+for the RQ1 market-reaction analysis. For RQ2 (predicting future
+rate decisions and yield changes), additional Random Forests are
+trained using an expanding-window procedure that ensures strict
+temporal separation between training data and prediction targets.
+
+\paragraph{Forecast targets.}
+Four continuous targets are predicted for each corpus:
+\texttt{bps\_next} (rate decision at meeting $t{+}1$),
+\texttt{bps\_next2} (two meetings ahead),
+\texttt{y2\_next} (two-year yield change at $t{+}1$), and
+\texttt{y2\_next2} (two meetings ahead). Each target is paired with
+an inertia control: \texttt{bps\_curr} for the rate targets and
+\texttt{y2\_curr} for the yield targets.
+
+\paragraph{Expanding-window procedure.}
+At each meeting $t \geq t_{\min} = 30$, the pipeline: (i)~fits the
+TF-IDF vocabulary and inverse document frequency weights on
+documents $1, \dots, t{-}1$ only, freezing the training vocabulary;
+(ii)~transforms the test document at meeting~$t$ using the frozen
+vocabulary and IDF weights, ensuring no information from future
+documents leaks into the feature matrix; (iii)~optionally refits
+the Lasso feature selection on the training TF-IDF matrix (every
+$L = 4$ meetings; the most recently selected feature set is cached
+otherwise); (iv)~trains a fresh Random Forest regression on the
+Lasso-selected features of documents $1, \dots, t{-}1$; (v)~predicts
+the target for document~$t$ and records the prediction.
+
+The result, $\hat{y}^{\text{xw}}_t$, is a genuine out-of-sample
+forecast: at no point does the model that generated
+$\hat{y}^{\text{xw}}_t$ have access to data at or after meeting~$t$.
+The Lasso fallback described above also applies: if the Lasso
+returns fewer than 5 features, the top-200 training bigrams are
+used. Expanding-window $R^2$ and RMSE are computed on the pooled
+out-of-sample predictions and compared against the naive benchmark
+(predicting the training-set mean). The performance gap
+$R^2_{\text{OOB}} - R^2_{\text{xw}}$ is reported as a transparency
+premium, quantifying the degree to which full-sample OOB estimates
+overstate genuine forecasting power.
+
+
+% ══════════════════════════════════════════════════════════════════════════════
+\section{RoBERTa Sentence-Level Classifier}
+\label{sec:meth_bert}
+% ══════════════════════════════════════════════════════════════════════════════
+
+As a third scoring method, a fine-tuned RoBERTa classifier
+\citep{shah2023} is applied at the sentence level to every document
+in the corpus. Unlike the dictionary, which matches fixed n-gram
+patterns, and the Random Forest, which operates on document-level
+bigram TF-IDF features, the RoBERTa model processes each sentence
+in its full sequential context, capturing negation, qualification,
+and syntactic structure that bag-of-words methods cannot represent.
+
+\subsection{Model and Sentence-Level Classification}
+
+The model is the FOMC-RoBERTa classifier of \citet{shah2023},
+fine-tuned on approximately 10,000 manually annotated FOMC sentences
+and publicly available on HuggingFace
+(\texttt{gtfintechlab/FOMC-RoBERTa}). It classifies each sentence
+into three classes (hawkish, dovish, neutral) and outputs
+probability estimates $\hat{P}(\text{hawk})$,
+$\hat{P}(\text{dove})$, and $\hat{P}(\text{neutral})$ summing to
+one. The predicted label is assigned by argmax.
+
+Each document in the corpus is split into sentences, and every
+sentence is classified independently. The sentence-level
+predictions are stored alongside a binary \texttt{is\_forward}
+flag from the forward/backward decomposition
+(\Cref{sec:meth_fwd_bwd}), enabling separate aggregation over
+forward-looking and backward-looking sentences.
+
+\subsection{Document-Level Aggregation}
+
+Sentence-level predictions are aggregated to the document level
+using the same Laplace-smoothed formula as the dictionary. Let
+$n^H_i$ and $n^D_i$ denote the number of sentences in document~$i$
+classified as hawkish and dovish, respectively. The document-level
+score is:
+%
+\begin{equation}
+\label{eq:bertscore}
+\bertscore_i \;=\;
+  \frac{n^H_i - n^D_i}{n^H_i + n^D_i + \alpha},
+  \qquad \alpha = 10.
+\end{equation}
+%
+This produces a score bounded in $[-1,+1]$ with the same smoothing
+behaviour as \netscore{}: documents with few stance-bearing
+sentences are shrunk toward zero. The discrete label uses the same
+$\pm 0.05$ threshold as the dictionary
+(Equation~\ref{eq:classification}).
+
+A forward-only variant, $\bertscore^{\text{fwd}}_i$, is constructed
+by restricting the count to sentences where
+$\texttt{is\_forward} = \text{TRUE}$.
+
+\subsection{Expanding-Window RoBERTa Forecasts}
+
+The RoBERTa sentence-level classification is performed once on the
+full corpus (the model is not retrained). However, for the RQ2
+forecasting analysis, the \emph{regression layer} that maps
+$\bertscore_i$ to a forecast target is fitted in an
+expanding-window design analogous to the Random Forest procedure.
+At each meeting $t \geq 30$, an OLS regression of the form
+$\text{target}_t = \alpha + \beta \cdot \bertscore_t
+  + \gamma \cdot \text{control}_t + \varepsilon_t$
+is estimated on documents $1, \dots, t{-}1$, and the fitted
+coefficients are used to predict the target at meeting~$t$. The
+same four targets and controls are used as in the Random Forest
+expanding-window procedure.
+
+
+% ══════════════════════════════════════════════════════════════════════════════
+\section{Econometric Framework}
+\label{sec:meth_regressions}
+% ══════════════════════════════════════════════════════════════════════════════
+
+This section specifies the regression models, the agreement
+analysis, and the three-way method comparison framework. All
+regressions use OLS with HC1 robust standard errors
+\citep{white1980} unless otherwise noted.
+\Cref{tab:reg_specs} at the end of this section consolidates all
+specifications into a single reference table.
+
+
+\subsection{Identification Strategy}
+\label{sec:meth_identification}
+
+The identifying assumption is that, within the narrow event window,
+the central bank announcement is the dominant source of news. The
+controlled specification isolates the communication effect by
+including the target rate surprise (MP1) as a control, so that the
+coefficient on \netscore{} captures the residual communication
+effect, corresponding to the path factor of \citet{gurkaynak2005}.
+
+The medium-term rate surprise (MP2) was included as a control in
+earlier versions but removed because it is an \emph{outcome} of the
+communication: including it would absorb the forward guidance effect
+that \netscore{} is intended to capture. All regressions use OLS
+with HC1 robust standard errors \citep{white1980}.
+
+
+\subsection{RQ1: Market Reaction Specifications}
+\label{sec:meth_rq1}
+\label{sec:meth_expected_signs}
+\label{sec:meth_fwd_reg}
+\label{sec:meth_dm_decomposition}
+\label{sec:meth_rf_reg}
+\label{sec:meth_horserace}
+\label{sec:meth_fe}
+
+The baseline RQ1 regressions estimate the association between
+textual tone and same-day market reactions:
+%
+\begin{align}
+\text{(Naive):}\quad
+Y_i &= \alpha + \beta \cdot \netscore_i + \varepsilon_i
+   \label{eq:naive}\\[2pt]
+\text{(Controlled):}\quad
+Y_i &= \alpha + \beta \cdot \netscore_i
+    + \gamma \cdot \text{MP1}_i + \varepsilon_i
+   \label{eq:controlled}
+\end{align}
+%
+Both are estimated separately for each corpus and each market
+outcome. For the ECB, MP1 is replaced by OIS\_MP1.
+
+\paragraph{Expected signs.}
+Under the standard monetary policy channel, hawkish tone increases
+discount rates, predicting: $\beta < 0$ for equities,
+$\beta < 0$ for EUR/USD (FOMC; dollar appreciation) but
+$\beta > 0$ for EUR/USD (ECB; euro appreciation), and $\beta > 0$
+for yields. The information effect \citep{nakamura2018} may produce
+$\beta \geq 0$ for equities if hawkish tone also signals economic
+strength. Yield predictions are unambiguous: $\beta > 0$ under both
+channels.
+
+\paragraph{Forward/backward decomposition.}
+\begin{equation}
+\label{eq:fwd_bwd}
+Y_i = \alpha
+  + \beta_1 \cdot \netscore^{\text{fwd}}_i
+  + \beta_2 \cdot \netscore^{\text{curr}}_i
+  + \gamma \cdot \text{MP1}_i + \varepsilon_i
+\end{equation}
+$|\beta_1| > |\beta_2|$ would indicate forward guidance dominance,
+consistent with \citet{gurkaynak2005} and \citet{swanson2021}.
+
+\paragraph{Dual-mandate decomposition.}
+A core institutional prediction (\Cref{sec:inst_fomc_mandate})
+is that the FOMC should react to both inflation and employment
+language, while the ECB should react more narrowly to inflation
+language. Three nested specifications test this:
+%
+\begin{align}
+\text{(Spec~A):}\quad
+Y_i &= \alpha + \beta \cdot \netscore_i
+   + \gamma \cdot \text{MP1}_i + \varepsilon_i,
+   \label{eq:dm_a}\\[2pt]
+\text{(Spec~B):}\quad
+Y_i &= \alpha
+   + \beta_P \cdot \text{score}^P_i
+   + \beta_E \cdot \econscore_i
+   + \gamma \cdot \text{MP1}_i + \varepsilon_i,
+   \label{eq:dm_b}\\[2pt]
+\text{(Spec~C):}\quad
+Y_i &= \alpha
+   + \beta_P \cdot \text{score}^P_i
+   + \beta_I \cdot \text{score}^I_i
+   + \beta_E \cdot \text{score}^E_i
+   + \beta_R \cdot \text{score}^R_i
+   + \gamma \cdot \text{MP1}_i + \varepsilon_i.
+   \label{eq:dm_c}
+\end{align}
+%
+Spec~A is the single-aggregate baseline (identical to the
+controlled regression of \Cref{eq:controlled}). Spec~B separates
+policy-action language ($\text{score}^P$) from economic-conditions
+language ($\econscore$), testing whether action and conditions
+carry distinct market signals. Spec~C disaggregates economic
+conditions into its three sub-components, allowing a direct test
+of dual-mandate asymmetry: the prediction is that $\beta_E$ is
+significant for FOMC outcomes but not for ECB outcomes, while
+$\beta_I$ is significant for both. The three specifications form a
+nested ladder, so the marginal $R^2$ gain from A to B identifies
+the additional explanatory power of the action--conditions split,
+and the further marginal $R^2$ from B to C identifies the value of
+resolving the mandate components separately. All three are
+estimated by OLS with HC1 robust standard errors and reported
+side-by-side for the four canonical outcomes per corpus (equity,
+FX, 2Y yield, 10Y yield) in \Cref{ch:results}.
+
+\paragraph{RF, RoBERTa, and horse-race regressions.}
+All RQ1 specifications are re-estimated with \rfscore{} and with
+\bertscore{} replacing \netscore{}:
+%
+\begin{align}
+Y_i &= \alpha + \beta \cdot \rfscore_i
+    + \gamma \cdot \text{MP1}_i + \varepsilon_i
+   \label{eq:rf_controlled}\\[2pt]
+Y_i &= \alpha + \beta \cdot \bertscore_i
+    + \gamma \cdot \text{MP1}_i + \varepsilon_i
+   \label{eq:bert_controlled}
+\end{align}
+%
+The horse-race specification includes all three scores:
+%
+\begin{equation}
+\label{eq:horserace}
+Y_i = \alpha
+  + \beta_1 \cdot \rfscore_i
+  + \beta_2 \cdot \netscore_i
+  + \beta_3 \cdot \bertscore_i
+  + \gamma \cdot \text{MP1}_i + \varepsilon_i
+\end{equation}
+%
+If all three coefficients are significant, the measures are
+complementary; if only a subset survives, the surviving measures
+subsume the others. This test is applied to equity, FX, and
+10-year yield outcomes for each corpus.
+
+\paragraph{Robustness: chair and era fixed effects.}
+The RQ1 and horse-race specifications are re-estimated with two
+sets of fixed effects to address omitted-variable concerns.
+Speaker identity may absorb persistent stylistic patterns
+(e.g., Trichet's coded language about ``strong vigilance''),
+while the macroeconomic regime may absorb period-specific
+relationships between communication and market reactions.
+
+For each outcome, three nested specifications are estimated:
+(A)~base specification (no fixed effects, identical to
+\Cref{eq:controlled}); (B)~$+$ chair fixed effects (FOMC:
+Greenspan, Bernanke, Yellen, Powell; ECB: Duisenberg, Trichet,
+Draghi, Lagarde, eight chairs total); (C)~$+$ chair $+$ era fixed
+effects, where era takes three levels: \emph{pre-GFC} (before
+15~September~2008), \emph{ZLB and QE} (15~September~2008 to
+31~December~2021), and \emph{post-ZLB} (from 1~January~2022).
+The era cutoffs mark the structural breaks most relevant to the
+textual analysis: the Lehman bankruptcy as the onset of the
+unconventional-policy era (\Cref{sec:inst_eras}) and the start of
+the post-COVID tightening cycle. Combining four chairs per bank
+with three eras yields up to seven non-empty fixed-effect cells per
+corpus, sufficient for identification while avoiding overfitting.
+All FE specifications are estimated by \texttt{fixest::feols} with
+heteroskedasticity-robust standard errors.
+
+
+\subsection{RQ2: Predicting Near-Term Rate Decisions and Yield Changes}
+\label{sec:meth_rq2}
+\label{sec:meth_oprobit}
+
+The second research question tests whether forward-looking text
+predicts near-term rate decisions beyond policy inertia. The
+analysis considers four forecast targets: the rate decision at the
+next meeting (\texttt{bps\_next}), two meetings ahead
+(\texttt{bps\_next2}), and the corresponding two-year yield changes
+(\texttt{y2\_next}, \texttt{y2\_next2}). For the dictionary-based
+regressions, three nested specifications progressively add controls
+(shown here for \texttt{bps\_next}; analogous specifications are
+estimated for each target):
+%
+\begin{align}
+\text{(A):}\quad
+\text{bps\_next}_i &= \alpha
+  + \beta_1 \netscore^{\text{fwd}}_i
+  + \beta_2 \netscore^{\text{curr}}_i
+  + \varepsilon_i \label{eq:rq2a} \\[2pt]
+\text{(B):}\quad
+\text{bps\_next}_i &= \alpha
+  + \beta_1 \netscore^{\text{fwd}}_i
+  + \beta_2 \netscore^{\text{curr}}_i
+  + \gamma_1 \bpschange_i
+  + \varepsilon_i \label{eq:rq2b} \\[2pt]
+\text{(C):}\quad
+\text{bps\_next}_i &= \alpha
+  + \beta_1 \netscore^{\text{fwd}}_i
+  + \beta_2 \netscore^{\text{curr}}_i
+  + \gamma_1 \bpschange_i
+  + \gamma_2 \text{bps\_lag1}_i
+  + \varepsilon_i \label{eq:rq2c}
+\end{align}
+%
+Specification~(B) controls for the empirical persistence of
+policy rates, whether interpreted as deliberate gradual
+adjustment by the central bank \citep{clarida2000} or as
+spurious inertia generated by persistent factors omitted from
+the standard policy rule \citep{rudebusch2006}. If $\beta_1$
+remains significant after controlling for the current decision,
+forward-looking text provides genuine signals about future
+intentions beyond mechanical persistence.
+
+As a robustness check, an ordered probit models the direction of
+the next decision:
+%
+\begin{equation}
+\Pr(\text{dir\_next}_i \leq k) =
+  \Phi\bigl(\alpha_k - \mathbf{x}_i' \boldsymbol{\beta}\bigr)
+\end{equation}
+%
+where $\text{dir\_next}_i = \text{sign}(\text{bps\_next}_i) \in
+\{-1, 0, +1\}$. This respects the natural ordering and may capture
+nonlinear threshold effects that linear models miss.
+
+
+\subsection{Agreement and Comparison Framework}
+\label{sec:meth_agreement}
+\label{sec:meth_comparison}
+
+Agreement between a tone label and the concurrent rate decision is
+defined as:
+%
+\begin{equation}
+\label{eq:agreement}
+\text{Agreement}_i =
+\begin{cases}
+1 & \text{if label} = \text{\textsc{hawkish}} \text{ and } \bpschange_i > 0 \\
+1 & \text{if label} = \text{\textsc{neutral}} \text{ and } \bpschange_i = 0 \\
+1 & \text{if label} = \text{\textsc{dovish}}  \text{ and } \bpschange_i < 0 \\
+0 & \text{otherwise}
+\end{cases}
+\end{equation}
+
+Agreement rates are computed per corpus and broken down by tone
+(hawkish/neutral/dovish separately), by FOMC Chair or ECB President,
+and by monetary policy era. The same framework applies to
+dictionary labels, RF labels, and RoBERTa labels.
+
+In addition, $3 \times 3$ confusion matrices are constructed for
+every pair of label sources: dictionary vs RF, dictionary vs
+RoBERTa, RF vs RoBERTa, and each method vs the rate decision sign
+and vs the monetary policy surprise sign (MP1/OIS\_MP1).
+
+The three-way method comparison is conducted along five dimensions:
+(i)~agreement rates with rate decisions, including era-level and
+speaker-level breakdowns; (ii)~score distributions, standardised
+(z-scored) within each corpus for shape comparison;
+(iii)~label cross-tabulation via the confusion matrices described
+above; (iv)~pairwise and joint correlations among the three scores;
+and (v)~horse-race regressions (Equation~\ref{eq:horserace}).
+Together, these assess whether the Random Forest and RoBERTa add
+value beyond the dictionary and whether the additional complexity
+is justified.
+
+
+% --------------------------------------------------------------------------
+% Regression specification reference table
+% --------------------------------------------------------------------------
+\begin{table}[htbp]
+\centering
+\caption{Summary of regression specifications}
+\label{tab:reg_specs}
+\begin{threeparttable}
+\begin{tabular}{llp{3.4cm}p{2.4cm}p{3.4cm}}
+\toprule
+Specification & Eq. & Score regressor(s) & Other controls & Purpose \\
+\midrule
+RQ1 Naive
+  & \eqref{eq:naive}
+  & \netscore
+  & --
+  & Bivariate baseline \\
+\addlinespace
+RQ1 Controlled
+  & \eqref{eq:controlled}
+  & \netscore
+  & MP1
+  & Main RQ1 estimate (= DM~Spec~A) \\
+\addlinespace
+DM Spec B
+  & \eqref{eq:dm_b}
+  & $\text{score}^P$, \econscore
+  & MP1
+  & Policy-action vs.\ economic-conditions \\
+\addlinespace
+DM Spec C
+  & \eqref{eq:dm_c}
+  & $\text{score}^P$, $\text{score}^I$, $\text{score}^E$, $\text{score}^R$
+  & MP1
+  & Tests dual-mandate asymmetry \\
+\addlinespace
+RQ1 FW/BW
+  & \eqref{eq:fwd_bwd}
+  & $\netscore^{\text{fwd}}$, $\netscore^{\text{curr}}$
+  & MP1
+  & Forward-guidance dominance test \\
+\addlinespace
+RQ2 (A)--(C)
+  & \eqref{eq:rq2a}--\eqref{eq:rq2c}
+  & $\netscore^{\text{fwd}}$, $\netscore^{\text{curr}}$
+  & -- / $\bpschange$ / $+$ lag1
+  & Next-decision prediction ladder \\
+\addlinespace
+Ordered probit
+  & --
+  & $\netscore^{\text{fwd}}$, $\netscore^{\text{curr}}$
+  & $\bpschange$, lag1
+  & Direction-only robustness \\
+\addlinespace
+RF (RQ1)
+  & \eqref{eq:rf_controlled}
+  & \rfscore
+  & MP1
+  & RQ1 with RF score \\
+\addlinespace
+BERT (RQ1)
+  & \eqref{eq:bert_controlled}
+  & \bertscore
+  & MP1
+  & RQ1 with RoBERTa score \\
+\addlinespace
+Horse race
+  & \eqref{eq:horserace}
+  & \rfscore, \netscore, \bertscore
+  & MP1
+  & Tests three-way complementarity \\
+\addlinespace
+RF XW (RQ2)
+  & --
+  & $\hat{y}^{\text{xw}}$
+  & bps\_curr / y2\_curr
+  & Out-of-sample RF forecast \\
+\addlinespace
+BERT XW (RQ2)
+  & --
+  & \bertscore
+  & bps\_curr / y2\_curr
+  & Out-of-sample BERT forecast \\
+\bottomrule
+\end{tabular}
+\begin{tablenotes}\footnotesize
+  \item[] Estimation: OLS with HC1 robust standard errors
+    \citep{white1980} except the ordered probit. All RQ1
+    specifications estimated per market outcome and corpus; for ECB,
+    MP1 replaced by OIS\_MP1. RQ2 targets include bps\_next,
+    bps\_next2, y2\_next, and y2\_next2.
+\end{tablenotes}
+\end{threeparttable}
+\end{table}

@@ -1,0 +1,33 @@
+method,corpus_long,target,target_clean,n,oos_r2,rmse,naive_rmse
+Random Forest,FOMC statements,bps_next,Rate t+1,204,0.304,20.0113,24.0473
+Random Forest,FOMC statements,bps_next2,Rate t+2,203,0.174,21.6256,23.855
+Random Forest,FOMC statements,y2_next,2Y yield t+1,204,-0.326,0.0608,0.0529
+Random Forest,FOMC statements,y2_next2,2Y yield t+2,203,-0.205,0.0524,0.0478
+Random Forest,FOMC press conferences,bps_next,Rate t+1,53,0.237,26.5008,30.6334
+Random Forest,FOMC press conferences,bps_next2,Rate t+2,59,0.148,27.1026,29.615
+Random Forest,FOMC press conferences,y2_next,2Y yield t+1,60,-0.207,0.0528,0.0485
+Random Forest,FOMC press conferences,y2_next2,2Y yield t+2,59,-0.132,0.0513,0.0486
+Random Forest,ECB statements,bps_next,Rate t+1,245,0.114,15.1838,16.1639
+Random Forest,ECB statements,bps_next2,Rate t+2,244,0.083,15.5534,16.2795
+Random Forest,ECB statements,y2_next,2Y yield t+1,209,-0.091,2.5578,2.4542
+Random Forest,ECB statements,y2_next2,2Y yield t+2,210,-0.148,2.6166,2.4483
+Random Forest,ECB press conferences,bps_next,Rate t+1,220,0.054,16.0681,16.5617
+Random Forest,ECB press conferences,bps_next2,Rate t+2,220,0.014,15.7993,15.9469
+Random Forest,ECB press conferences,y2_next,2Y yield t+1,189,-0.172,2.6075,2.4154
+Random Forest,ECB press conferences,y2_next2,2Y yield t+2,188,-0.023,2.5095,2.4879
+RoBERTa/BERT,FOMC statements,bps_next,Rate t+1,203,0.45681925539892665,17.537999273214403,23.796213934511208
+RoBERTa/BERT,FOMC statements,bps_next2,Rate t+2,202,0.29778274493276846,19.49902759330659,23.268972450751495
+RoBERTa/BERT,FOMC statements,y2_next,2Y yield t+1,203,-0.07907652354180472,0.05491562069482078,0.05286518722386248
+RoBERTa/BERT,FOMC statements,y2_next2,2Y yield t+2,202,-0.043928917082862506,0.04880605599052247,0.0477681310780938
+RoBERTa/BERT,FOMC press conferences,bps_next,Rate t+1,60,0.2982831656876297,24.269897671164664,28.972568443654115
+RoBERTa/BERT,FOMC press conferences,bps_next2,Rate t+2,59,0.18846767076296167,26.451602497182726,29.36290871028884
+RoBERTa/BERT,FOMC press conferences,y2_next,2Y yield t+1,60,-0.03485985823945059,0.04887772722586072,0.048047437749640313
+RoBERTa/BERT,FOMC press conferences,y2_next2,2Y yield t+2,59,-0.09485338351451955,0.05045858779212103,0.04822332027363071
+RoBERTa/BERT,ECB statements,bps_next,Rate t+1,245,0.2259261737401953,14.192219821309875,16.13092001689365
+RoBERTa/BERT,ECB statements,bps_next2,Rate t+2,244,0.20797555843333781,14.458348691093812,16.246110484836507
+RoBERTa/BERT,ECB statements,y2_next,2Y yield t+1,204,-0.02223986033623926,2.4258053833336795,2.399272353797748
+RoBERTa/BERT,ECB statements,y2_next2,2Y yield t+2,204,-0.024391514856213492,2.494894322467339,2.4650127414987613
+RoBERTa/BERT,ECB press conferences,bps_next,Rate t+1,220,0.28127577930057,14.008658940971323,16.524008953665767
+RoBERTa/BERT,ECB press conferences,bps_next2,Rate t+2,220,0.22574259641702565,14.000082210251566,15.910649274324996
+RoBERTa/BERT,ECB press conferences,y2_next,2Y yield t+1,188,-0.004516573335384466,2.4208721665343544,2.41542359292709
+RoBERTa/BERT,ECB press conferences,y2_next2,2Y yield t+2,186,-0.10013415297311012,2.616245199290176,2.4943398250430757

@@ -1,0 +1,17 @@
+fix_item,script_output,covered_by_script,notes
+Front matter Pages/Characters,13_texcount_status.csv; 13_texcount_output.txt,partial,Only if texcount is installed and the root .tex file is found; otherwise fill manually from Overleaf.
+AI Disclosure,none,no,Requires author disclosure wording; cannot be generated from model outputs.
+Methodology v31 RQ2 alignment,none,no,Textual chapter edit; no extra data required.
+Abstract outcome-scope mismatch,01_broad_outcome_coefficients_all_scores.csv; 02_broad_outcome_significance_summary.csv,yes,Use either to justify a broader-outcome appendix note or narrow the abstract.
+Press-conference coefficient table,03_press_conference_coefficients_for_results.csv; 04_press_conference_coefficients_wide.csv,yes,Can be inserted in Results Section 6.4.1.
+OIS_MP2 clarification,none,no,"Textual clarification only: OIS_MP2 is an outcome, not a control."
+RF leakage decision,10_rf_leakage_adjacent_terms.csv; 11_suggested_blocklist_additions_from_v31.csv; 12_rf_feature_importance_filtered_for_main_text.csv,partial,Identifies remaining leakage and creates a filtered main-text feature list; true before/after evidence requires RF re-run.
+Additional market outcomes,01_broad_outcome_coefficients_all_scores.csv; 02_broad_outcome_significance_summary.csv,yes,"Covers DXY, SX7E, Bunds, spreads, TIPS when columns exist."
+Fixed-effects / forward-current compact table,05_fe_forward_current_all.csv; 06_fe_forward_current_significant_p10.csv; 07_fe_forward_current_selected_cases.csv; 08_fe_ladder_selected_p10.csv,yes,Use selected cases in Results and complete selected p<0.10 ladder in Appendix B.
+Visual Overleaf figure inspection,none,no,Requires manual compiled-PDF inspection.
+Discussion reconciliation RQ1/RQ2,none,no,Textual chapter edit; no extra data required.
+Conclusion direct answers and causal caveat,none,no,Textual chapter edit; no extra data required.
+Dictionary v34/date and residual clarification,none,no,Textual Appendix A edit; no extra data required.
+Appendix B sample-difference note,01_broad_outcome_coefficients_all_scores.csv,partial,The data show n differences; wording must explain common vs outcome-specific samples.
+Appendix C Lasso feature counts,09_rf_feature_count_diagnostics.csv,yes,Reports approximate raw/df-filtered bigram counts and features in RF importance output.
+Appendix C RoBERTa domain-transfer caveat,none,no,Textual caveat; no extra data required.

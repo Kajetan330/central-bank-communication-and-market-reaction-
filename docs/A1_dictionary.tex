@@ -1,0 +1,287 @@
+% ══════════════════════════════════════════════════════════════════════════════
+% APPENDIX A1 — DICTIONARY WORD LISTS (v34)
+% ══════════════════════════════════════════════════════════════════════════════
+
+This appendix lists the version-34 dictionary used to compute the
+\netscore{} measure. Terms are organised by \textbf{semantic
+category} (Policy, Inflation, Employment, Residual) and
+\textbf{direction} (Hawkish, Dovish). All terms carry equal weight
+within the Laplace-smoothed $(H{-}D)/(H{+}D{+}\alpha)$ scoring
+formula (Equation~\ref{eq:catscore}); there is no tier or
+signal-strength weighting.
+
+Dictionary phrases are written with the custom 44-word stop list
+already removed (the same list used during scoring; see
+Section~\ref{sec:meth_scoring}). After Porter stemming and
+deduplication, 282 unique bigram/trigram terms remain from the 288
+raw entries listed below. Eight entries present in version~33 were
+pruned in version~34 because they matched fewer than three
+documents across the full corpus; these are noted in each section.
+
+
+% ══════════════════════════════════════════════════════════════════
+\section*{Hawkish Terms (143 raw entries)}
+% ══════════════════════════════════════════════════════════════════
+
+\subsection*{Policy Action -- Hawkish (53 entries)}
+
+\small
+\begin{longtable}{l}
+\toprule Raw Phrase (stop words pre-removed) \\
+\midrule \endfirsthead
+\toprule Raw Phrase \\ \midrule \endhead
+decided raise \\ raise interest \\ raise interest rates \\
+raising interest rates \\ raised interest rates \\
+raise target \\ raising rates \\ decided increase \\
+increase rates \\ increasing rates \\ point increase \\
+ongoing increases \\ rate increase \\ rate hike \\
+raise rates \\ ongoing rate increases \\
+further rate increases \\ pace increases \\
+further increases \\ additional increases \\
+sufficiently restrictive \\ restrictive policy \\
+restrictive stance \\ restrictive territory \\
+restrictive monetary policy \\ restrictive policy stance \\
+more restrictive \\ policy tightening \\
+monetary tightening \\ further tightening \\
+tighten monetary policy \\ tightening monetary policy \\
+additional policy firming \\ further policy firming \\
+cumulative tightening \\ quantitative tightening \\
+balance sheet reduction \\ tightening cycle \\
+remove accommodation \\ faster pace \\
+restore price stability \\ bring inflation down \\
+bring inflation back \\ returning inflation \\
+appropriate raise \\ remain vigilant \\ vigilant about \\
+maintain price stability \\ strongly committed \\
+firmly committed \\ policy normalization \\
+normalize policy \\ committed returning \\
+\bottomrule
+\end{longtable}
+\normalsize
+
+\noindent\textit{Pruned in v34:}
+``additional rate increases'' (1 match),
+``determined return'' (2 matches).
+
+
+\subsection*{Inflation Assessment -- Hawkish (47 entries)}
+
+\small
+\begin{longtable}{l}
+\toprule Raw Phrase (stop words pre-removed) \\
+\midrule \endfirsthead
+\toprule Raw Phrase \\ \midrule \endhead
+high inflation \\ higher inflation \\ rising inflation \\
+inflation remains elevated \\ inflation high \\
+inflation elevated \\ elevated inflation \\
+inflation remains high \\ still too high \\
+inflation running \\ far too high \\ remain well above \\
+significantly above \\ above target \\ considerably above \\
+higher prices \\ rising prices \\ high prices \\
+prices rose \\ inflation rose \\ price pressures \\
+price pressures remain \\ core inflation \\
+underlying inflation \\ services inflation \\
+domestic price \\ producer prices \\ upward trend \\
+wage growth \\ wage pressures \\ nominal wage \\
+labour costs \\ unit labour cost \\ unit labor cost \\
+second round effects \\ wage price spiral \\
+cost pressures \\ pass through \\ tight labor \\
+tight labour \\ upward pressure \\
+inflationary pressures \\ inflationary risks \\
+inflationary expectations \\ entrenched inflation \\
+inflation overshoot \\ pricing power \\
+\bottomrule
+\end{longtable}
+\normalsize
+
+\noindent\textit{Pruned in v34:}
+``above aim'' (1 match).
+
+
+\subsection*{Growth, Demand, and Employment -- Hawkish (28 entries)}
+
+\small
+\begin{longtable}{l}
+\toprule Raw Phrase (stop words pre-removed) \\
+\midrule \endfirsthead
+\toprule Raw Phrase \\ \midrule \endhead
+strong growth \\ robust growth \\ higher growth \\
+high growth \\ rapid growth \\ above potential \\
+solid growth \\ solid pace \\ strong pace \\
+strong economic \\ strong demand \\ economic expansion \\
+continued expand \\ strong labor market \\
+strong labour market \\ tight labor market \\
+tight labour market \\ very tight \\ very strong labor \\
+low unemployment \\ job gains \\ rising wages \\
+higher wages \\ strong wages \\ supply constraints \\
+capacity constraints \\ labour shortage \\ labor shortage \\
+\bottomrule
+\end{longtable}
+\normalsize
+
+\noindent\textit{Pruned in v34:}
+``exceeds supply'' (1 match).
+
+
+\subsection*{Residual -- Hawkish (15 entries)}
+
+\small
+\begin{longtable}{l}
+\toprule Raw Phrase (stop words pre-removed) \\
+\midrule \endfirsthead
+\toprule Raw Phrase \\ \midrule \endhead
+upside risk \\ tail risks \\ strong vigilance \\
+continued vigilance \\ remain alert \\ closely monitor \\
+upward revision \\ revised upward \\ revised up \\
+stronger than expected \\ higher than expected \\
+supply shock \\ supply disruption \\
+energy shock \\ second round \\
+\bottomrule
+\end{longtable}
+\normalsize
+
+
+% ══════════════════════════════════════════════════════════════════
+\section*{Dovish Terms (145 raw entries)}
+% ══════════════════════════════════════════════════════════════════
+
+\subsection*{Policy Action -- Dovish (57 entries)}
+
+\small
+\begin{longtable}{l}
+\toprule Raw Phrase (stop words pre-removed) \\
+\midrule \endfirsthead
+\toprule Raw Phrase \\ \midrule \endhead
+lower target \\ lower rate \\ lower interest rates \\
+lowering interest rates \\ decided lower \\
+decided reduce \\ reduce key \\ cut rates \\
+point reduction \\ point decrease \\ rate cut \\
+point cut \\ rate reduction \\ appropriate lower \\
+appropriate reduce \\ pace reductions \\ slower pace \\
+ease monetary policy \\ policy easing \\
+monetary easing \\ further easing \\
+policy accommodation \\ monetary accommodation \\
+accommodative policy \\ accommodative stance \\
+highly accommodative \\ remains accommodative \\
+ample degree \\ asset purchases \\
+purchase programme \\ purchase program \\
+net asset purchases \\ net purchases \\
+quantitative easing \\ forward guidance \\
+reinvesting principal \\ reinvestment policy \\
+targeted longer \\ pandemic emergency \\
+favourable financing \\ preserve favourable \\
+ample liquidity \\ smooth transmission \\
+support economy \\ support recovery \\ support economic \\
+extended period \\ least until \\
+until substantial further \\ lower bound \\
+neutral rate \\ monetary stimulus \\ policy stimulus \\
+additional stimulus \\ further stimulus \\
+generate economic \\ stabilises sustainably \\
+\bottomrule
+\end{longtable}
+\normalsize
+
+\noindent\textit{Pruned in v34:}
+``pace cuts'' (1 match),
+``provide stimulus'' (1 match).
+
+
+\subsection*{Inflation Assessment -- Dovish (32 entries)}
+
+\small
+\begin{longtable}{l}
+\toprule Raw Phrase (stop words pre-removed) \\
+\midrule \endfirsthead
+\toprule Raw Phrase \\ \midrule \endhead
+low inflation \\ lower inflation \\ subdued inflation \\
+muted inflation \\ falling inflation \\
+inflation declined \\ inflation fell \\ inflation dropped \\
+inflation eased \\ inflation fallen \\ continued decline \\
+moving down \\ moving sustainably toward \\
+ongoing disinflation \\ disinflation process \\
+disinflationary pressures \\ prices fell \\
+projected decline \\ lower prices \\
+transitory factors \\ temporary factors \\
+below target \\ below aim \\ significantly below \\
+price stability objective \\ closer target \\
+back target \\ deflation risk \\
+deflationary pressure \\ deflationary risk \\
+well anchored \\ firmly anchored \\
+\bottomrule
+\end{longtable}
+\normalsize
+
+
+\subsection*{Growth, Demand, and Employment -- Dovish (25 entries)}
+
+\small
+\begin{longtable}{l}
+\toprule Raw Phrase (stop words pre-removed) \\
+\midrule \endfirsthead
+\toprule Raw Phrase \\ \midrule \endhead
+economic weakness \\ weak growth \\ low growth \\
+lower growth \\ weaker growth \\ slower growth \\
+modest growth \\ weak demand \\ weaker demand \\
+lower demand \\ growth slowed \\ drag growth \\
+economic slowdown \\ economic downturn \\
+weak economic \\ weaker economic \\
+sharp decline \\ negative growth \\ deep recession \\
+high unemployment \\ rising unemployment \\
+higher unemployment \\ labor market slack \\
+job losses \\ loss momentum \\
+\bottomrule
+\end{longtable}
+\normalsize
+
+\noindent\textit{Pruned in v34:}
+``rising layoffs'' (2 matches).
+
+
+\subsection*{Residual -- Dovish (31 entries)}
+
+\small
+\begin{longtable}{l}
+\toprule Raw Phrase (stop words pre-removed) \\
+\midrule \endfirsthead
+\toprule Raw Phrase \\ \midrule \endhead
+downside risk \\ risks growth \\ path inflation \\
+negative territory \\ economic headwinds \\
+credit tightening \\ tighter credit \\ tighter financing \\
+tightening financial \\ credit standards \\
+market turmoil \\ systemic risk \\
+financial vulnerabilities \\ liquidity trap \\
+zero lower bound \\ effective lower bound \\
+downward revision \\ revised downward \\ revised down \\
+weaker than expected \\ lower than expected \\
+geopolitical risks \\ geopolitical tensions \\
+trade tensions \\ sovereign debt \\ debt crisis \\
+fiscal consolidation \\ high uncertainty \\
+heightened uncertainty \\ elevated uncertainty \\
+financial fragmentation \\
+\bottomrule
+\end{longtable}
+\normalsize
+
+\noindent\textit{Pruned in v34:}
+``financial tightening'' (1 match).
+
+
+% ══════════════════════════════════════════════════════════════════
+\section*{Forward-Looking Sentence Markers}
+% ══════════════════════════════════════════════════════════════════
+
+Sentences are classified as forward-looking if they contain any of
+the following patterns (case-insensitive regex matching on raw,
+unstemmed text):
+
+\texttt{will, expected, anticipat*, intend, at least until,
+as long as, going forward, would be appropriate,
+will be appropriate, appropriate to, forthcoming, future,
+period ahead, prospect, outlook, balance of risks,
+risks to the outlook, likely to, monitor, watchful,
+remain alert, stand ready, prepared to, in coming months,
+over the medium, subsequent, project, forecast, foresee,
+envisage, on track to, trajectory, path of, aim to,
+seek to, looking ahead, over the coming, next meeting,
+data dependent, meeting by meeting, conditional, contingent,
+if warranted, remains to be seen, too early to, should remain,
+commit to, in due course, eventually.}

@@ -1,0 +1,12 @@
+feature_id,importance,term,train_correlation_with_target,direction,signed_importance,test_tfidf,present_in_forecast_document,illustrative_document_weight
+develop.care,20422.265227680313,develop care,-0.41012146786656684,lower target,-20422.265227680313,0,FALSE,0
+econom.weak,15482.93187239708,econom weak,-0.3719472568228989,lower target,-15482.93187239708,0,FALSE,0
+feder.fund,13075.129403069523,feder fund,-0.3189935650325887,lower target,-13075.129403069523,0.002616704218292935,TRUE,34.213746263738
+kashkari.loretta,8344.597075190733,kashkari loretta,-0.2510002865600706,lower target,-8344.597075190733,0,FALSE,0
+polici.remain,7106.979653665472,polici remain,0.23577368406763688,higher target,7106.979653665472,0,FALSE,0
+elev.reflect,7036.369140657838,elev reflect,0.4252634222443038,higher target,7036.369140657838,0,FALSE,0
+plosser.gari,6728.797758785627,plosser gari,-0.3176445782540519,lower target,-6728.797758785627,0,FALSE,0
+broader.price,6557.793870122039,broader price,0.4252634222443038,higher target,6557.793870122039,0,FALSE,0
+addit.upward,5117.50392193923,addit upward,0.42887601297990136,higher target,5117.50392193923,0,FALSE,0
+creat.addit,4964.214054180364,creat addit,0.42887601297990136,higher target,4964.214054180364,0,FALSE,0
+ongo.increas,2597.961690849774,ongo increas,0.4186082413005454,higher target,2597.961690849774,0,FALSE,0

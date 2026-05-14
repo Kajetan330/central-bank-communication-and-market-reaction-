@@ -1,0 +1,13 @@
+corpus,label_a_name,label_b_name,total,agreement,corpus_long,method,agreement_pct
+ECB PC,BERT,rate,250,0.3,ECB press conferences,RoBERTa/BERT,30
+ECB PC,RF,rate,250,0.896,ECB press conferences,Random Forest,89.60000000000001
+ECB PC,dict,rate,250,0.204,ECB press conferences,Dictionary,20.4
+ECB stmt,BERT,rate,276,0.67,ECB statements,RoBERTa/BERT,67
+ECB stmt,RF,rate,275,0.887,ECB statements,Random Forest,88.7
+ECB stmt,dict,rate,284,0.63,ECB statements,Dictionary,63
+FOMC PC,BERT,rate,91,0.143,FOMC press conferences,RoBERTa/BERT,14.299999999999999
+FOMC PC,RF,rate,91,0.945,FOMC press conferences,Random Forest,94.5
+FOMC PC,dict,rate,92,0.337,FOMC press conferences,Dictionary,33.7
+FOMC stmt,BERT,rate,234,0.389,FOMC statements,RoBERTa/BERT,38.9
+FOMC stmt,RF,rate,235,0.843,FOMC statements,Random Forest,84.3
+FOMC stmt,dict,rate,238,0.345,FOMC statements,Dictionary,34.5

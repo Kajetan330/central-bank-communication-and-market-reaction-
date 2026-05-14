@@ -1,0 +1,19 @@
+cff-version: 1.2.0
+message: "If you use these thesis artifacts, please cite this repository."
+title: "Central Bank Communication and Market Reactions: Thesis Results"
+authors:
+  - family-names: "Pulchny"
+    given-names: "Adrian Piotr"
+  - family-names: "Moravec Cvelbar"
+    given-names: "Kajetan"
+date-released: "2026-05-14"
+repository-code: "https://github.com/Kajetan330/central-bank-communication-thesis-results"
+license: "MIT AND CC-BY-4.0"
+keywords:
+  - central-bank-communication
+  - monetary-policy
+  - event-study
+  - random-forest
+  - text-as-data
+  - FOMC
+  - ECB

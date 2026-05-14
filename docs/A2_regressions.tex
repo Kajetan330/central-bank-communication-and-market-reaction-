@@ -1,0 +1,224 @@
+% ══════════════════════════════════════════════════════════════════════════════
+% APPENDIX A2 — ADDITIONAL REGRESSION TABLES  [v31 update]
+% ══════════════════════════════════════════════════════════════════════════════
+%
+% Requires \usepackage{pdflscape} in the preamble.
+%
+% ╔═══════════════════════════════════════════════════════════════════════╗
+% ║ TODO — RECOMPUTE ALL TABLES AFTER v31 PIPELINE RE-RUN               ║
+% ║                                                                     ║
+% ║ The scoring formula is (H-D)/(H+D+10) with Laplace smoothing.     ║
+% ║ All coefficients on net_score, net_score^fwd, net_score^curr will  ║
+% ║ change from the values shown below. RF coefficients may also       ║
+% ║ change due to B=100 (was 500) and single-spec pipeline.            ║
+% ║                                                                     ║
+% ║ NEW tables needed (added as placeholder sections at the end):       ║
+% ║   - FOMC additional variables (DXY, TIPS 5Y, TIPS 10Y)             ║
+% ║   - ECB additional variables (SX7E, DE2Y, DE10Y, IT10Y_spread)     ║
+% ║   - RoBERTa market reaction regressions                             ║
+% ║   - Three-way horse race (dict + RF + BERT)                         ║
+% ║   - Confusion matrices                                              ║
+% ╚═══════════════════════════════════════════════════════════════════════╝
+%
+% Notation conventions for all tables:
+%   - Coefficients in plain text, robust (HC1) standard errors in parentheses.
+%   - Stars: *** p<0.01, ** p<0.05, * p<0.10.
+%   - Spec A: dictionary tone alone (no controls).
+%   - Spec B: + rate-surprise control (MP1 / OIS_MP1).
+%   - Spec C: + rate-surprise + dual-mandate sub-scores.
+%
+\providecommand{\sym}[1]{\ensuremath{^{\text{#1}}}}
+
+% ──────────────────────────────────────────────────────────────────
+\section{FOMC Yield Regressions}
+\label{app:reg_fomc_yields}
+% ──────────────────────────────────────────────────────────────────
+
+%%% TODO: RECOMPUTE — all coefficients on net_score will change.
+
+\begin{table}[H]
+\centering
+\caption{FOMC statements: yield response to dictionary tone}
+\label{tab:a2_fomc_stmt_yields}
+\setlength{\tabcolsep}{4pt}\small
+\begin{tabular}{lcccccc}
+\toprule
+ & \multicolumn{3}{c}{UST 2Y} & \multicolumn{3}{c}{UST 10Y} \\
+\cmidrule(lr){2-4}\cmidrule(lr){5-7}
+ & (A) & (B) & (C) & (A) & (B) & (C) \\
+\midrule
+\netscore{} & 0.4421\sym{*} & 0.4615\sym{*} & 0.4750\sym{*} & 0.1206 & 0.1174 & 0.1028 \\
+              & (0.2369) & (0.2429) & (0.2482) & (0.1511) & (0.1545) & (0.1645) \\
+\midrule
+$N$   & 237 & 237 & 237 & 237 & 237 & 237 \\
+$R^2$ & 0.263 & 0.264 & 0.264 & 0.049 & 0.052 & 0.054 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\begin{table}[H]
+\centering
+\caption{FOMC press conferences: yield response to dictionary tone}
+\label{tab:a2_fomc_pc_yields}
+\setlength{\tabcolsep}{4pt}\small
+\begin{tabular}{lcccccc}
+\toprule
+ & \multicolumn{3}{c}{UST 2Y} & \multicolumn{3}{c}{UST 10Y} \\
+\cmidrule(lr){2-4}\cmidrule(lr){5-7}
+ & (A) & (B) & (C) & (A) & (B) & (C) \\
+\midrule
+\netscore{} & -1.760\sym{*} & -1.761 & -2.034\sym{*} & -0.8275 & -0.6992 & -1.229 \\
+              & (0.986) & (1.072) & (1.067) & (0.7074) & (0.8211) & (0.764) \\
+\midrule
+$N$   & 91 & 91 & 91 & 91 & 91 & 91 \\
+$R^2$ & 0.083 & 0.087 & 0.092 & 0.020 & 0.029 & 0.053 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+% ──────────────────────────────────────────────────────────────────
+\section{ECB OIS Yield Regressions}
+\label{app:reg_ecb_yields}
+% ──────────────────────────────────────────────────────────────────
+
+%%% TODO: RECOMPUTE — all coefficients on net_score will change.
+
+\begin{table}[H]
+\centering
+\caption{ECB statements: OIS yield response to dictionary tone}
+\label{tab:a2_ecb_stmt_yields}
+\setlength{\tabcolsep}{4pt}\small
+\begin{tabular}{lcccccc}
+\toprule
+ & \multicolumn{3}{c}{OIS\_MP2} & \multicolumn{3}{c}{OIS 10Y} \\
+\cmidrule(lr){2-4}\cmidrule(lr){5-7}
+ & (A) & (B) & (C) & (A) & (B) & (C) \\
+\midrule
+\netscore{} & -20.17 & -22.80 & -22.04 & -10.45 & -11.96 & -1.837 \\
+              & (30.96) & (29.02) & (25.25) & (22.56) & (21.00) & (21.066) \\
+\midrule
+$N$   & 244 & 244 & 244 & 113 & 113 & 113 \\
+$R^2$ & 0.215 & 0.227 & 0.230 & 0.014 & 0.014 & 0.023 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\begin{table}[H]
+\centering
+\caption{ECB press conferences: OIS yield response to dictionary tone}
+\label{tab:a2_ecb_pc_yields}
+\setlength{\tabcolsep}{4pt}\small
+\begin{tabular}{lcccccc}
+\toprule
+ & \multicolumn{3}{c}{OIS\_MP2} & \multicolumn{3}{c}{OIS 10Y} \\
+\cmidrule(lr){2-4}\cmidrule(lr){5-7}
+ & (A) & (B) & (C) & (A) & (B) & (C) \\
+\midrule
+\netscore{} & -38.81 & -26.98 & -53.08 & -37.69 & -34.87 & -63.43 \\
+              & (40.12) & (48.54) & (67.77) & (55.86) & (54.90) & (75.17) \\
+\midrule
+$N$   & 235 & 235 & 235 & 105 & 105 & 105 \\
+$R^2$ & 0.071 & 0.081 & 0.084 & 0.024 & 0.027 & 0.029 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+
+% ──────────────────────────────────────────────────────────────────
+\section{Forward/Backward Decomposition: All Outcomes}
+\label{app:reg_full_dm}
+% ──────────────────────────────────────────────────────────────────
+
+%%% TODO: RECOMPUTE — all coefficients on net_score^fwd and
+%%% net_score^curr will change.
+
+%%% NOTE: Keep existing tables A2.5-A2.8 here unchanged for now.
+%%% They will be recomputed when the pipeline is re-run.
+%%% [Existing forward/backward tables omitted for brevity;
+%%%  retain them from the original file.]
+
+
+% ──────────────────────────────────────────────────────────────────
+\section{RF Market Regressions}
+\label{app:reg_rf}
+% ──────────────────────────────────────────────────────────────────
+
+%%% TODO: RECOMPUTE — RF coefficients will change due to B=100 and
+%%% single-spec pipeline.
+
+%%% NOTE: Keep existing RF tables A2.9-A2.12 here unchanged for now.
+%%% [Existing RF tables omitted for brevity;
+%%%  retain them from the original file.]
+
+
+% ──────────────────────────────────────────────────────────────────
+\section{Horse Race: Dictionary vs RF (Two-Way)}
+\label{app:reg_horserace_twoway}
+% ──────────────────────────────────────────────────────────────────
+
+%%% TODO: RECOMPUTE — both RF and net_score coefficients will change.
+
+%%% NOTE: Keep existing horse-race tables A2.13-A2.16 here unchanged.
+%%% [Existing horse-race tables omitted for brevity;
+%%%  retain them from the original file.]
+
+
+% ══════════════════════════════════════════════════════════════════════════════
+% NEW SECTIONS (v31 additions)
+% ══════════════════════════════════════════════════════════════════════════════
+
+% ──────────────────────────────────────────────────────────────────
+\section{FOMC Additional Market Variables}
+\label{app:reg_fomc_additional}
+% ──────────────────────────────────────────────────────────────────
+
+%%% TODO: Generate tables using stargazer or texreg from v31 output:
+%%% - DXY ~ net_score + MP1 (FOMC stmt and PC)
+%%% - TIPS 5Y ~ net_score + MP1 (FOMC stmt and PC)
+%%% - TIPS 10Y ~ net_score + MP1 (FOMC stmt and PC)
+
+
+% ──────────────────────────────────────────────────────────────────
+\section{ECB Additional Market Variables}
+\label{app:reg_ecb_additional}
+% ──────────────────────────────────────────────────────────────────
+
+%%% TODO: Generate tables using stargazer or texreg from v31 output:
+%%% - SX7E ~ net_score + OIS_MP1 (ECB stmt and PC)
+%%% - DE2Y ~ net_score + OIS_MP1 (ECB stmt and PC)
+%%% - DE10Y ~ net_score + OIS_MP1 (ECB stmt and PC)
+%%% - IT10Y_spread ~ net_score + OIS_MP1 (ECB stmt and PC)
+
+
+% ──────────────────────────────────────────────────────────────────
+\section{RoBERTa Market Reaction Regressions}
+\label{app:reg_bert}
+% ──────────────────────────────────────────────────────────────────
+
+%%% TODO: Generate tables from v31 output:
+%%% - outcome ~ bert_score + MP1/OIS_MP1 for each corpus
+%%% - Mirror the structure of the existing dict and RF tables above.
+
+
+% ──────────────────────────────────────────────────────────────────
+\section{Three-Way Horse Race Regressions}
+\label{app:reg_horserace_threeway}
+% ──────────────────────────────────────────────────────────────────
+
+%%% TODO: Generate tables from v31 output:
+%%% - outcome ~ rf_score + net_score + bert_score + MP1/OIS_MP1
+%%% - For equity, FX, 2Y yield, 10Y yield per corpus.
+%%% Source: rq1_method_comparison_v31.csv
+
+
+% ──────────────────────────────────────────────────────────────────
+\section{Confusion Matrices}
+\label{app:confusion}
+% ──────────────────────────────────────────────────────────────────
+
+%%% TODO: Insert 3x3 confusion matrices from
+%%% confusion_matrices_long_v31.csv for all label pairs:
+%%% - dict vs RF, dict vs BERT, RF vs BERT
+%%% - dict vs rate decision, RF vs rate, BERT vs rate
+%%% - dict vs MP1 surprise, RF vs MP1, BERT vs MP1
+%%% Source: confusion_matrix_agreement_v31.csv for summary rates.

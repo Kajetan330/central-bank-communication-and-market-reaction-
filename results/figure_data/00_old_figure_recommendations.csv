@@ -1,0 +1,17 @@
+old_png_name,current_action,reason
+net_score_distribution_normal.png,Replace with fig6_1_score_distributions.png,Dictionary-only distribution is too narrow for the current three-method v31 results.
+net_score_timeseries_statements.png,Appendix only,Useful diagnostic but not central to RQ1/RQ2.
+tone_rate_overlay.png,Appendix only / cautious,"Uses cumulative bps-change index, not official rate level."
+maturity_response_profile.png,Optional appendix or main,Useful if you want to visualise short-end versus long-end yield attenuation.
+coef_stability_fe_ladder.png,Appendix,Robustness diagnostic; not necessary in the main narrative unless space allows.
+fwbw_score_scatter.png,Appendix,"Diagnostic for decomposition, not a main result."
+rf_confusion_heatmap.png,Include main,Important for explaining RF classification accuracy and errors.
+rf_feature_importance_bars.png,Include main or appendix,Important for RF interpretability.
+rf_score_distribution_normal.png,Replace with fig6_1_score_distributions.png,Merged method comparison is cleaner.
+comparison_agreement_barplot.png,Include main,Direct visual counterpart to agreement table.
+rolling_agreement_rate.png,Appendix,Regime diagnostic; not essential for main results.
+comparison_score_scatter.png,Appendix,Diagnostic for method disagreement.
+comparison_distribution_overlay.png,Appendix or replace with fig6_1,Distribution comparison already covered by fig6_1.
+dm_decomposition_timeseries.png,Appendix / optional,Current v31 evidence is better captured by R2-gain figure.
+robustness_specification_grid.png,Appendix only,Old version was dictionary-centred; current v31 uses redesigned strongest-result grid.
+cross_method_divergence.png,Appendix,Interesting but not central to final Results chapter.
