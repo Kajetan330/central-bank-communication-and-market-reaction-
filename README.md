@@ -38,17 +38,7 @@ flowchart LR
 
 ## Visual Preview
 
-The figures below are selected from the final v31 output set. They give a quick visual tour of the main empirical story and the most useful diagnostics.
-
-### Core Results
-
-| Tone-score distributions | RF feature importance |
-| --- | --- |
-| ![Tone-score distributions](results/figures/fig6_1_score_distributions.png) | ![RF feature importance](results/figures/fig6_4_rf_feature_importance.png) |
-
-| RQ1 method comparison | RQ2 direct out-of-sample performance |
-| --- | --- |
-| ![RQ1 method comparison](results/figures/fig6_5_rq1_method_r2_heatmap.png) | ![RQ2 direct out-of-sample performance](results/figures/fig6_7_rq2_direct_oos_r2.png) |
+The figures below are selected from the final v31 output set and focus on diagnostics and method comparisons.
 
 ### Diagnostics And Method Comparisons
 
