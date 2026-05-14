@@ -42,9 +42,9 @@ The figures below are selected from the final v31 output set and focus on diagno
 
 ### Diagnostics And Method Comparisons
 
-| Cross-method divergence | Dual-mandate tone decomposition |
+| Cross-method divergence | Tone-score descriptive statistics |
 | --- | --- |
-| ![Cross-method divergence](results/figures/cross_method_divergence.png) | ![Dual-mandate tone decomposition](results/figures/dm_decomposition_timeseries.png) |
+| ![Cross-method divergence](results/figures/cross_method_divergence.png) | ![Tone-score descriptive statistics](results/figures/readme_tone_score_descriptive_statistics.svg) |
 
 | Rolling agreement | Tone and rate overlay |
 | --- | --- |
