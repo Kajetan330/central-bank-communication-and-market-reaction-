@@ -1,0 +1,5 @@
+corpus,central_bank,document_type,start_date,end_date,n_documents,n_intermeeting_fomc
+FOMC Statement,FOMC,Statement,1994-02-04,2026-03-18,242,10
+FOMC Press Conference,FOMC,Press Conference,2011-04-27,2026-03-18,92,0
+ECB Statement,ECB,Statement,1999-01-07,2026-03-19,284,0
+ECB Press Conference,ECB,Press Conference,1999-01-07,2025-12-18,266,0

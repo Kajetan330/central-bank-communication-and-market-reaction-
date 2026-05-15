@@ -42,9 +42,9 @@ The figures below are selected from the final v31 output set and the newest thes
 
 ### Diagnostics And Method Comparisons
 
-| Cross-method divergence | RQ2 forecast scoreboard |
+| Cross-method divergence | Corpus coverage timeline |
 | --- | --- |
-| ![Cross-method divergence](results/figures/cross_method_divergence.png) | ![RQ2 forecast scoreboard](results/figures/readme_rq2_forecast_scoreboard.svg) |
+| ![Cross-method divergence](results/figures/cross_method_divergence.png) | ![Corpus coverage timeline](results/figures/readme_sample_coverage_timeline.png) |
 
 | Rolling agreement | Tone and rate overlay |
 | --- | --- |
