@@ -38,7 +38,7 @@ flowchart LR
 
 ## Visual Preview
 
-The figures below are selected from the thesis model outputs and the newest thesis draft. They focus on diagnostics and method comparisons.
+The figures below are selected from the thesis model outputs. They focus on diagnostics and method comparisons.
 
 ### Diagnostics And Method Comparisons
 
@@ -60,8 +60,9 @@ results/tables/       Main result tables and diagnostics from the submitted mode
 results/figures/      Final generated thesis figures
 results/figure_data/  CSV data behind the generated figures
 results/review_checks/Additional review and robustness diagnostics
-docs/                 Latest selected thesis chapters and appendix material from the draft source
 ```
+
+The manuscript text is maintained outside this repository. This archive is kept focused on the public data, model, code, table, and figure artifacts.
 
 ## Key Files
 
@@ -110,4 +111,4 @@ If you use this archive, please cite the repository metadata in `CITATION.cff`.
 
 Code is released under the MIT License. See `LICENSE-CODE`.
 
-Data, figures, tables, and documentation are released under Creative Commons Attribution 4.0 International. See `LICENSE-DATA`.
+Data, figures, tables, and repository documentation are released under Creative Commons Attribution 4.0 International. See `LICENSE-DATA`.
