@@ -4,11 +4,11 @@ This repository is the public artifact archive for the thesis:
 
 **Central Bank Communication and Market Reactions: Text-Based Hawk/Dove Classification and Event-Study Evidence from the FOMC and ECB**
 
-It collects the final v31 data, model objects, code, tables, and figures used to study whether the tone of central bank communication helps explain financial market reactions and predict near-term policy outcomes.
+It collects the thesis model outputs, data, code, tables, and figures used to study whether the tone of central bank communication helps explain financial market reactions and predict near-term policy outcomes.
 
 Authors: Adrian Piotr Pulchny and Kajetan Moravec Cvelbar  
 Institution: Copenhagen Business School, MSc in Advanced Economics and Finance  
-Artifact version: v31, assembled on 2026-05-14
+Artifact set assembled on 2026-05-14
 
 ## At A Glance
 
@@ -38,7 +38,7 @@ flowchart LR
 
 ## Visual Preview
 
-The figures below are selected from the final v31 output set and the newest thesis draft. They focus on diagnostics and method comparisons.
+The figures below are selected from the thesis model outputs and the newest thesis draft. They focus on diagnostics and method comparisons.
 
 ### Diagnostics And Method Comparisons
 
@@ -51,12 +51,12 @@ The figures below are selected from the final v31 output set and the newest thes
 ## Repository Map
 
 ```text
-code/                 R scripts for the final v31 pipeline, figure generation, and data checks
+code/                 R scripts for the thesis model pipeline, figure generation, and data checks
 data/raw/             Raw FOMC, ECB, USMPD, EA-MPD, recovery, and BERT sentence-prediction files
-data/processed/       Final v31 event-level datasets and score panels
+data/processed/       Processed event-level datasets and score panels
 data/cache/           Cached ECB HTML recovery object used by the pipeline
 models/               Saved Random Forest model and expanding-window result objects
-results/tables/       Main result tables and diagnostics from the v31 run
+results/tables/       Main result tables and diagnostics from the submitted model run
 results/figures/      Final generated thesis figures
 results/figure_data/  CSV data behind the generated figures
 results/review_checks/Additional review and robustness diagnostics
@@ -68,8 +68,8 @@ docs/                 Latest selected thesis chapters and appendix material from
 | Artifact | Path |
 | --- | --- |
 | Main processed panel | `data/processed/combined_final_v2.csv` |
-| Final RQ1 Random Forest object | `models/rf_rq1_models_v31.rds` |
-| Final RQ2 expanding-window object | `models/rf_rq2_xw_results_v31.rds` |
+| RQ1 Random Forest object | `models/rf_rq1_models_v31.rds` |
+| RQ2 expanding-window object | `models/rf_rq2_xw_results_v31.rds` |
 | RF performance | `results/tables/rf_rq1_performance_v31.csv` |
 | RF feature importance | `results/tables/rf_feature_importance_v31.csv` |
 | RQ1 method comparison | `results/tables/rq1_method_comparison_v31.csv` |
@@ -100,7 +100,7 @@ The full RF/BERT pipeline can take several hours and requires the R packages loa
 
 ## Important Caveat
 
-The v31 outputs are the final thesis artifacts identified in the local working folder. A later review check identifies several RF leakage-adjacent terms in `results/review_checks/10_rf_leakage_adjacent_terms.csv` and suggests blocklist additions in `results/review_checks/11_suggested_blocklist_additions_from_v31.csv`. Those files are diagnostic. The full RF pipeline was not re-run after that suggested expanded blocklist.
+The uploaded outputs are the thesis artifacts identified in the local working folder. A later review check identifies several RF leakage-adjacent terms in `results/review_checks/10_rf_leakage_adjacent_terms.csv` and suggests blocklist additions in `results/review_checks/11_suggested_blocklist_additions_from_v31.csv`. Those files are diagnostic. The full RF pipeline was not re-run after that suggested expanded blocklist.
 
 ## Citation
 

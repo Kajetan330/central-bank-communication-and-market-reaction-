@@ -20,7 +20,7 @@
 #   4. Upload the PNG files from "final model figures" to Overleaf.
 #
 # Notes:
-#   - The script does NOT rerun the full RF/BERT model. It uses the final v31 outputs.
+#   - The script does NOT rerun the full RF/BERT model. It uses the thesis model outputs.
 #   - The old tone-rate overlay requires official policy-rate LEVELS. The v31 files
 #     contain bps_change, so this script creates a cumulative policy-rate-index figure
 #     for diagnostics. Do not describe it as an official policy-rate level.
