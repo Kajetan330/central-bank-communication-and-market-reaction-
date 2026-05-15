@@ -53,8 +53,6 @@ The figures below are selected from the thesis model outputs. They focus on diag
 ```text
 code/                 R scripts for the thesis model pipeline, figure generation, and data checks
 data/raw/             Raw FOMC, ECB, USMPD, EA-MPD, recovery, and BERT sentence-prediction files
-data/processed/       Processed event-level datasets and score panels
-data/cache/           Cached ECB HTML recovery object used by the pipeline
 models/               Saved Random Forest model and expanding-window result objects
 results/tables/       Main result tables and diagnostics from the submitted model run
 results/figures/      Final generated thesis figures
@@ -68,7 +66,6 @@ The manuscript text is maintained outside this repository. This archive is kept 
 
 | Artifact | Path |
 | --- | --- |
-| Main processed panel | `data/processed/combined_final_v2.csv` |
 | RQ1 Random Forest object | `models/rf_rq1_models_v31.rds` |
 | RQ2 expanding-window object | `models/rf_rq2_xw_results_v31.rds` |
 | RF performance | `results/tables/rf_rq1_performance_v31.csv` |
@@ -89,12 +86,14 @@ The raw folder from the thesis workspace is included under `data/raw/`, includin
 
 Only the two zero-byte Excel lock files, `~$EA-MPD.xlsx` and `~$USMPD.xlsx`, were excluded.
 
+The `data/` directory is intentionally raw-only. Processed panels are not stored under `data/`; the submitted model objects, tables, figures, and figure-data extracts are stored under `models/` and `results/`.
+
 ## Reproduction Notes
 
 The final outputs are already stored in this repository. The scripts in `code/` are included for transparency and reruns.
 
 - `code/pipeline_v31_final.R` reads from `data/raw/` and writes rerun outputs to `reproduction/output_v31/`.
-- `code/generate_v31_figures_full_FIXED_PATHS.R` reads from `data/processed/` and `results/tables/`, then writes regenerated figures to `reproduction/figures_v31/`.
+- `code/generate_v31_figures_full_FIXED_PATHS.R` regenerates figures from processed outputs produced by the pipeline, together with `results/tables/`, then writes regenerated figures to `reproduction/figures_v31/`.
 - `code/data_chapter_checks_FIXED_V5.R` reads from `data/raw/` and writes checks to `reproduction/data_check/`.
 
 The full RF/BERT pipeline can take several hours and requires the R packages loaded at the top of the scripts.
