@@ -1,287 +1,482 @@
 % ══════════════════════════════════════════════════════════════════════════════
-% APPENDIX A1 — DICTIONARY WORD LISTS (v34)
+% APPENDIX A1 — DICTIONARY AND BLOCKLIST  [v31 final]
 % ══════════════════════════════════════════════════════════════════════════════
 
-This appendix lists the version-34 dictionary used to compute the
-\netscore{} measure. Terms are organised by \textbf{semantic
-category} (Policy, Inflation, Employment, Residual) and
-\textbf{direction} (Hawkish, Dovish). All terms carry equal weight
-within the Laplace-smoothed $(H{-}D)/(H{+}D{+}\alpha)$ scoring
-formula (Equation~\ref{eq:catscore}); there is no tier or
-signal-strength weighting.
+This appendix documents the rule-based components of the text-measurement
+pipeline. It gives the final dictionary used to construct \netscore{} and the
+Random Forest blocklist used to remove identity and boilerplate leakage. The
+purpose is reproducibility: every dictionary score and every blocklisted RF
+feature can be traced to the exact term lists below.
 
-Dictionary phrases are written with the custom 44-word stop list
-already removed (the same list used during scoring; see
-Section~\ref{sec:meth_scoring}). After Porter stemming and
-deduplication, 282 unique bigram/trigram terms remain from the 288
-raw entries listed below. Eight entries present in version~33 were
-pruned in version~34 because they matched fewer than three
-documents across the full corpus; these are noted in each section.
+\section{Dictionary design}
+\label{app:a1_dictionary_design}
 
+The dictionary is organised around four semantic categories: policy-action
+language, inflation language, employment and real-activity language, and a
+residual category for risk, crisis, and commitment terms. The word ``residual''
+is used only as a dictionary-category label; it is not an econometric residual
+and should be read as a catch-all group for stance-relevant terms that do not
+fit cleanly into policy, inflation, or employment/growth language. Each term is assigned
+a direction, hawkish or dovish. The document-level score pools hawkish and
+dovish matches and applies the Laplace-smoothed formula described in
+Chapter~\ref{ch:methodology}:
+\[
+  \netscore_i = \frac{H_i-D_i}{H_i+D_i+10}.
+\]
+The same formula is used for category-level sub-scores. The smoothing constant
+shrinks documents with few stance-bearing matches toward zero and prevents one
+or two isolated terms from generating an extreme score.
 
-% ══════════════════════════════════════════════════════════════════
-\section*{Hawkish Terms (143 raw entries)}
-% ══════════════════════════════════════════════════════════════════
+All dictionary terms are matched after conservative stop-word removal and
+Porter stemming. The term lists below are shown in their human-readable form,
+not in their stemmed form. The scoring pipeline stems both the document text and
+the dictionary entries before matching. The final version contains 288 raw phrase
+entries, split almost evenly between hawkish and dovish terms. After stemming
+and deduplication, these correspond to 282 unique bigram/trigram patterns.
 
-\subsection*{Policy Action -- Hawkish (53 entries)}
+\section{Stop-word treatment}
+\label{app:a1_stopwords}
 
+The custom stop-word list removes only non-directional function words. Words
+such as \emph{above}, \emph{below}, \emph{further}, \emph{more}, \emph{not},
+and \emph{no} are deliberately retained because they can determine the stance
+of a monetary-policy phrase.
+
+\begin{table}[H]
+\centering
+\caption{Custom stop-word list used in dictionary scoring}
+\label{tab:a1_stopwords}
 \small
-\begin{longtable}{l}
-\toprule Raw Phrase (stop words pre-removed) \\
-\midrule \endfirsthead
-\toprule Raw Phrase \\ \midrule \endhead
-decided raise \\ raise interest \\ raise interest rates \\
-raising interest rates \\ raised interest rates \\
-raise target \\ raising rates \\ decided increase \\
-increase rates \\ increasing rates \\ point increase \\
-ongoing increases \\ rate increase \\ rate hike \\
-raise rates \\ ongoing rate increases \\
-further rate increases \\ pace increases \\
-further increases \\ additional increases \\
-sufficiently restrictive \\ restrictive policy \\
-restrictive stance \\ restrictive territory \\
-restrictive monetary policy \\ restrictive policy stance \\
-more restrictive \\ policy tightening \\
-monetary tightening \\ further tightening \\
-tighten monetary policy \\ tightening monetary policy \\
-additional policy firming \\ further policy firming \\
-cumulative tightening \\ quantitative tightening \\
-balance sheet reduction \\ tightening cycle \\
-remove accommodation \\ faster pace \\
-restore price stability \\ bring inflation down \\
-bring inflation back \\ returning inflation \\
-appropriate raise \\ remain vigilant \\ vigilant about \\
-maintain price stability \\ strongly committed \\
-firmly committed \\ policy normalization \\
-normalize policy \\ committed returning \\
+\begin{tabular}{llllll}
+\toprule
+\multicolumn{6}{c}{Non-directional function words removed before dictionary matching} \\
+\midrule
+a & an & the & is & are & was \\
+were & be & been & being & has & have \\
+had & having & do & does & did & it \\
+its & our & their & we & they & i \\
+me & my & he & she & him & her \\
+his & of & to & at & by & with \\
+on & in & for & and & or & but \\
+that & which &  &  &  &  \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+
+\section{Final dictionary terms}
+\label{app:a1_terms}
+
+\begin{longtable}{p{0.47\textwidth}p{0.47\textwidth}}
+\caption{Policy-action dictionary terms}\label{tab:a1_policy_terms}\\
+\toprule
+Hawkish terms & Dovish terms \\
+\midrule
+\endfirsthead
+\toprule
+Hawkish terms & Dovish terms \\
+\midrule
+\endhead
+decided raise & lower target \\
+raise interest & lower rate \\
+raise interest rates & lower interest rates \\
+raising interest rates & lowering interest rates \\
+raised interest rates & decided lower \\
+raise target & decided reduce \\
+raising rates & reduce key \\
+decided increase & cut rates \\
+increase rates & point reduction \\
+increasing rates & point decrease \\
+point increase & rate cut \\
+ongoing increases & point cut \\
+rate increase & rate reduction \\
+rate hike & appropriate lower \\
+raise rates & appropriate reduce \\
+ongoing rate increases & pace reductions \\
+further rate increases & slower pace \\
+pace increases & ease monetary policy \\
+further increases & policy easing \\
+additional increases & monetary easing \\
+sufficiently restrictive & further easing \\
+restrictive policy & policy accommodation \\
+restrictive stance & monetary accommodation \\
+restrictive territory & accommodative policy \\
+restrictive monetary policy & accommodative stance \\
+restrictive policy stance & highly accommodative \\
+more restrictive & remains accommodative \\
+policy tightening & ample degree \\
+monetary tightening & asset purchases \\
+further tightening & purchase programme \\
+tighten monetary policy & purchase program \\
+tightening monetary policy & net asset purchases \\
+additional policy firming & net purchases \\
+further policy firming & quantitative easing \\
+cumulative tightening & forward guidance \\
+quantitative tightening & reinvesting principal \\
+balance sheet reduction & reinvestment policy \\
+tightening cycle & targeted longer \\
+remove accommodation & pandemic emergency \\
+faster pace & favourable financing \\
+restore price stability & preserve favourable \\
+bring inflation down & ample liquidity \\
+bring inflation back & smooth transmission \\
+returning inflation & support economy \\
+appropriate raise & support recovery \\
+remain vigilant & support economic \\
+vigilant about & extended period \\
+maintain price stability & least until \\
+strongly committed & until substantial further \\
+firmly committed & lower bound \\
+policy normalization & neutral rate \\
+normalize policy & monetary stimulus \\
+committed returning & policy stimulus \\
+ & additional stimulus \\
+ & further stimulus \\
+ & generate economic \\
+ & stabilises sustainably \\
 \bottomrule
 \end{longtable}
-\normalsize
 
-\noindent\textit{Pruned in v34:}
-``additional rate increases'' (1 match),
-``determined return'' (2 matches).
-
-
-\subsection*{Inflation Assessment -- Hawkish (47 entries)}
-
-\small
-\begin{longtable}{l}
-\toprule Raw Phrase (stop words pre-removed) \\
-\midrule \endfirsthead
-\toprule Raw Phrase \\ \midrule \endhead
-high inflation \\ higher inflation \\ rising inflation \\
-inflation remains elevated \\ inflation high \\
-inflation elevated \\ elevated inflation \\
-inflation remains high \\ still too high \\
-inflation running \\ far too high \\ remain well above \\
-significantly above \\ above target \\ considerably above \\
-higher prices \\ rising prices \\ high prices \\
-prices rose \\ inflation rose \\ price pressures \\
-price pressures remain \\ core inflation \\
-underlying inflation \\ services inflation \\
-domestic price \\ producer prices \\ upward trend \\
-wage growth \\ wage pressures \\ nominal wage \\
-labour costs \\ unit labour cost \\ unit labor cost \\
-second round effects \\ wage price spiral \\
-cost pressures \\ pass through \\ tight labor \\
-tight labour \\ upward pressure \\
-inflationary pressures \\ inflationary risks \\
-inflationary expectations \\ entrenched inflation \\
-inflation overshoot \\ pricing power \\
+\begin{longtable}{p{0.47\textwidth}p{0.47\textwidth}}
+\caption{Inflation dictionary terms}\label{tab:a1_inflation_terms}\\
+\toprule
+Hawkish terms & Dovish terms \\
+\midrule
+\endfirsthead
+\toprule
+Hawkish terms & Dovish terms \\
+\midrule
+\endhead
+high inflation & low inflation \\
+higher inflation & lower inflation \\
+rising inflation & subdued inflation \\
+inflation remains elevated & muted inflation \\
+inflation high & falling inflation \\
+inflation elevated & inflation declined \\
+elevated inflation & inflation fell \\
+inflation remains high & inflation dropped \\
+still too high & inflation eased \\
+inflation running & inflation fallen \\
+far too high & continued decline \\
+remain well above & moving down \\
+significantly above & moving sustainably toward \\
+above target & ongoing disinflation \\
+considerably above & disinflation process \\
+higher prices & disinflationary pressures \\
+rising prices & prices fell \\
+high prices & projected decline \\
+prices rose & lower prices \\
+inflation rose & transitory factors \\
+price pressures & temporary factors \\
+price pressures remain & below target \\
+core inflation & below aim \\
+underlying inflation & significantly below \\
+services inflation & price stability objective \\
+domestic price & closer target \\
+producer prices & back target \\
+upward trend & deflation risk \\
+wage growth & deflationary pressure \\
+wage pressures & deflationary risk \\
+nominal wage & well anchored \\
+labour costs & firmly anchored \\
+unit labour cost &  \\
+unit labor cost &  \\
+second round effects &  \\
+wage price spiral &  \\
+cost pressures &  \\
+pass through &  \\
+tight labor &  \\
+tight labour &  \\
+upward pressure &  \\
+inflationary pressures &  \\
+inflationary risks &  \\
+inflationary expectations &  \\
+entrenched inflation &  \\
+inflation overshoot &  \\
+pricing power &  \\
 \bottomrule
 \end{longtable}
-\normalsize
 
-\noindent\textit{Pruned in v34:}
-``above aim'' (1 match).
-
-
-\subsection*{Growth, Demand, and Employment -- Hawkish (28 entries)}
-
-\small
-\begin{longtable}{l}
-\toprule Raw Phrase (stop words pre-removed) \\
-\midrule \endfirsthead
-\toprule Raw Phrase \\ \midrule \endhead
-strong growth \\ robust growth \\ higher growth \\
-high growth \\ rapid growth \\ above potential \\
-solid growth \\ solid pace \\ strong pace \\
-strong economic \\ strong demand \\ economic expansion \\
-continued expand \\ strong labor market \\
-strong labour market \\ tight labor market \\
-tight labour market \\ very tight \\ very strong labor \\
-low unemployment \\ job gains \\ rising wages \\
-higher wages \\ strong wages \\ supply constraints \\
-capacity constraints \\ labour shortage \\ labor shortage \\
+\begin{longtable}{p{0.47\textwidth}p{0.47\textwidth}}
+\caption{Employment and real-activity dictionary terms}\label{tab:a1_employment_terms}\\
+\toprule
+Hawkish terms & Dovish terms \\
+\midrule
+\endfirsthead
+\toprule
+Hawkish terms & Dovish terms \\
+\midrule
+\endhead
+strong growth & economic weakness \\
+robust growth & weak growth \\
+higher growth & low growth \\
+high growth & lower growth \\
+rapid growth & weaker growth \\
+above potential & slower growth \\
+solid growth & modest growth \\
+solid pace & weak demand \\
+strong pace & weaker demand \\
+strong economic & lower demand \\
+strong demand & growth slowed \\
+economic expansion & drag growth \\
+continued expand & economic slowdown \\
+strong labor market & economic downturn \\
+strong labour market & weak economic \\
+tight labor market & weaker economic \\
+tight labour market & sharp decline \\
+very tight & negative growth \\
+very strong labor & deep recession \\
+low unemployment & high unemployment \\
+job gains & rising unemployment \\
+rising wages & higher unemployment \\
+higher wages & labor market slack \\
+strong wages & job losses \\
+supply constraints & loss momentum \\
+capacity constraints &  \\
+labour shortage &  \\
+labor shortage &  \\
 \bottomrule
 \end{longtable}
-\normalsize
 
-\noindent\textit{Pruned in v34:}
-``exceeds supply'' (1 match).
-
-
-\subsection*{Residual -- Hawkish (15 entries)}
-
-\small
-\begin{longtable}{l}
-\toprule Raw Phrase (stop words pre-removed) \\
-\midrule \endfirsthead
-\toprule Raw Phrase \\ \midrule \endhead
-upside risk \\ tail risks \\ strong vigilance \\
-continued vigilance \\ remain alert \\ closely monitor \\
-upward revision \\ revised upward \\ revised up \\
-stronger than expected \\ higher than expected \\
-supply shock \\ supply disruption \\
-energy shock \\ second round \\
+\begin{longtable}{p{0.47\textwidth}p{0.47\textwidth}}
+\caption{Residual risk and commitment dictionary terms}\label{tab:a1_residual_terms}\\
+\toprule
+Hawkish terms & Dovish terms \\
+\midrule
+\endfirsthead
+\toprule
+Hawkish terms & Dovish terms \\
+\midrule
+\endhead
+upside risk & downside risk \\
+tail risks & risks growth \\
+strong vigilance & path inflation \\
+continued vigilance & negative territory \\
+remain alert & economic headwinds \\
+closely monitor & credit tightening \\
+upward revision & tighter credit \\
+revised upward & tighter financing \\
+revised up & tightening financial \\
+stronger than expected & credit standards \\
+higher than expected & market turmoil \\
+supply shock & systemic risk \\
+supply disruption & financial vulnerabilities \\
+energy shock & liquidity trap \\
+second round & zero lower bound \\
+ & effective lower bound \\
+ & downward revision \\
+ & revised downward \\
+ & revised down \\
+ & weaker than expected \\
+ & lower than expected \\
+ & geopolitical risks \\
+ & geopolitical tensions \\
+ & trade tensions \\
+ & sovereign debt \\
+ & debt crisis \\
+ & fiscal consolidation \\
+ & high uncertainty \\
+ & heightened uncertainty \\
+ & elevated uncertainty \\
+ & financial fragmentation \\
 \bottomrule
 \end{longtable}
-\normalsize
 
 
-% ══════════════════════════════════════════════════════════════════
-\section*{Dovish Terms (145 raw entries)}
-% ══════════════════════════════════════════════════════════════════
+\section{Random Forest blocklist}
+\label{app:a1_blocklist}
 
-\subsection*{Policy Action -- Dovish (57 entries)}
+The Random Forest uses a separate blocklist before TF--IDF construction. The
+blocklist is not a tone dictionary. Its purpose is to remove bigrams that could
+predict the rate-decision class through speaker identity, institutional
+boilerplate, location names, or period-specific artefacts rather than through
+genuine stance language. This is important because central bank leaders often
+serve during particular policy regimes: a chair or president name can become a
+spurious proxy for a tightening or easing cycle.
 
-\small
-\begin{longtable}{l}
-\toprule Raw Phrase (stop words pre-removed) \\
-\midrule \endfirsthead
-\toprule Raw Phrase \\ \midrule \endhead
-lower target \\ lower rate \\ lower interest rates \\
-lowering interest rates \\ decided lower \\
-decided reduce \\ reduce key \\ cut rates \\
-point reduction \\ point decrease \\ rate cut \\
-point cut \\ rate reduction \\ appropriate lower \\
-appropriate reduce \\ pace reductions \\ slower pace \\
-ease monetary policy \\ policy easing \\
-monetary easing \\ further easing \\
-policy accommodation \\ monetary accommodation \\
-accommodative policy \\ accommodative stance \\
-highly accommodative \\ remains accommodative \\
-ample degree \\ asset purchases \\
-purchase programme \\ purchase program \\
-net asset purchases \\ net purchases \\
-quantitative easing \\ forward guidance \\
-reinvesting principal \\ reinvestment policy \\
-targeted longer \\ pandemic emergency \\
-favourable financing \\ preserve favourable \\
-ample liquidity \\ smooth transmission \\
-support economy \\ support recovery \\ support economic \\
-extended period \\ least until \\
-until substantial further \\ lower bound \\
-neutral rate \\ monetary stimulus \\ policy stimulus \\
-additional stimulus \\ further stimulus \\
-generate economic \\ stabilises sustainably \\
+\begin{longtable}{p{0.47\textwidth}p{0.47\textwidth}}
+\caption{Random Forest blocklist bigrams}\label{tab:a1_blocklist}\\
+\toprule
+Boilerplate and institutional bigrams & Names, places, and era markers \\
+\midrule
+\endfirsthead
+\toprule
+Boilerplate and institutional bigrams & Names, places, and era markers \\
+\midrule
+\endhead
+cleveland richmond & alan greenspan \\
+richmond atlanta & greenspan chairman \\
+atlanta boston & chairman greenspan \\
+chicago st & ben bernank \\
+chicago minneapoli & bernank chairman \\
+loui minneapoli & chairman bernank \\
+st loui & janet yellen \\
+kansa citi & yellen chairman \\
+san francisco & chairman yellen \\
+new york & jerom powel \\
+reserv bank & powel chairman \\
+feder reserv & chairman powel \\
+york philadelphia & chairman susan \\
+philadelphia cleveland & susan bie \\
+cleveland atlanta & bie roger \\
+atlanta chicago & roger fergus \\
+minneapoli kansa & frederic mishkin \\
+dalla san & donald kohn \\
+discount rate & randal kroszner \\
+request submit & kroszner freder \\
+board approv & kevin warsh \\
+relat action & wim duisenberg \\
+committe continu & jean claud \\
+submit board & claud trichet \\
+approv request & mario draghi \\
+governor approv & christin lagard \\
+request discount & lagard christin \\
+charg depositori & luca papademo \\
+depositori institut & vitor constanci \\
+press confer & constanci vitor \\
+confer start & de guindo \\
+relat content & philip lane \\
+consider under & isabel schnabel \\
+polici measur & piero cipollon \\
+polici decis & washington dc \\
+press releas & constitut avenu \\
+monetari polici & 20th street \\
+polici transmiss & frankfurt main \\
+communic reproduct & sonnemannstrass 20 \\
+reproduct permit & european central \\
+permit provid & central bank \\
+council steer & centuri low \\
+pre commit & new centuri \\
+minimum bid &  \\
+bid rate &  \\
+futur roll &  \\
+avoid interfer &  \\
+time return &  \\
+american famili &  \\
+social partner &  \\
+mandat goal &  \\
 \bottomrule
 \end{longtable}
-\normalsize
-
-\noindent\textit{Pruned in v34:}
-``pace cuts'' (1 match),
-``provide stimulus'' (1 match).
 
 
-\subsection*{Inflation Assessment -- Dovish (32 entries)}
+\section{Interpretation}
+\label{app:a1_interpretation}
 
-\small
-\begin{longtable}{l}
-\toprule Raw Phrase (stop words pre-removed) \\
-\midrule \endfirsthead
-\toprule Raw Phrase \\ \midrule \endhead
-low inflation \\ lower inflation \\ subdued inflation \\
-muted inflation \\ falling inflation \\
-inflation declined \\ inflation fell \\ inflation dropped \\
-inflation eased \\ inflation fallen \\ continued decline \\
-moving down \\ moving sustainably toward \\
-ongoing disinflation \\ disinflation process \\
-disinflationary pressures \\ prices fell \\
-projected decline \\ lower prices \\
-transitory factors \\ temporary factors \\
-below target \\ below aim \\ significantly below \\
-price stability objective \\ closer target \\
-back target \\ deflation risk \\
-deflationary pressure \\ deflationary risk \\
-well anchored \\ firmly anchored \\
+The dictionary is intentionally transparent and static. This makes it easy to
+interpret but also creates two limitations. First, the dictionary cannot fully
+resolve context, negation, or changes in meaning over time. Second, the same
+vocabulary is applied to both the FOMC and the ECB even though their mandates
+and communication styles differ. These limitations are why the thesis compares
+\netscore{} against the Random Forest and RoBERTa/BERT scores throughout
+Chapter~\ref{ch:results}.
+
+
+% ══════════════════════════════════════════════════════════════════════════════
+% APPENDIX — Top 10 dictionary terms per sub-category (grayscale)
+% Requires: booktabs, threeparttable, tabularx, xcolor (for row shading)
+% ══════════════════════════════════════════════════════════════════════════════
+
+\begin{table}[htbp]
+\centering
+\caption[Top dictionary terms by sub-category]{Top 10 dictionary terms per sub-category ranked by total corpus hits (deduplicated by stemmed form). FOMC counts pool statements and press conferences (334 documents); ECB counts pool press releases and press conferences (550 documents).}
+\label{tab:app_top_dict_terms}
+\begin{threeparttable}
+\scriptsize
+\setlength{\tabcolsep}{2.0pt}
+\renewcommand{\arraystretch}{1.02}
+
+\vspace{0.25cm}
+\noindent
+\begin{tabularx}{\textwidth}{@{}>{\itshape}Xrr|>{\itshape}Xrr@{}}
+\toprule
+\multicolumn{3}{@{}l}{\textbf{Policy --- Hawkish}} & \multicolumn{3}{l@{}}{\textbf{Policy --- Dovish}} \\
+\cmidrule(r){1-3}\cmidrule(l){4-6}
+\normalfont Term & \normalfont FOMC & \normalfont ECB & \normalfont Term & \normalfont FOMC & \normalfont ECB \\
+\midrule
+rate increase & 160 & 204 & asset purchases & 400 & 655 \\
+rate hike & 146 & 169 & forward guidance & 119 & 396 \\
+raise rates & 206 & 70 & rate cut & 172 & 305 \\
+returning inflation & 106 & 130 & purchase programme & 0 & 474 \\
+raise interest & 100 & 107 & extended period & 59 & 209 \\
+raise interest rates & 99 & 107 & net asset purchases & 11 & 247 \\
+maintain price stability & 17 & 163 & favourable financing & 0 & 227 \\
+increase rates & 23 & 150 & cut rates & 118 & 89 \\
+sufficiently restrictive & 57 & 71 & monetary accommodation & 9 & 193 \\
+strongly committed & 101 & 6 & support economic & 76 & 123 \\
 \bottomrule
-\end{longtable}
-\normalsize
+\end{tabularx}
 
-
-\subsection*{Growth, Demand, and Employment -- Dovish (25 entries)}
-
-\small
-\begin{longtable}{l}
-\toprule Raw Phrase (stop words pre-removed) \\
-\midrule \endfirsthead
-\toprule Raw Phrase \\ \midrule \endhead
-economic weakness \\ weak growth \\ low growth \\
-lower growth \\ weaker growth \\ slower growth \\
-modest growth \\ weak demand \\ weaker demand \\
-lower demand \\ growth slowed \\ drag growth \\
-economic slowdown \\ economic downturn \\
-weak economic \\ weaker economic \\
-sharp decline \\ negative growth \\ deep recession \\
-high unemployment \\ rising unemployment \\
-higher unemployment \\ labor market slack \\
-job losses \\ loss momentum \\
+\vspace{0.25cm}
+\noindent
+\begin{tabularx}{\textwidth}{@{}>{\itshape}Xrr|>{\itshape}Xrr@{}}
+\toprule
+\multicolumn{3}{@{}l}{\textbf{Inflation --- Hawkish}} & \multicolumn{3}{l@{}}{\textbf{Inflation --- Dovish}} \\
+\cmidrule(r){1-3}\cmidrule(l){4-6}
+\normalfont Term & \normalfont FOMC & \normalfont ECB & \normalfont Term & \normalfont FOMC & \normalfont ECB \\
+\midrule
+underlying inflation & 44 & 390 & low inflation & 75 & 162 \\
+inflationary pressures & 46 & 309 & firmly anchored & 1 & 206 \\
+second round effects & 3 & 294 & well anchored & 154 & 43 \\
+core inflation & 140 & 126 & moving down & 118 & 7 \\
+price pressures & 21 & 242 & lower inflation & 30 & 37 \\
+wage growth & 113 & 133 & inflation declined & 17 & 41 \\
+high inflation & 133 & 64 & continued decline & 14 & 43 \\
+upward pressure & 68 & 116 & temporary factors & 8 & 47 \\
+pass through & 34 & 145 & inflation eased & 35 & 11 \\
+labour costs & 0 & 173 & below target & 22 & 21 \\
 \bottomrule
-\end{longtable}
-\normalsize
+\end{tabularx}
 
-\noindent\textit{Pruned in v34:}
-``rising layoffs'' (2 matches).
-
-
-\subsection*{Residual -- Dovish (31 entries)}
-
-\small
-\begin{longtable}{l}
-\toprule Raw Phrase (stop words pre-removed) \\
-\midrule \endfirsthead
-\toprule Raw Phrase \\ \midrule \endhead
-downside risk \\ risks growth \\ path inflation \\
-negative territory \\ economic headwinds \\
-credit tightening \\ tighter credit \\ tighter financing \\
-tightening financial \\ credit standards \\
-market turmoil \\ systemic risk \\
-financial vulnerabilities \\ liquidity trap \\
-zero lower bound \\ effective lower bound \\
-downward revision \\ revised downward \\ revised down \\
-weaker than expected \\ lower than expected \\
-geopolitical risks \\ geopolitical tensions \\
-trade tensions \\ sovereign debt \\ debt crisis \\
-fiscal consolidation \\ high uncertainty \\
-heightened uncertainty \\ elevated uncertainty \\
-financial fragmentation \\
+\vspace{0.25cm}
+\noindent
+\begin{tabularx}{\textwidth}{@{}>{\itshape}Xrr|>{\itshape}Xrr@{}}
+\toprule
+\multicolumn{3}{@{}l}{\textbf{Employment --- Hawkish}} & \multicolumn{3}{l@{}}{\textbf{Employment --- Dovish}} \\
+\cmidrule(r){1-3}\cmidrule(l){4-6}
+\normalfont Term & \normalfont FOMC & \normalfont ECB & \normalfont Term & \normalfont FOMC & \normalfont ECB \\
+\midrule
+strong labor market & 175 & 0 & high unemployment & 25 & 35 \\
+job gains & 174 & 0 & growth slowed & 37 & 16 \\
+strong growth & 34 & 77 & slower growth & 24 & 22 \\
+continued expand & 67 & 42 & weak economic & 2 & 33 \\
+economic expansion & 32 & 71 & sharp decline & 9 & 20 \\
+low unemployment & 54 & 6 & weak demand & 5 & 24 \\
+solid pace & 59 & 0 & job losses & 28 & 0 \\
+supply constraints & 24 & 27 & lower growth & 5 & 23 \\
+rising wages & 11 & 39 & economic weakness & 16 & 11 \\
+tight labor market & 50 & 0 & weaker growth & 6 & 21 \\
 \bottomrule
-\end{longtable}
-\normalsize
+\end{tabularx}
 
-\noindent\textit{Pruned in v34:}
-``financial tightening'' (1 match).
+\vspace{0.25cm}
+\noindent
+\begin{tabularx}{\textwidth}{@{}>{\itshape}Xrr|>{\itshape}Xrr@{}}
+\toprule
+\multicolumn{3}{@{}l}{\textbf{Residual --- Hawkish}} & \multicolumn{3}{l@{}}{\textbf{Residual --- Dovish}} \\
+\cmidrule(r){1-3}\cmidrule(l){4-6}
+\normalfont Term & \normalfont FOMC & \normalfont ECB & \normalfont Term & \normalfont FOMC & \normalfont ECB \\
+\midrule
+upside risk & 31 & 383 & downside risk & 147 & 353 \\
+second round & 8 & 297 & fiscal consolidation & 5 & 294 \\
+closely monitor & 54 & 87 & path inflation & 11 & 137 \\
+strong vigilance & 0 & 90 & risks growth & 12 & 89 \\
+stronger than expected & 15 & 60 & credit standards & 6 & 87 \\
+higher than expected & 12 & 52 & high uncertainty & 9 & 78 \\
+revised up & 17 & 47 & geopolitical risks & 11 & 67 \\
+revised upward & 0 & 50 & downward revision & 13 & 51 \\
+tail risks & 8 & 35 & weaker than expected & 6 & 58 \\
+upward revision & 5 & 31 & sovereign debt & 9 & 49 \\
+\bottomrule
+\end{tabularx}
 
-
-% ══════════════════════════════════════════════════════════════════
-\section*{Forward-Looking Sentence Markers}
-% ══════════════════════════════════════════════════════════════════
-
-Sentences are classified as forward-looking if they contain any of
-the following patterns (case-insensitive regex matching on raw,
-unstemmed text):
-
-\texttt{will, expected, anticipat*, intend, at least until,
-as long as, going forward, would be appropriate,
-will be appropriate, appropriate to, forthcoming, future,
-period ahead, prospect, outlook, balance of risks,
-risks to the outlook, likely to, monitor, watchful,
-remain alert, stand ready, prepared to, in coming months,
-over the medium, subsequent, project, forecast, foresee,
-envisage, on track to, trajectory, path of, aim to,
-seek to, looking ahead, over the coming, next meeting,
-data dependent, meeting by meeting, conditional, contingent,
-if warranted, remains to be seen, too early to, should remain,
-commit to, in due course, eventually.}
+\begin{tablenotes}[flushleft]
+\footnotesize
+\item \emph{Notes}: Counts are raw term matches after Porter stemming and
+stop-word removal. Where multiple raw phrases map to the same stemmed form
+(e.g.\ ``raise rates'' and ``raising rates''), only the shortest form is shown
+and counts are reported once. A single document can contribute multiple hits
+for the same term. The full dictionary (288 terms) is reported in
+Appendix~\ref{app:a1_terms}.
+\end{tablenotes}
+\end{threeparttable}
+\end{table}

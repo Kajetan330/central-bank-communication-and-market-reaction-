@@ -16,106 +16,99 @@ Section~\ref{sec:data_descriptives} presents descriptive statistics.
 \label{sec:data_text}
 % ══════════════════════════════════════════════════════════════════════════════
 
-The textual corpus consists of \textbf{884 central bank communication documents}
-from the Federal Open Market Committee (FOMC) and the European Central Bank
-(ECB). For each institution, two document types are used: policy statements and
-press conference transcripts. \Cref{tab:corpus_overview} summarises the corpus,
-and \Cref{fig:sample_coverage} visualises the coverage of each document type over
-time.
+The textual corpus consists of \textbf{884 central bank communication
+documents} from the Federal Open Market Committee (FOMC) and the
+European Central Bank (ECB). For each institution, two document types are
+analysed: policy statements and press conference transcripts.
+\Cref{tab:corpus_overview} summarises the final corpus, while
+\Cref{fig:sample_coverage} illustrates the coverage of each document
+type over time.
+
+
+
+The raw corpus is constructed from four pre-compiled files:
+\texttt{fomc\_statements\_econometrics.csv},
+\texttt{fomc\_press\_conferences\_econometrics.csv},
+\texttt{ecb\_decisions\_econometrics.csv}, and
+\texttt{ecb\_statements\_econometrics.csv}. These files contain the raw
+text, meeting date, central bank identifier, document type, and source
+information. After loading, all documents are combined into a single
+dataset and then split into four analysis corpora: FOMC statements, FOMC
+press conferences, ECB statements, and ECB press conferences.
 
 \subsection{FOMC Statements}
 \label{sec:data_fomc_stmt}
 
-FOMC post-meeting communications are collected from February~1994, when the
-Committee first began announcing the outcome of selected meetings, through
-March~2026. The resulting corpus contains \textbf{242 statement documents}, covering
-scheduled meetings and inter-meeting communications. Each statement is assigned a
-unique event identifier constructed from the meeting date, for example
-\texttt{fomc\_stmt\_20220316}, and is matched to the corresponding event date in the
-financial market data.
+FOMC post-meeting statements are collected from February~1994, when the
+Committee first began issuing post-meeting communications, through
+March~2026. The final FOMC statement corpus contains
+\textbf{242 documents}, including both scheduled meetings and
+inter-meeting communications. These documents are official committee
+statements and therefore do not require speaker-turn cleaning or removal
+of journalist questions.
 
-The statements are sourced from the pre-compiled file
-\texttt{fomc\_statements\_econometrics.csv}, which contains the raw text, meeting
-date, speaker or Chair identifier, and central bank identifier. Statements are not
-subject to speaker-turn cleaning because they are official committee documents and
-do not contain journalist questions. They are nevertheless processed through the
-common tokenisation, stop-word removal, and stemming pipeline described in
-Section~\ref{sec:data_tokenisation}.
+The statements are matched to the corresponding FOMC event dates in the
+U.S. Monetary Policy Event-Study Database. This allows each statement to
+be linked to high-frequency market reactions in the statement window,
+including monetary policy surprises, equity-market reactions,
+exchange-rate movements, and Treasury yield changes. Before scoring, the
+statement texts are processed through the common cleaning and
+tokenisation pipeline described in \Cref{sec:data_tokenisation},
+including lowercasing, stop-word handling, phrase matching, and stemming.
 
 \subsection{FOMC Press Conferences}
 \label{sec:data_fomc_pc}
 
-FOMC press conference transcripts are available from April~2011 onward, yielding
-\textbf{92 documents}. Press conferences were initially held after four meetings per
-year, generally those associated with the Summary of Economic Projections, and were
-extended to every scheduled FOMC meeting from January~2019. The transcripts are
-sourced from \texttt{fomc\_press\_conferences\_econometrics.csv} and contain the
-Chair's opening remarks and the subsequent question-and-answer session.
+FOMC press conference transcripts are available from April~2011 onward,
+yielding \textbf{92 documents}. Press conferences were initially held
+after selected meetings, typically those associated with the Summary of
+Economic Projections, and have been held after every scheduled FOMC
+meeting since January~2019. The transcripts are sourced from
+\texttt{fomc\_press\_conferences\_econometrics.csv} and include the
+Chair's prepared remarks as well as the subsequent question-and-answer
+session.
 
-Because these transcripts contain both central bank communication and journalist
-questions, they require speaker-turn cleaning before scoring. The final FOMC press
-conference text retains only the Chair's own remarks and answers; journalist
-questions and non-Chair speaker turns are removed. The cleaning procedure is
-specified in Section~\ref{sec:data_fomc_pc_clean}.
+Because the raw transcripts contain both central bank communication and
+journalist questions, they are cleaned before scoring. This step is
+important because retaining journalist questions would contaminate the
+tone measure with language that does not originate from the central bank.
+The final FOMC press conference corpus therefore retains only the Chair's
+opening remarks and answers, while journalist questions and other
+non-Chair speaker turns are removed. The cleaning procedure is described
+in \Cref{sec:data_fomc_pc_clean}.
 
 \subsection{ECB Statements}
 \label{sec:data_ecb_stmt}
 
-ECB statements refer to the introductory monetary policy statement read by the ECB
-President at the start of each press conference. These statements are collected for
-Governing Council monetary policy meetings from January~1999 through March~2026,
-yielding \textbf{284 documents}. The statements are sourced from
-\texttt{ecb\_decisions\_econometrics.csv} and are mapped in the data pipeline to the
-\texttt{ecb\_statements} source label with event identifiers of the form
-\texttt{ecb\_stmt\_YYYYMMDD}.
+ECB statements refer to the introductory monetary policy statement
+delivered by the ECB President at the start of the press conference.
+They are collected for Governing Council monetary policy meetings from
+January~1999 through March~2026, yielding \textbf{284 documents}. The
+statement corpus is sourced from \texttt{ecb\_decisions\_econometrics.csv}
+and forms the ECB statement sample used in the empirical analysis.
 
-The ECB held monetary policy meetings monthly until the beginning of 2015, producing
-a denser early sample than the FOMC, which holds eight scheduled meetings per year.
-After the ECB switched to a six-weekly monetary policy meeting schedule in
-January~2015, the observation frequency became closer to that of the FOMC.
+The ECB held monetary policy meetings monthly until January~2015, which
+creates a denser early sample than for the FOMC. After the ECB switched
+to a six-weekly monetary policy meeting schedule, the observation
+frequency became closer to that of the FOMC.
 
 \subsection{ECB Press Conferences}
 \label{sec:data_ecb_pc}
 
-ECB press conference transcripts cover the question-and-answer part of the press
-conference following the introductory statement. The raw ECB web pages often contain
-both the introductory statement and the Q\&A in a single file. For the empirical
-analysis, these objects are separated conceptually: the introductory statement enters
-the ECB statement corpus and is matched to the EA-MPD press release window, while
-the press conference corpus is intended to capture the official ECB answers during the
-Q\&A and is matched to the EA-MPD press conference window.
+ECB press conferences capture the question-and-answer part of the
+President's monetary policy press conference. The corpus contains
+\textbf{266 documents} from January~1999 through December~2025 and is
+sourced from \texttt{ecb\_statements\_econometrics.csv}. The sample is
+smaller than the ECB statement corpus because Q\&A transcripts are not
+available in usable form for every policy meeting.
 
-The ECB press conference corpus contains \textbf{266 documents} from January~1999
-through December~2025. This is fewer than the 284 ECB statement documents,
-reflecting meetings for which the introductory statement is available but the Q\&A
-transcript is missing, not yet covered by the raw corpus, or could not be recovered in
-a usable format. The transcripts are sourced from
-\texttt{ecb\_statements\_econometrics.csv} and mapped to the
-\texttt{ecb\_press\_conferences} source label with event identifiers of the form
-\texttt{ecb\_pressconf\_YYYYMMDD}.
-
-A data quality issue affects part of the ECB press conference sample, especially from
-2019 onward: some downloaded texts lack explicit \texttt{Question:} labels, which are
-needed to distinguish journalist questions from official answers. For affected
-transcripts, the pipeline re-scrapes the formatted HTML from \texttt{ecb.europa.eu},
-uses the HTML structure to recover speaker labels, and caches the downloaded pages
-locally in \texttt{ecb\_html\_cache.rds}. The cache contains \textbf{54 successfully
-fetched transcripts}, all of which are reused by the current data pipeline. This
-procedure reduces repeated web requests and makes the cleaning step reproducible
-once the cache has been created.
-
-In addition to the HTML re-scraping described above, a targeted
-recovery step attempts to fetch the raw text of documents that
-remained missing or truncated (fewer than 100 characters) after the
-initial corpus assembly. The recovery targets two FOMC statements
-(\texttt{fomc\_stmt\_20070628} and \texttt{fomc\_stmt\_20080122})
-and eight ECB statements from 1999--2006 for which the pre-compiled
-CSV contained no usable text. Of these ten targets, the two FOMC
-statements and a subset of the ECB statements were successfully
-recovered from the central bank websites. The recovered texts are
-merged back into the corpus; documents that could not be recovered
-are retained with missing text and are excluded from subsequent
-scoring and regression analyses.
+As with the FOMC press conferences, the ECB transcripts require cleaning
+because the raw text contains both journalist questions and central bank
+answers. The analysis retains only the responses by ECB officials and
+removes journalist questions. This ensures that the measured tone
+reflects ECB communication rather than the wording or framing of the
+questions. The cleaning procedure is described in
+\Cref{sec:data_ecb_pc_clean}.
 
 \subsection{Corpus Overview}
 
@@ -220,7 +213,7 @@ meetings in January~2015. Exact document counts are reported in
 
 The preprocessing pipeline has two purposes. First, it removes text that does not
 represent central bank communication, especially journalist questions and
-institutional boilerplate. Second, it converts the remaining text into a form suitable
+institutional boilerplate.(Need to mention that otherwise it would bias results) Second, it converts the remaining text into a form suitable
 for dictionary scoring and machine-learning feature extraction. Statements require no
 speaker-turn cleaning, while press conference transcripts require more extensive
 processing because they contain multiple speakers.
@@ -228,31 +221,24 @@ processing because they contain multiple speakers.
 \subsection{ECB Press Conference Cleaning}
 \label{sec:data_ecb_pc_clean}
 
-ECB press conference transcripts contain official ECB communication and journalist
-questions. Since journalist questions do not represent the ECB's policy stance, they are
-removed before scoring. The cleaned press conference text is designed to retain official
-answers by the President, Vice-President, Chief Economist, or other identifiable ECB
-officials, while excluding journalist questions and boilerplate.
+ECB press conference transcripts contain both official ECB communication
+and journalist questions. Since journalist questions do not represent the
+ECB's policy stance, they are removed before scoring. The cleaned text
+retains only identifiable ECB speaker responses, including those by the
+President, Vice-President, Chief Economist, and other senior ECB
+officials.
 
-The cleaning algorithm proceeds in four steps. First, institutional boilerplate is
-removed from the end of each transcript, including footer material containing phrases
-such as ``CONTACT European Central Bank,'' ``Disclaimer,'' and ``Reproduction is
-permitted.'' Second, the algorithm identifies the start of the Q\&A section. Text before
-the first question label is not treated as press-conference Q\&A text. Third, labelled
-speaker turns are detected using a regular expression that matches question labels and
-the surnames of known ECB officials, including Duisenberg, Trichet, Draghi, Lagarde,
-Noyer, Papademos, Constâncio, de~Guindos, and Lane. Fourth, question segments are
-discarded and official response segments are concatenated into the final cleaned press
-conference text. Where the raw downloaded text lacks reliable question labels, the
-pipeline uses the locally cached HTML recovery procedure described in
-Section~\ref{sec:data_ecb_pc}.
+The cleaning procedure removes institutional boilerplate, detects
+speaker turns, discards question segments, and concatenates the official
+ECB responses into a single cleaned document. This ensures that the
+press-conference tone measure reflects ECB communication rather than the
+language or framing of journalists' questions.
 
-\Cref{tab:ecb_pc_cleaning} reports cleaning diagnostics from the current data run. The
-most important diagnostic is not the mean retention rate alone, but the combination of
-retention, high-retention flags, and over-cleaning flags. High-retention observations are
-not automatically errors: some press conferences contain long official answers relative to
-journalist questions. However, documents retaining more than 95\% of the raw text are
-flagged for inspection because they may indicate that question labels were not detected.
+\Cref{tab:ecb_pc_cleaning} reports diagnostics from the cleaning
+procedure. Documents with unusually high or low text retention are flagged
+for inspection, since very high retention may indicate that journalist
+questions were not fully removed, while very low retention may indicate
+over-cleaning.
 
 \begin{table}[htbp]
 \centering
@@ -272,54 +258,52 @@ HTML transcripts recovered and cached       & 54 \\
 \end{tabular}
 \end{table}
 
-The realised mean retention rate of 82.0\% is above the initial target range of
-40--70\%. This should not be interpreted as automatic validation of the cleaning
-procedure. Instead, it indicates that the ECB corpus contains a non-trivial set of
-high-retention documents, mostly around the period where the downloaded texts no
-longer contain explicit \texttt{Question:} labels. These cases are handled by the HTML
-re-scraping procedure described in Section~\ref{sec:data_ecb_pc}. The absence of any
-document below the 20\% threshold indicates that the algorithm does not aggressively
-over-cut the corpus, but the high-retention cases remain the more relevant diagnostic
-risk.
-
 \subsection{FOMC Press Conference Cleaning}
 \label{sec:data_fomc_pc_clean}
 
-FOMC press conference transcripts use a different labelling convention. Speakers are
-identified by capitalised labels, such as ``CHAIR POWELL.'', and journalist questions are
-marked by labels such as ``QUESTION.'' The cleaning algorithm identifies speaker turns
-using a regular expression that matches either \texttt{QUESTION.} or a sequence of
-capitalised words followed by a period. Only segments attributed to the Chair are
-retained; journalist questions and any other speaker turns are discarded.
+FOMC press conference transcripts contain both the Chair's communication
+and journalist questions. Since the objective is to measure the central
+bank's tone, the cleaning procedure retains only the Chair's prepared
+remarks and answers, while removing journalist questions and other
+speaker turns.
 
-Across the \textbf{92 FOMC press conferences} in the text corpus, \textbf{91} are matched
-to the press-conference market-data window. The cleaned FOMC press conference corpus
-has an average post-cleaning length of \textbf{2{,}325 non-stopword tokens}; the
-document-length sample reported in \Cref{tab:text_desc} contains \textbf{91} observations
-because one document does not survive the final text-score construction filters used in
-the descriptive-statistics table. The FOMC cleaning behaves more consistently than the
-ECB cleaning because FOMC transcripts use more stable speaker labels.
+This step prevents the tone score from being affected by the wording of
+questions, which may contain market interpretations, criticism, or
+hypothetical policy scenarios that do not represent the Federal Reserve's
+own communication. The cleaned FOMC press conference corpus is therefore
+designed to capture only the Chair's policy-relevant language.
 
 \subsection{Cleaning Validation}
 \label{sec:data_cleaning_validation}
 
-Cleaning can affect measured tone if journalist questions contain systematic hawkish or
-dovish language. The pipeline therefore validates press conference cleaning by comparing
-dictionary scores computed on raw and cleaned texts. The validation uses the final
-dictionary score from the current model,
+Press conference cleaning can affect measured tone because journalist
+questions may contain hawkish or dovish language that does not represent
+the central bank's own communication. To assess the effect of cleaning,
+dictionary scores are computed both before and after removing journalist
+questions. The comparison is based on the final dictionary score,
 \[
   \texttt{net\_score} = \frac{H-D}{H+D+10},
 \]
-where \(H\) and \(D\) are the total hawkish and dovish bigram/trigram matches,
-respectively. Labels are assigned using the final threshold of \(\pm 0.05\):
-scores above \(0.05\) are labelled hawkish, scores below \(-0.05\) are labelled dovish,
-and scores in between are labelled neutral.
+where \(H\) and \(D\) denote the total number of hawkish and dovish
+phrase matches. Scores above \(0.05\) are classified as hawkish, scores
+below \(-0.05\) as dovish, and scores between these thresholds as
+neutral.
 
-Three diagnostics are reported. First, the raw-clean score correlation measures whether
-cleaning preserves the relative ranking of documents. Second, the mean score shift
-measures whether cleaning moves scores systematically in a hawkish or dovish direction.
-Third, the label-flip rate counts the share of documents whose hawkish/neutral/dovish
-label changes after cleaning.
+The validation compares raw and cleaned scores to check whether the
+cleaning procedure materially changes the tone measure. In particular,
+it examines whether cleaned scores remain closely related to raw scores,
+whether cleaning shifts the average score in a systematic direction, and
+whether many documents change their hawkish/neutral/dovish classification
+after cleaning.
+
+A remaining limitation is that removing journalist questions does not
+fully eliminate question-related language. Central bankers sometimes
+repeat or paraphrase a question before answering it. In such cases, the
+repeated wording remains in the cleaned text because it is part of the
+central banker's response. The resulting score should therefore be
+interpreted as the tone of the official response text, not as a perfect
+separation between original central bank language and all question-related
+phrasing.
 
 \begin{table}[htbp]
 \centering
@@ -344,72 +328,236 @@ ECB press conference  & 266 & 0.0022 & 0.0215 & 0.0193 & 0.980 & 7.1 \\
 \end{threeparttable}
 \end{table}
 
-The cleaning validation indicates that cleaning preserves the cross-document ranking of
-tone: raw-clean correlations are 0.962 for FOMC press conferences and 0.980 for ECB
-press conferences. Mean score shifts are small in absolute terms, though positive in both
-corpora, meaning that removing journalist questions slightly increases measured
-hawkishness on average. Label flips are more frequent for FOMC press conferences
-(20.7\%) than for ECB press conferences (7.1\%), which means that cleaning is not merely
-cosmetic: it can change the discrete classification of some press-conference documents.
-For this reason, all main empirical results use the cleaned text, because it is the version
-intended to measure central bank communication rather than the full transcript including
-journalist questions.
+The validation confirms that cleaning does not fundamentally alter the
+tone measure, but it can affect the classification of individual
+documents. All main empirical results therefore use the cleaned
+press-conference texts, since these are designed to measure central bank
+communication rather than the full transcript including journalist
+questions.
 
 \subsection{Tokenisation and Stemming}
 \label{sec:data_tokenisation}
- 
-After cleaning, all texts pass through a common preprocessing
-pipeline. Text is lowercased and tokenised into unigrams, bigrams,
-and trigrams using the \texttt{tidytext} package in R. The
-remaining tokens are Porter-stemmed using the \texttt{SnowballC}
-package \citep{porter1980}. For example, ``raising'', ``raised'',
-and ``raises'' are all mapped to the stem ``rais''.
- 
-The same stemming convention is applied to document tokens and
-dictionary terms, but the two scoring pipelines use different
-stop-word lists. The \textbf{dictionary scorer} uses a custom
-conservative stop list of 44 words, restricted to non-directional
-function words (articles, copula verbs, pronouns, and safe
-prepositions). Directional words such as ``above,'' ``below,''
-``further,'' ``not,'' and ``more'' are deliberately retained
-because they form essential components of stance-bearing bigrams
-(e.g., ``above target,'' ``further tightening''). The dictionary
-phrases themselves are written with these stop words already
-stripped, so text and dictionary align after identical stop-word
-removal. The \textbf{Random Forest TF-IDF pipeline} uses the
-default \texttt{tidytext} stop-word list (174 words), with bigrams
-filtered if \emph{either} component is a stop word. This broader
-removal is appropriate for the RF because the Lasso pre-selection
-and feature-importance ranking provide data-driven protection
-against uninformative bigrams.
- 
-In the final dictionary score, only deduplicated bigram and trigram
-dictionary matches are used. The current dictionary (v34) contains
-288 raw phrase entries and 282 deduplicated bigram/trigram terms
-after preprocessing. For the Random Forest, both components of
-each bigram are stemmed before the TF-IDF matrix is constructed.
 
+After cleaning, all texts pass through a common preprocessing pipeline.
+Text is lowercased and converted into phrase-level features. The
+dictionary scorer uses bigrams and trigrams, while the Random Forest
+pipeline uses bigram TF-IDF features. Words are stemmed using the Porter
+stemming algorithm implemented in the \texttt{SnowballC} package
+\citep{porter1980}. For example, ``raising'', ``raised'', and ``raises''
+are all mapped to the stem ``rais''. The same stemming logic is applied
+to both document text and dictionary terms, ensuring that inflected word
+forms are matched consistently.
+
+The dictionary scorer uses a conservative custom stop-word list. This
+list removes only non-directional function words, such as articles,
+auxiliary verbs, pronouns, and basic prepositions. Directional and
+stance-relevant words such as ``above'', ``below'', ``further'', ``not'',
+and ``more'' are deliberately retained, because they are central to
+monetary-policy meaning. For example, removing ``above'' from
+``above target'' or ``further'' from ``further tightening'' would destroy
+the stance signal. Dictionary phrases are therefore preprocessed using
+the same stop-word and stemming rules as the documents before matching.
+
+The Random Forest pipeline uses a separate preprocessing approach. It
+constructs stemmed bigrams from the cleaned text, removes bigrams that
+contain standard stop words, and converts the remaining terms into a
+TF-IDF matrix. Terms that appear in fewer than three documents are
+excluded, and the feature space is capped at 2{,}000 bigrams for
+computational efficiency and to reduce overfitting. A manually defined
+blocklist removes institutional names, locations, and boilerplate terms
+that are frequent but not informative about hawkish or dovish tone.
+
+In the final dictionary score, each document is scored using matched
+hawkish and dovish bigram/trigram phrases. The Random Forest instead
+uses the document's bigram TF-IDF representation as input to the Lasso
+feature-selection and classification pipeline described in
+\Cref{sec:meth_rf}.
+
+\subsection{Sentence-Level RoBERTa/BERT Predictions}
+\label{sec:data_bert_predictions}
+
+In addition to the dictionary and Random Forest inputs, the final dataset
+includes sentence-level RoBERTa/BERT predictions for each of the four
+corpora: FOMC statements, FOMC press conferences, ECB statements, and ECB
+press conferences. Each sentence is classified as hawkish, neutral, or
+dovish. These sentence-level classifications are then aggregated to the
+document level to construct the \bertscore{} used in the empirical
+analysis.
+
+The RoBERTa/BERT measure provides a contextual benchmark against the
+dictionary and Random Forest scores. Unlike the dictionary, which relies
+on matched bigrams and trigrams, the sentence classifier evaluates the
+broader sentence context. This is useful because the meaning of a phrase
+can depend on surrounding words. For example, a dictionary may treat a
+phrase such as ``inflation pressures'' similarly across documents, while
+a sentence-level model can distinguish whether the sentence describes
+rising pressures, easing pressures, or uncertainty about future
+pressures.
+
+The RoBERTa/BERT scores are not treated as manually verified ground-truth
+labels. They are used as an additional text-based tone measure that may
+capture contextual information missed by fixed phrase counts. This
+distinction is important because sentence-level classifications may not
+map perfectly into monetary-policy stance, especially when the same model
+is applied across both FOMC and ECB communication.
 
 % ══════════════════════════════════════════════════════════════════════════════
 \section{Financial Market Data}
 \label{sec:data_market}
 % ══════════════════════════════════════════════════════════════════════════════
 
-The market reaction analysis uses asset price changes measured in narrow event windows
-around monetary policy announcements. Narrow windows reduce the probability that the
-measured price movement reflects unrelated macroeconomic or financial news. Two
-purpose-built event-study databases are used: the U.S. Monetary Policy Event-Study
-Database for the FOMC and the Euro Area Monetary Policy Database for the ECB.
+The market-reaction analysis uses high-frequency asset-price changes
+measured in narrow windows around monetary policy announcements. These
+windows are designed to isolate the market response to central bank
+communication and reduce the likelihood that unrelated news drives the
+measured price movement. The analysis relies on two purpose-built
+monetary policy event-study databases: the U.S. Monetary Policy
+Event-Study Database for the FOMC and the Euro Area Monetary Policy
+Database for the ECB.
+
+% --------------------------------------------------------------------------
+% Figure — High-frequency event windows for FOMC and ECB
+% Place in chapters/04_data.tex after introducing the event-study data.
+% --------------------------------------------------------------------------
+\begin{figure}[htbp]
+\centering
+
+\resizebox{0.96\textwidth}{!}{%
+\begin{tikzpicture}[
+    x=1cm, y=1cm,
+    timeline/.style={black, dashed, line width=0.8pt},
+    eventline/.style={black, densely dashed, line width=1pt},
+    window/.style={<->, >=Latex, black, line width=0.9pt},
+    tick/.style={black, line width=0.7pt},
+    paneltitle/.style={font=\bfseries\large},
+    timelabel/.style={font=\scriptsize},
+    smalllabel/.style={font=\scriptsize, align=center},
+    eventlabel/.style={font=\scriptsize, align=center, fill=white, inner sep=1.5pt}
+]
+
+% ==========================================================================
+% Panel A: FOMC
+% ==========================================================================
+\node[paneltitle] at (8,7.1) {Panel A: FOMC communication event day};
+
+% Timeline
+\draw[timeline] (0.8,5.55) -- (15.2,5.55);
+
+% Event lines
+\draw[eventline] (4.0,5.05) -- (4.0,6.05);
+\draw[eventline] (10.2,5.05) -- (10.2,6.05);
+
+% Event labels
+\node[eventlabel] at (4.0,6.22) {statement};
+\node[eventlabel] at (10.2,6.22) {press conference};
+
+% Statement window
+\draw[tick] (2.8,5.63) -- (2.8,5.47);
+\draw[tick] (4.0,5.63) -- (4.0,5.47);
+\draw[tick] (5.8,5.63) -- (5.8,5.47);
+
+\node[timelabel] at (2.8,5.25) {13:50};
+\node[timelabel] at (4.0,5.25) {14:00};
+\node[timelabel] at (5.8,5.25) {14:20};
+
+\draw[window] (2.8,4.85) -- (5.8,4.85);
+\node[smalllabel] at (4.3,4.58) {statement window};
+
+% Press conference window
+\draw[tick] (8.9,5.63) -- (8.9,5.47);
+\draw[tick] (10.2,5.63) -- (10.2,5.47);
+\draw[tick] (13.8,5.63) -- (13.8,5.47);
+
+\node[timelabel] at (8.9,5.25) {14:20};
+\node[timelabel] at (10.2,5.25) {14:30};
+\node[timelabel] at (13.8,5.25) {15:30};
+
+\draw[window] (8.9,4.85) -- (13.8,4.85);
+\node[smalllabel] at (11.35,) {press-conference window};
+
+% ==========================================================================
+% Panel B: ECB
+% ==========================================================================
+\node[paneltitle] at (8,3.3) {Panel B: ECB communication event day};
+
+% Timeline
+\draw[timeline] (0.8,2.10) -- (15.2,2.10);
+
+% Event lines
+\draw[eventline] (4.2,1.60) -- (4.2,2.60);
+\draw[eventline] (10.1,1.60) -- (10.1,2.60);
+
+% Event labels
+\node[eventlabel] at (4.2,2.77) {press release};
+\node[eventlabel] at (10.1,2.77) {press conference};
+
+% Press release window
+\draw[tick] (3.0,2.18) -- (3.0,2.02);
+\draw[tick] (4.2,2.18) -- (4.2,2.02);
+\draw[tick] (5.6,2.18) -- (5.6,2.02);
+
+\node[timelabel] at (3.0,1.80) {13:25};
+\node[timelabel] at (4.2,1.80) {13:45};
+\node[timelabel] at (5.6,1.80) {13:50};
+
+\draw[window] (3.0,1.40) -- (5.6,1.40);
+\node[smalllabel] at (4.3,1.13) {press-release window};
+
+% Press conference window
+\draw[tick] (8.7,2.18) -- (8.7,2.02);
+\draw[tick] (10.1,2.18) -- (10.1,2.02);
+\draw[tick] (13.6,2.18) -- (13.6,2.02);
+
+\node[timelabel] at (8.7,1.80) {14:15};
+\node[timelabel] at (10.1,1.80) {14:30};
+\node[timelabel] at (13.6,1.80) {15:50};
+
+\draw[window] (8.7,1.40) -- (13.6,1.40);
+\node[smalllabel] at (11.35,4.58) {press-conference window};
+
+% ==========================================================================
+% Legend
+% ==========================================================================
+\draw[eventline] (3.0,-0.10) -- (4.0,-0.10);
+\node[anchor=west, font=\scriptsize] at (4.2,-0.10) {communication event};
+
+\draw[window] (8.2,-0.10) -- (9.8,-0.10);
+\node[anchor=west, font=\scriptsize] at (10.1,-0.10) {market-reaction window};
+
+\end{tikzpicture}%
+}
+
+\caption{High-frequency event windows used to measure market reactions}
+\label{fig:event_windows}
+
+\begin{minipage}{0.92\textwidth}
+\footnotesize
+
+\end{minipage}
+
+\end{figure}
+
 
 \subsection{US Monetary Policy Database (USMPD)}
 \label{sec:data_usmpd}
 
-Intraday financial market reactions to FOMC announcements are obtained from the U.S.
-Monetary Policy Event-Study Database of \citet{acosta2025}.\footnote{The USMPD is
-accessed through \texttt{USMPD.xlsx}, with separate sheets for statement and press
-conference event windows.} The database provides separate observations for the statement
-release and the press conference, allowing the two FOMC communication channels to be
-matched to separate event windows.
+Intraday financial market reactions to FOMC announcements are obtained
+from the U.S. Monetary Policy Event-Study Database of
+\citet{acosta2025}.\footnote{The database is accessed through
+\texttt{USMPD.xlsx}, using the separate sheets for statement and press
+conference event windows.} The database reports separate high-frequency
+windows for the statement release and the press conference. This
+separation is important for the empirical design because it allows FOMC
+statements and FOMC press conferences to be analysed as distinct
+communication channels rather than as a single daily monetary policy
+event.
+
+For each FOMC event, the textual tone measures are matched to the
+corresponding market-reaction window. Statement scores are matched to the
+statement window, while press-conference scores are matched to the
+press-conference window. The resulting dependent variables capture
+high-frequency changes in equity prices, exchange rates, and Treasury
+yields around the relevant communication event.
 
 The following variables are extracted:
  
@@ -440,31 +588,31 @@ The following variables are extracted:
     signalling economic strength could raise them.
 \end{description}
 
-The USMPD also contains statement-window indicators for whether a meeting was
-associated with a Summary of Economic Projections (SEP) and whether it was an
-unscheduled inter-meeting action. These indicators are retained in the merged data but
-are not included in the main regression specifications.
+The resulting dependent variables capture high-frequency changes in
+equity prices, exchange rates, and Treasury yields around the relevant
+communication event. For FOMC statements, the main control variable is
+the statement-window monetary policy surprise, denoted \texttt{MP1}.
 
-\paragraph{Merging procedure.}
-The USMPD is merged with the FOMC text data by meeting date. Each FOMC statement
-is matched to the statement-window sheet, and each FOMC press conference is matched
-to the press-conference-window sheet. All \textbf{242 FOMC statements} are matched to
-the statement-window data. Of the \textbf{92 FOMC press conferences}, \textbf{91} are
-matched to the press conference window; the unmatched observation is the most recent
-meeting in the text corpus and post-dates the current USMPD release used in the
-pipeline.
+The USMPD is merged with the FOMC text data by meeting date. Statements
+are matched to the statement-window data, while press conferences are
+matched to the press-conference-window data, ensuring that each document
+is linked to the relevant high-frequency market reaction.
 
 \subsection{Euro Area Monetary Policy Database (EA-MPD)}
 \label{sec:data_eampd}
 
-Market reactions to ECB announcements are obtained from the Euro Area Monetary
-Policy Database of \citet{altavilla2019}.\footnote{The EA-MPD is accessed through
-\texttt{EA-MPD.xlsx}, using the press release and press conference window sheets.}
-A key feature of the EA-MPD is that it separates the ECB announcement day into two
-windows: the \textbf{press release window}, covering the publication of the policy
-decision, and the \textbf{press conference window}, covering the President's press
-conference later on the same day. This separation is central to the empirical design
-because it allows the ECB statement and Q\&A channels to be analysed separately.
+Market reactions to ECB announcements are obtained from the Euro Area
+Monetary Policy Database of \citet{altavilla2019}.\footnote{The database
+is accessed through \texttt{EA-MPD.xlsx}, using the press release and
+press conference window sheets.} The EA-MPD provides separate
+high-frequency event windows for the policy announcement and the press
+conference. This distinction is important for the empirical design,
+because ECB statements can be matched to the press release window, while
+ECB press conferences can be matched to the press conference window.
+
+This allows the analysis to estimate whether the two ECB communication
+channels contain different market-relevant information, rather than
+treating the full announcement day as one combined event.
 
 The following variables are extracted:
  
@@ -500,43 +648,9 @@ The following variables are extracted:
     denotes widening of the Italian premium relative to Germany.
 \end{description}
  
-In addition to the press release and press conference window sheets,
-the pipeline also extracts data from the EA-MPD's \textbf{Monetary
-Event Window} sheet, which captures the combined statement-plus-press-conference
-surprise. Variables from this sheet are prefixed with
-\texttt{eampd\_event\_} and are available for robustness analysis.
+The baseline analysis uses only the press release and press conference
+windows, because these correspond directly to the two ECB text corpora.
  
-\paragraph{Column name detection.}
-EA-MPD column names vary across data vintages, for example
-\texttt{STOXX50} versus \texttt{SX5E} or alternative OIS maturity
-labels. The pipeline therefore uses regular expression matching to
-select the appropriate column for each conceptual variable. In the
-current data run, the Euro~Stoxx~50 variable is detected as
-\texttt{STOXX50}.
- 
-\paragraph{Date conversion.}
-EA-MPD dates are converted to R \texttt{Date} objects before
-merging. The pipeline handles both Excel serial dates and
-character-formatted dates, including European day-month-year
-strings.
- 
-\paragraph{Merging procedure.}
-ECB statements are matched to the press release window, and ECB
-press conferences are matched to the press conference window. The
-merge is performed on meeting date. Of the \textbf{284 ECB
-statements}, \textbf{253} match the press-release market-data
-window and enter the controlled press-release sample with a
-non-missing OIS\_MP1 surprise. Of the \textbf{266 ECB press
-conferences}, \textbf{244} match the press-conference market-data
-window and \textbf{243} enter the controlled press-conference
-sample with a non-missing OIS\_MP1 surprise. Long-maturity OIS
-coverage is more limited: \textbf{113 ECB statements} and
-\textbf{105 ECB press conferences} have non-missing OIS~10Y
-observations. German Bund and sovereign spread coverage follows a
-similar pattern. This smaller long-yield sample is reported
-explicitly in \Cref{tab:sample_attrition} and is treated as a
-limitation when interpreting ECB yield regressions in
-Chapter~\ref{ch:results}.
 
 \subsection{Variable Summary}
 \label{sec:data_variable_summary}
@@ -584,19 +698,59 @@ Very long yield & UST~30Y / ---
 \label{sec:data_rates}
 % ══════════════════════════════════════════════════════════════════════════════
 
-Interest rate decisions are hand-coded for FOMC meetings from February~1994 to
-March~2026 and ECB Governing Council monetary policy meetings from January~1999 to
-March~2026. Each decision is recorded as the change in the relevant policy rate in basis
-points, denoted \bpschange{}. A positive value indicates a rate hike, zero indicates a
+Interest rate decisions are hand-coded for FOMC meetings from
+February~1994 to March~2026 and ECB Governing Council monetary policy
+meetings from January~1999 to March~2026. Each decision is recorded as
+the change in the relevant policy rate in basis points, denoted
+\bpschange{}. A positive value indicates a rate hike, zero indicates a
 hold, and a negative value indicates a rate cut.
 
-The decision variable is used in three ways. First, it provides the benchmark for the
-agreement analysis in Section~\ref{sec:res_agreement}: a hawkish text label agrees with
-the rate decision if the meeting produced a hike, a dovish label agrees if the meeting
-produced a cut, and a neutral label agrees if the rate was unchanged. Second, the sign of
-\bpschange{} defines the three-class target variable for the Random Forest classifier in
-Section~\ref{sec:meth_rf}. Third, the next meeting's rate decision is the dependent
-variable in the RQ2 predictive analysis in Section~\ref{sec:meth_rq2}.
+The decision variable is used in three ways. First, it provides a
+benchmark for the agreement analysis in \Cref{sec:res_agreement_new}. A
+hawkish text label is treated as consistent with a hike, a dovish label
+as consistent with a cut, and a neutral label as consistent with an
+unchanged rate. This benchmark is useful but imperfect. There is no
+direct observable ground-truth label for whether a communication event
+was hawkish, neutral, or dovish. Rate changes are therefore used as a
+proxy, even though a hold may still be hawkish if it signals future
+tightening, and a hike may be interpreted as dovish if it was smaller
+than markets expected. Agreement results should therefore be interpreted
+as alignment with realised policy actions, not as definitive validation
+of the true communication tone.
+
+This distinction is especially important because realised policy stance
+and market-surprise stance are not the same object. A realised rate hike
+is hawkish relative to an unchanged policy rate, but it is not necessarily
+hawkish from the market's perspective. If markets expected exactly the
+realised hike, the rate decision is market-neutral. If markets expected a
+larger hike, the same realised hike may be interpreted as dovish. If
+markets expected a smaller hike or no hike, it is hawkish.
+
+The market-surprise benchmark is therefore based on high-frequency
+surprise measures rather than on the realised rate change:
+\[
+M_t =
+\begin{cases}
+\text{hawkish}, & S_t > \kappa,\\
+\text{neutral}, & |S_t| \leq \kappa,\\
+\text{dovish},  & S_t < -\kappa,
+\end{cases}
+\]
+where \(S_t\) is the relevant event-window surprise and \(\kappa\) is a
+small neutral threshold. For statement and press-release windows,
+\(S_t\) is based on the current-rate surprise: \(MP1_t\) for the FOMC
+and \(OIS\_MP1_t\) for the ECB. For press conferences, the rate decision
+has already been released, so expectation revisions are more naturally
+captured by path or yield-window surprises, such as \(MP2_t\),
+\(OIS\_MP2_t\), or two-year yield changes.
+
+\textbf{this chapter above was updated with an issue, chat plz review KMC}
+
+
+Second, the sign of \bpschange{} defines the three-class target variable
+for the Random Forest classifier in \Cref{sec:meth_rf}. Third, future
+values of \bpschange{} are used as dependent variables in the RQ2
+forecasting analysis in \Cref{sec:meth_rq2}.
 
 \subsection{Rate Decision Distribution}
 \label{sec:data_rate_distribution}
@@ -623,40 +777,62 @@ ECB  & 35 & 221 & 28 & 284 & 77.8\% & 25 bps \\
 \end{threeparttable}
 \end{table}
 
-The distribution is highly imbalanced. Holds account for 61.8\% of FOMC meetings and
-77.8\% of ECB meetings. This imbalance is central for the Random Forest design: a
-standard classifier could obtain superficially high overall accuracy by predicting the
-majority hold class, while performing poorly on the cut and hike classes that are most
-important for hawkish--dovish classification.
+The distribution of rate decisions is highly imbalanced. Holds account
+for the majority of meetings in both the FOMC and ECB samples. This
+imbalance is important for the Random Forest design: a classifier could
+achieve high overall accuracy by predicting the majority hold class while
+performing poorly on the cut and hike classes that are most relevant for
+hawkish--dovish classification.
 
-Two features of the rate-decision data are relevant for interpretation. First, FOMC rate
-changes are recorded in 25-basis-point increments, with the largest cuts in the sample
-being 100 basis points in December~2008 and March~2020. Second, the ECB data include
-non-standard rate changes of 5 and 10 basis points during the negative-rate period,
-reflecting adjustments to the deposit facility rate. For classification, all negative changes
-are grouped into the cut class and all positive changes into the hike class, regardless of
-magnitude.
+For classification, the exact magnitude of the rate change is collapsed
+into three classes. Negative changes are coded as cuts, zero changes as
+holds, and positive changes as hikes. This means that both standard
+25-basis-point moves and smaller ECB changes during the low-rate period
+enter the same directional classification. For the forecasting analysis
+in RQ2, however, the rate change is kept as a continuous basis-point
+variable, so the magnitude of the decision is preserved.
 
 \subsection{Propagation to Press Conferences}
 \label{sec:data_rate_propagation}
 
-Rate decisions are initially coded at the meeting level and attached to the statement,
-because the decision is announced at the statement or press-release stage. To enable
-agreement analysis and Random Forest training for press conference documents,
-\bpschange{} is propagated from the same-day statement to the corresponding press
-conference by a date-based merge. This gives each press conference the rate decision
-associated with the meeting at which the press conference took place. Propagated values
-are checked against all shared statement--press conference dates.
+Rate decisions are coded at the meeting level. Since the press conference
+belongs to the same monetary policy event as the statement, the same
+\bpschange{} value is assigned to the corresponding press conference by
+meeting date. This allows press conference documents to be included in
+the agreement analysis and in the Random Forest classification task.
 
-\subsection{Next-Meeting Rate Decision (RQ2)}
+
+\subsection{Forecast Targets for RQ2}
 \label{sec:data_rate_rq2}
 
-For RQ2, a chronological meeting calendar is constructed for each central bank. The next
-meeting's rate decision, \(\text{bps\_next}_i\), is created using a lead operation, and the
-previous meeting's decision, \(\text{bps\_lag1}_i\), using a lag operation. These variables
-allow the predictive regressions to test whether forward-looking text predicts the next
-rate decision beyond current and lagged policy momentum. The FOMC rate-decision
-calendar contains \textbf{238 meetings}; the ECB calendar contains \textbf{284 meetings}.
+For RQ2, forecast targets are constructed separately within each of the
+four corpora: FOMC statements, FOMC press conferences, ECB statements,
+and ECB press conferences. Observations are first sorted chronologically,
+and lead variables are then created within each corpus. This ensures
+that next-meeting targets are not pooled across institutions or document
+types.
+
+The forecasting analysis uses four targets. The variables
+\texttt{bps\_next} and \texttt{bps\_next2} denote the policy-rate change
+at the next meeting and two meetings ahead. The variables
+\texttt{y2\_next} and \texttt{y2\_next2} denote the corresponding
+one-meeting-ahead and two-meeting-ahead changes in the two-year
+rate-expectation outcome. For the FOMC, this is based on the two-year
+Treasury yield reaction. For the ECB, it is based on the two-year OIS
+reaction.
+
+The benchmark control for rate-decision forecasts is the current
+policy-rate change, \texttt{bps\_curr}. For two-year yield forecasts, the
+corresponding benchmark is the current two-year yield reaction,
+\texttt{y2\_curr}. Because lead variables are used, the final observation
+in each corpus has no one-meeting-ahead target, and the final two
+observations have no two-meeting-ahead target.
+
+The expanding-window design further reduces the effective sample. The
+first 30 observations in each corpus are used as the initial training
+window, and the first forecast is produced for observation 31. At each
+subsequent step, the training sample expands by one observation, so only
+information available before the forecasted meeting is used.
 
 
 % ══════════════════════════════════════════════════════════════════════════════
@@ -664,13 +840,25 @@ calendar contains \textbf{238 meetings}; the ECB calendar contains \textbf{284 m
 \label{sec:data_sample}
 % ══════════════════════════════════════════════════════════════════════════════
 
-The final regression samples are constructed by merging scored text documents with the
-corresponding market data and rate-decision variables, then filtering for non-missing
-values of the variables required in each specification. Attrition arises from three sources:
-missing text scores, missing event-window market variables, and missing rate-surprise
-controls.
+The final regression samples are constructed by merging the scored text
+documents with the corresponding high-frequency market data and
+rate-decision variables. Each specification is then estimated on the
+available observations with non-missing values for the relevant tone
+measure, market outcome, and monetary policy surprise control. As a
+result, the effective sample size differs across outcomes and methods.
 
-For each corpus, two headline market-reaction samples are constructed:
+Attrition mainly arises from missing market-window observations and, in
+some cases, missing tone scores after text cleaning or model construction.
+This is particularly relevant for press conference samples, where the
+availability of transcripts and separate event-window data is more limited
+than for statement samples.
+
+For each corpus, the baseline market-reaction sample is defined by the
+intersection of three elements: a valid text score, a matched
+high-frequency market reaction, and a non-missing policy surprise control
+(\texttt{MP1} for FOMC events and \texttt{OIS\_MP1} for ECB events).
+The exact number of observations therefore varies by dependent variable
+and is reported in the regression tables.
 
 \begin{description}[noitemsep]
   \item[Naive sample:] Requires non-missing \texttt{net\_score}, equity return, and
@@ -680,7 +868,7 @@ For each corpus, two headline market-reaction samples are constructed:
 \end{description}
 
 A separate yield sample is constructed for 10-year yield regressions because long-maturity
-coverage differs across databases and starts later for the ECB.
+coverage differs across databases and starts later for the ECB. (We do it? I dont think so chatgpt please)
 
 \begin{table}[htbp]
 \centering
@@ -709,20 +897,33 @@ Controlled sample\tnote{b}        & 230 & 91 & 253 & 243 \\
 \end{threeparttable}
 \end{table}
 
-For the FOMC, the main controlled statement sample contains 230 observations. The loss
-relative to the 242-document text corpus is driven by missing equity or FX coverage in
-early observations and by the text-score filters used in the empirical pipeline. The
-rate-surprise control itself does not add further attrition once the market-data sample is
-defined. The 10-year yield sample contains 242 FOMC statement observations because it
-requires a valid text score and UST~10Y yield change rather than equity and FX variables.
+Sample sizes differ across specifications because each regression is
+estimated on the observations for which the relevant text score, market
+reaction, and policy-surprise control are available. For RQ1, attrition
+mainly reflects missing high-frequency market-window observations or
+missing policy-surprise controls after merging the text corpus with the
+USMPD and EA-MPD. The exact number of observations therefore varies by
+outcome, corpus, and scoring method and is reported directly in the
+regression tables.
 
-For the ECB, the controlled sample contains 253 statements and 243 press conferences.
-The main source of attrition is the shorter coverage of OIS surprises and market variables
-in the EA-MPD relative to the full text corpus. Long-maturity yield coverage is much
-smaller: only 113 statements and 105 press conferences enter the OIS~10Y regressions.
-This is why the ECB yield results in Chapter~\ref{ch:results} are interpreted more
-cautiously than the equity and FX results.
+RQ2 forecasting samples are smaller than the corresponding RQ1 samples
+for mechanical reasons. One-meeting-ahead and two-meeting-ahead targets
+are unavailable at the end of each chronological corpus, and the
+expanding-window design requires an initial training period of
+30 observations before the first out-of-sample forecast can be produced.
+The first forecast is therefore generated for observation 31, after which
+the training window expands by one observation at each step. Forecast
+counts differ by corpus, target, and method and are reported in the RQ2
+results tables.
 
+The final empirical analysis is conducted separately for four
+corpus-specific datasets: FOMC statements, FOMC press conferences, ECB
+statements, and ECB press conferences. Each dataset contains the cleaned
+text, dictionary scores, Random Forest scores, RoBERTa/BERT scores,
+rate-decision variables, forecast targets, and matched high-frequency
+market reactions. This structure is maintained throughout the empirical
+analysis so that statements and press conferences are evaluated as
+distinct communication channels rather than mechanically pooled.
 
 % ══════════════════════════════════════════════════════════════════════════════
 \section{Descriptive Statistics}
@@ -812,14 +1013,13 @@ OIS 10Y   & Press conf. & 105 & $-0.06$ & 3.05 & $-8.74$ & 8.75 \\
 \end{threeparttable}
 \end{table}
 
-The market variables have means close to zero, as expected for narrow event-window
-surprises. FOMC statement-window MP1 has a standard deviation of 6.96 basis points,
-whereas FOMC press conference-window MP1 has a standard deviation of only 0.53 basis
-points. This difference is mechanically intuitive: the current policy decision is announced
-with the statement, while the subsequent press conference primarily conveys additional
-communication, interpretation, and forward guidance. ECB OIS\_MP1 is more volatile in
-the press release window, with a standard deviation of 4.21 basis points, than in the
-press conference window, where the standard deviation is 1.41 basis points.
+The market variables are centred close to zero, consistent with their
+interpretation as high-frequency event-window surprises. The monetary
+policy surprise is more volatile in the statement or press-release
+windows than in the press-conference windows. This is expected, since the
+current policy decision is announced with the statement or press release,
+whereas the press conference mainly provides additional interpretation,
+context, and forward-looking communication.
 
 \subsection{Rate Decision Distribution by Era}
 \label{sec:data_desc_rates}

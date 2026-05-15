@@ -1,267 +1,453 @@
 % ══════════════════════════════════════════════════════════════════════════════
-% APPENDIX A3 — RANDOM FOREST AND RoBERTa SUPPLEMENTARY MATERIAL
+% APPENDIX A3 — RANDOM FOREST AND ROBERTA SUPPLEMENTARY MATERIAL  [v31 final]
 % ══════════════════════════════════════════════════════════════════════════════
 
-\section{Blocklist}
-\label{app:blocklist}
+\emergencystretch=2em
 
-The following stemmed bigrams are blocked from the TF-IDF feature
-matrix to prevent identity leakage and institutional boilerplate
-from acting as spurious predictors. The blocklist contains
-\textbf{94 bigrams in total}, organised into three thematic groups.
+This appendix documents supplementary diagnostics for the Random Forest and
+RoBERTa\slash BERT components of the thesis. The Random Forest is used in two ways.
+First, the same-meeting classifier produces \rfscore{} for the RQ1
+market-reaction regressions. Second, expanding-window Random Forest regressors
+produce genuine out-of-sample forecasts for RQ2. RoBERTa\slash BERT is used as a
+sentence-level benchmark that is aggregated to a document-level score and then
+used in both RQ1 and RQ2.
 
-\subsection*{Institutional boilerplate (51 bigrams)}
-\small
-\texttt{cleveland richmond, richmond atlanta, atlanta boston,
-chicago st, chicago minneapoli, loui minneapoli,
-st loui, kansa citi, san francisco, new york,
-reserv bank, feder reserv,
-york philadelphia, philadelphia cleveland, cleveland atlanta,
-atlanta chicago, minneapoli kansa, dalla san,
-discount rate, request submit, board approv,
-relat action, committe continu, submit board,
-approv request, governor approv, request discount,
-charg depositori, depositori institut,
-press confer, confer start, relat content,
-consider under, polici measur, polici decis,
-press releas, monetari polici, polici transmiss,
-communic reproduct, reproduct permit, permit provid,
-council steer, pre commit,
-minimum bid, bid rate, futur roll, avoid interfer,
-time return,
-american famili, social partner, mandat goal.}
-
-\subsection*{Personal names and places (43 bigrams)}
-\small
-\texttt{alan greenspan, greenspan chairman, chairman greenspan,
-ben bernank, bernank chairman, chairman bernank,
-janet yellen, yellen chairman, chairman yellen,
-jerom powel, powel chairman, chairman powel,
-chairman susan, susan bie, bie roger,
-roger fergus, frederic mishkin, donald kohn,
-randal kroszner, kroszner freder, kevin warsh,
-wim duisenberg, jean claud, claud trichet,
-mario draghi, christin lagard, lagard christin,
-luca papademo, vitor constanci, constanci vitor,
-de guindo, philip lane, isabel schnabel,
-piero cipollon,
-washington dc, constitut avenu, 20th street,
-frankfurt main, sonnemannstrass 20,
-european central, central bank,
-centuri low, new centuri.}
-
-The blocklist was developed iteratively. The institutional-boilerplate
-group was the largest contributor: an early version of the model
-placed Reserve Bank city-pair bigrams (``cleveland richmond,''
-``philadelphia cleveland,'' etc.) and standard FOMC roll-call
-boilerplate (``board approv,'' ``governor approv,'' ``request
-submit'') in the top features by Gini importance, but these are
-pure leakage: they reflect the institutional structure of the
-document rather than its policy stance, and a model classifying
-decisions on ``cleveland richmond'' is exploiting the geographic
-ordering of the dissent line rather than any economic content. The
-personal-names group prevents the model from learning
-chair-specific patterns, which are confounded with the era of each
-chair's tenure (Greenspan with the Great Moderation, Bernanke with
-the GFC, etc.). Removing these names forces the model to predict
-from policy-relevant language rather than from chair identity.
-
-
-\section{Random Forest Performance}
-\label{app:rf_performance}
-
-\Cref{tab:rf_performance} reports the Lasso + balanced Random
-Forest performance for each corpus. The forest comprises $B = 100$
-trees per corpus with inverse-frequency case weights. The Lasso
-pre-screening step selects a small subset of discriminative bigrams
-from the full TF-IDF feature space, and the class-balanced forest
-is trained on only these features.
+\section{Random Forest classification performance}
+\label{app:a3_rf_performance}
 
 \begin{table}[H]
 \centering
-\caption{Random Forest performance (Lasso + balanced RF, $B=100$)}
-\label{tab:rf_performance}
+\caption{Random Forest classification performance}
+\label{tab:a3_rf_performance}
 \begin{threeparttable}
-\begin{tabular}{lrrrr}
+\small
+\resizebox{\textwidth}{!}{%
+\begin{tabular}{llrrrr}
 \toprule
-Corpus    & OOB Acc. & Bal.\ Acc. & Holdout & Lasso features \\
+Corpus & Specification & $N$ & OOB acc. & Balanced acc. & Holdout acc. \\
 \midrule
-%%% TODO: Fill from rf_rq1_performance_v31.csv
-FOMC Stmt & [TODO] & [TODO] & [TODO] & [TODO] \\
-FOMC PC   & [TODO] & [TODO] & [TODO] & [TODO] \\
-ECB Stmt  & [TODO] & [TODO] & [TODO] & [TODO] \\
-ECB PC    & [TODO] & [TODO] & [TODO] & [TODO] \\
+FOMC statements & Lasso + balanced RF & 235 & 0.843 & 0.838 & 0.617 \\
+FOMC press conferences & Lasso + balanced RF & 91 & 0.945 & 0.936 & 0.684 \\
+ECB statements & Lasso + balanced RF & 276 & 0.887 & 0.763 & 0.696 \\
+ECB press conferences & Lasso + balanced RF & 250 & 0.896 & 0.848 & 0.800 \\
 \bottomrule
 \end{tabular}
-\begin{tablenotes}\footnotesize
-  \item[] OOB Acc.\ = overall out-of-bag accuracy; Bal.\ Acc.\ =
-    macro-averaged per-class recall; Holdout = accuracy on the
-    chronological 20\% holdout. Features = number of Lasso-selected
-    bigrams.
+}
+\begin{tablenotes}
+\footnotesize
+\item Notes: Each model uses Lasso pre-selection and class-balanced Random Forest training. Holdout accuracy is measured on the final chronological holdout block.
 \end{tablenotes}
 \end{threeparttable}
 \end{table}
 
 
-\section{OOB Confusion Matrices}
-\label{app:rf_confusion}
+The performance table should be read together with the feature-count diagnostic
+in \Cref{tab:a3_rf_feature_counts}. Lasso pre-selection is important because the
+raw bigram space is high-dimensional relative to the number of policy meetings.
+The final RF models use a small subset of selected bigrams, which makes the
+classification exercise computationally feasible and reduces the risk that the
+forest learns idiosyncratic one-off phrases.
 
-The OOB confusion matrices for each corpus are produced by the
-pipeline and stored in \texttt{confusion\_matrices\_long\_v31.csv}.
-The diagonal cells correspond to correct classifications
-(cut$\to$cut, hold$\to$hold, hike$\to$hike); the OOB accuracy is
-the proportion of observations on the diagonal, and the balanced
-accuracy is the mean of the three per-class recall rates.
-
-%%% TODO: Insert per-corpus 3x3 OOB confusion matrices from the
-%%% pipeline output. Can be formatted as small tables or imported
-%%% from confusion_matrices_long_v31.csv.
-
-
-\section{Top Hawkish and Dovish Bigrams by Corpus}
-\label{app:rf_features}
-
-The Random Forest's top variable-importance features
-(per-corpus, ranked by Gini importance times direction) were
-extracted from \texttt{rf\_feature\_importance\_v31.csv} for each
-of the four corpora. The full list is too long to reproduce
-inline; the top-25 features per corpus are summarised
-qualitatively in Section~\ref{sec:res_rf} of the main text.
-The dominant patterns are:
-
-\begin{description}[leftmargin=*]
-  \item[FOMC statements:] Hawkish-leaning bigrams centre on
-    explicit policy-action language (``rais target,'' ``increas
-    target,'' ``ongo increas''), inflation-overshoot descriptors,
-    and tightening-cycle vocabulary (``further increas'').
-    Dovish-leaning bigrams centre on accommodation language
-    (``maintain accommod,'' ``polici accommod''), crisis
-    terminology (``zero lower,'' ``effect lower''), and
-    downside-risk markers (``downsid risk'').
-  \item[FOMC press conferences:] More diverse top features
-    reflecting the wider vocabulary of the Q\&A. Hawkish features
-    include policy-action bigrams (``raise rate,'' ``rate
-    increas''), inflation framing (``price pressur,'' ``higher
-    inflat''), and forward-guidance language. Dovish features
-    include explicit easing language (``cut rate,'' ``rate cut''),
-    employment weakness (``labor market''), and conditionality
-    (``data depend'').
-  \item[ECB statements:] Top hawkish features include
-    ``rate increas,'' ``key rate'' (often in tightening-decision
-    contexts), and inflation-target overshoot phrasings
-    (``return inflat,'' ``well above''). Dovish features include
-    ``rate cut,'' ``deposit facil'' (the deposit-facility-rate cuts
-    of 2014--2016 and 2024--2025), and accommodation language.
-  \item[ECB press conferences:] Largest feature space and richest
-    variable-importance distribution. Hawkish features include
-    inflation language (``second-round,'' ``broad-bas,'' ``wage
-    growth'') and policy-action bigrams. Dovish features include
-    sovereign-debt-crisis vocabulary (``transmiss mechan,''
-    ``sovereign yield''), forward-guidance commitment (``stand
-    readi''), and accommodation phrases.
-\end{description}
-
-The full top-25 lists for each corpus can be reconstructed by
-filtering \texttt{rf\_feature\_importance\_v31.csv} on the
-\texttt{corpus} column and sorting by the product of
-\texttt{MeanDecreaseGini} and the absolute value of
-\texttt{direction}. The qualitative observation that 40--60\% of
-the top RF features overlap with the hand-crafted dictionary is
-robust across corpora and is the empirical anchor for the
-``overlapping but not identical'' interpretation in
-Section~\ref{sec:res_horserace}.
-
-
-\section{Lasso Feature Selection Details}
-\label{app:lasso}
-
-The Lasso pre-screening step uses an $\ell_1$-penalised multinomial
-logit (for the RQ1 classification RF) or Gaussian-family Lasso (for
-the RQ2 continuous-target RF) fit on the full TF-IDF matrix (after
-blocklist), with the penalty parameter chosen by 10-fold
-cross-validation at the 1-standard-error rule
-(\texttt{lambda.1se}). If fewer than 5 features survive at
-$\lambda_{\text{1se}}$, $\lambda_{\min}$ is used. If still fewer
-than 5 features survive, the pipeline falls back to the 200 most
-frequent bigrams in the training set, allowing the Random Forest to
-perform implicit feature selection through its splitting criterion.
-The features retained are the union of features with non-zero
-coefficients across the three classes (cut, hold, hike).
 
 \begin{table}[H]
 \centering
-\caption{Lasso feature selection: starting and selected feature counts}
-\label{tab:lasso_summary}
-\begin{tabular}{lrrr}
-\toprule
-Corpus     & Starting features & Lasso-selected & Selection ratio \\
-\midrule
-%%% TODO: Fill from v31 pipeline output.
-FOMC Stmt  & [TODO] & [TODO] & [TODO] \\
-FOMC PC    & [TODO] & [TODO] & [TODO] \\
-ECB Stmt   & [TODO] & [TODO] & [TODO] \\
-ECB PC     & [TODO] & [TODO] & [TODO] \\
-\bottomrule
-\end{tabular}
-\end{table}
-
-The selection ratio is typically highest for the shorter-document
-corpora (ECB statements) and lowest for the press-conference
-corpora, which start from a much larger feature space (up to the
-2{,}000-bigram cap on the TF-IDF vocabulary). The
-feature-to-document ratio after Lasso is well below 1:1 in every
-corpus, substantially mitigating the overfitting risk that motivated
-the pre-screening step.
-
-
-\section{RoBERTa Classifier Supplementary}
-\label{app:bert_supplementary}
-
-\subsection*{BERT, Dictionary, and RF Score Correlations}
-
-\Cref{tab:bert_correlations} reports pairwise correlations between
-the three document-level scores for each corpus.
-
-\begin{table}[H]
-\centering
-\caption{Pairwise correlations: \bertscore{}, \netscore{}, and \rfscore{}}
-\label{tab:bert_correlations}
-\begin{tabular}{lrr}
-\toprule
-Corpus    & Corr(BERT, dict) & Corr(BERT, RF) \\
-\midrule
-%%% TODO: Fill from bert_diagnostic_correlations.csv
-FOMC Stmt & [TODO] & [TODO] \\
-FOMC PC   & [TODO] & [TODO] \\
-ECB Stmt  & [TODO] & [TODO] \\
-ECB PC    & [TODO] & [TODO] \\
-\bottomrule
-\end{tabular}
-\end{table}
-
-\subsection*{Expanding-Window RoBERTa Forecast Performance}
-
-\Cref{tab:bert_xw_performance} reports the out-of-sample
-performance of the expanding-window RoBERTa forecasts for each
-target and corpus.
-
-\begin{table}[H]
-\centering
-\caption{RoBERTa expanding-window forecast performance}
-\label{tab:bert_xw_performance}
+\caption{Random Forest feature-count diagnostics}
+\label{tab:a3_rf_feature_counts}
 \begin{threeparttable}
+\scriptsize
+\resizebox{\textwidth}{!}{%
+\begin{tabular}{lrrrrrrr}
+\toprule
+Corpus & Training $N$ & Raw bigrams & DF $\geq 3$ & Cap used & Final RF features & OOB acc. & Holdout acc. \\
+\midrule
+FOMC statements & 235 & 2,945 & 1,168 & 1,168 & 49 & 0.843 & 0.617 \\
+FOMC press conferences & 91 & 22,352 & 3,434 & 2,000 & 11 & 0.945 & 0.684 \\
+ECB statements & 276 & 1,920 & 458 & 458 & 32 & 0.887 & 0.696 \\
+ECB press conferences & 250 & 39,674 & 6,996 & 2,000 & 14 & 0.896 & 0.800 \\
+\bottomrule
+\end{tabular}%
+}
+\begin{tablenotes}
+\footnotesize
+\item Notes: Raw bigrams are unique stemmed bigrams before the minimum document-frequency filter. DF $\geq 3$ reports the number remaining after requiring appearance in at least three documents. The cap is the maximum feature set passed to Lasso pre-selection. Final RF features are the Lasso-selected bigrams retained in the final feature-importance output. The table shows why Lasso pre-screening is computationally necessary, especially for press conferences.
+\end{tablenotes}
+\end{threeparttable}
+\end{table}
+
+
+\section{Random Forest confusion matrices}
+\label{app:a3_rf_confusion}
+
+\begin{table}[H]
+\centering
+\caption{Random Forest confusion matrices against rate decisions}
+\label{tab:a3_rf_confusion}
+\begin{threeparttable}
+\small
+\resizebox{\textwidth}{!}{%
 \begin{tabular}{llrrr}
 \toprule
-Corpus & Target & $N$ forecasts & XW $R^2$ & XW RMSE \\
+Corpus & Actual rate label & Pred. dovish & Pred. neutral & Pred. hawkish \\
 \midrule
-%%% TODO: Fill from rq2_bert_method_comparison_v31.csv
+FOMC statements & Dovish & 35 & 3 & 2 \\
+FOMC statements & Neutral & 9 & 123 & 12 \\
+FOMC statements & Hawkish & 4 & 7 & 40 \\
+FOMC press conferences & Dovish & 10 & 1 & 0 \\
+FOMC press conferences & Neutral & 2 & 57 & 1 \\
+FOMC press conferences & Hawkish & 0 & 1 & 19 \\
+ECB statements & Dovish & 23 & 2 & 4 \\
+ECB statements & Neutral & 8 & 206 & 5 \\
+ECB statements & Hawkish & 12 & 0 & 15 \\
+ECB press conferences & Dovish & 23 & 3 & 3 \\
+ECB press conferences & Neutral & 6 & 181 & 10 \\
+ECB press conferences & Hawkish & 3 & 1 & 20 \\
 \bottomrule
 \end{tabular}
-\begin{tablenotes}\footnotesize
-  \item[] XW $R^2$ and RMSE are computed on pooled out-of-sample
-    predictions from the expanding-window OLS regressions with
-    \bertscore{} as the sole text regressor plus the inertia
-    control (bps\_curr or y2\_curr).
+}
+\begin{tablenotes}
+\footnotesize
+\item Notes: Rows show realised rate-decision labels; columns show Random Forest predicted labels.
 \end{tablenotes}
 \end{threeparttable}
 \end{table}
+
+
+\section{Interpretable Random Forest features}
+\label{app:a3_rf_features}
+
+\begin{table}[H]
+\centering
+\caption{Top Random Forest signed bigram features}
+\label{tab:a3_rf_features}
+\begin{threeparttable}
+\scriptsize
+\setlength{\tabcolsep}{3pt}
+\renewcommand{\arraystretch}{0.92}
+
+\makebox[\textwidth][c]{%
+\begin{tabular}{@{}lcr@{\hspace{1.2cm}}lcr@{}}
+\multicolumn{3}{c}{\textbf{FOMC statements}} &
+\multicolumn{3}{c}{\textbf{FOMC press conferences}} \\
+\cmidrule(lr){1-3}\cmidrule(lr){4-6}
+Bigram & Dir. & Signed imp. & Bigram & Dir. & Signed imp. \\
+\midrule
+fund rate       & D & -16.967 & downsid risk    & D & -11.646 \\
+dudley vice     & H &   7.380 & committe rais   & H &   9.348 \\
+develop care    & D &  -7.353 & high accommod   & H &   5.656 \\
+releas inform   & H &   6.162 & half centuri    & D &  -5.650 \\
+polici remain   & H &   6.034 & rate unchang    & H &   4.284 \\
+ongo increas    & H &   4.855 & month chang     & H &   3.906 \\
+rate action     & D &  -4.517 & modest increas  & H &   3.436 \\
+waller vote     & D &  -3.665 & neutral level   & H &   3.135 \\
+\cmidrule(lr){1-3}\cmidrule(lr){4-6}
+\addlinespace[0.65em]
+
+\multicolumn{3}{c}{\textbf{ECB statements}} &
+\multicolumn{3}{c}{\textbf{ECB press conferences}} \\
+\cmidrule(lr){1-3}\cmidrule(lr){4-6}
+Bigram & Dir. & Signed imp. & Bigram & Dir. & Signed imp. \\
+\midrule
+remain unchang   & D & -45.154 & rate unchang    & D & -47.180 \\
+govern council   & D & -22.307 & rate increas    & H &  21.053 \\
+facil rate       & D &  -5.609 & rate cut        & D & -12.429 \\
+under price      & H &   4.554 & deposit facil   & D & -11.511 \\
+transmiss mechan & D &  -4.477 & facil rate      & D &  -6.744 \\
+term target      & D &  -4.470 & rate decis      & H &   6.512 \\
+futur polici     & H &   2.216 & persist upward  & H &   6.315 \\
+partial buffer   & D &  -2.190 & support real    & D &  -6.182 \\
+\cmidrule(lr){1-3}\cmidrule(lr){4-6}
+\end{tabular}%
+}
+
+\begin{tablenotes}[flushleft]
+\footnotesize
+\item Notes: Signed importance is Mean Decrease in Gini multiplied by the
+hike-minus-cut direction. H = hawkish; D = dovish. Some institution-specific
+features remain and should be interpreted as residual institutional vocabulary,
+not as pure economic stance.
+\end{tablenotes}
+\end{threeparttable}
+\end{table}
+
+
+
+The feature table confirms that the Random Forest learns both direct policy
+action phrases and broader institutional language. The top features should not
+be read mechanically as a new structural dictionary. They are predictive
+features for a classifier trained on realised rate-decision signs. The feature
+inspection is therefore useful for interpretation and diagnostics, not for
+claiming causal linguistic primitives.
+
+The remaining limitation is that feature importance cannot fully separate
+economic stance from institutional regularities. \Cref{tab:a3_rf_leakage_caution}
+lists examples of high-importance or visible features that require caution.
+Some are close to boilerplate or speaker/committee structure rather than pure
+monetary-policy tone. This does not invalidate the RF score for prediction, but
+it limits the structural interpretation of individual bigrams. The blocklist
+therefore improves the classifier but does not turn RF feature importance into
+a complete economic dictionary.
+
+
+\begin{table}[H]
+\centering
+\caption{Residual RF leakage-adjacent terms}
+\label{tab:a3_rf_leakage_caution}
+\begingroup
+\scriptsize
+\setlength{\tabcolsep}{2pt}
+\renewcommand{\arraystretch}{1.05}
+\begin{tabularx}{0.94\textwidth}{@{}p{2.45cm}p{2.20cm}>{\raggedleft\arraybackslash}p{1.65cm}p{1.30cm}X@{}}
+\toprule
+Corpus & Bigram & Signed importance & Direction & Suggested treatment \\
+\midrule
+FOMC statements & dudley vice & 7.38 & hawkish & Blocklist in future RF rerun \\
+FOMC statements & releas inform & 6.16 & hawkish & Blocklist in future RF rerun \\
+FOMC statements & waller vote & -3.66 & dovish & Blocklist in future RF rerun \\
+FOMC statements & quarl vote & -2.46 & dovish & Blocklist in future RF rerun \\
+FOMC statements & object vote & 2.14 & hawkish & Blocklist in future RF rerun \\
+FOMC statements & yellen vote & 1.31 & hawkish & Blocklist in future RF rerun \\
+ECB statements & govern council & -22.31 & dovish & Blocklist in future RF rerun \\
+ECB statements & bank ecb & -1.96 & dovish & Blocklist in future RF rerun \\
+\bottomrule
+\end{tabularx}
+\par\smallskip
+\begin{minipage}{0.94\textwidth}
+\scriptsize
+\emph{Notes:} These terms were flagged by a residual leakage diagnostic after the final feature-importance output. They are not used as structural evidence in the Results chapter. A fully clean before/after comparison would require rerunning the RF pipeline after adding these terms to the blocklist.
+\end{minipage}
+\endgroup
+\end{table}
+
+
+\section{RoBERTa\slash BERT diagnostics}
+\label{app:a3_bert_diagnostics}
+
+
+The RoBERTa\slash BERT score is used as a contextual sentence-level benchmark. It is
+not treated as a fully institution-specific structural model of ECB language.
+The key interpretation issue is calibration and domain transfer. A sentence
+classifier trained on annotated monetary-policy language may capture general
+hawkish/dovish semantics, but the mapping from sentence tone to monetary-policy
+stance can differ across central banks, document types, and policy regimes. The
+RoBERTa\slash BERT results should therefore be read as an external semantic benchmark
+rather than as manually verified ground truth.
+
+\begin{table}[H]
+\centering
+\caption{Pairwise correlations involving RoBERTa\slash BERT}
+\label{tab:a3_bert_correlations}
+\begin{threeparttable}
+\small
+
+\begin{tabular}{lrrr}
+\toprule
+Corpus & $N$ & Corr(BERT, dictionary) & Corr(BERT, RF) \\
+\midrule
+fomc\_stmt & 237 & 0.807 & 0.486 \\
+fomc\_pc & 91 & 0.644 & 0.401 \\
+ecb\_stmt & 276 & 0.385 & 0.441 \\
+ecb\_pc & 266 & 0.454 & 0.350 \\
+\bottomrule
+\end{tabular}
+
+\begin{tablenotes}
+\footnotesize
+\item Notes: Correlations are computed on documents with non-missing scores for the relevant method pair.
+\end{tablenotes}
+\end{threeparttable}
+\end{table}
+
+
+The correlations show that RoBERTa\slash BERT is closest to the dictionary in FOMC
+statements but much less aligned with the dictionary in ECB statements. This is consistent with the calibration and domain-transfer caveat discussed
+in Chapter~\ref{ch:methodology}: the same sentence-level classifier need not map
+all institutional vocabularies into hawkish and dovish categories in exactly the
+same way.
+
+\section{Expanding-window forecast diagnostics}
+\label{app:a3_xw_forecasts}
+
+\begin{table}[H]
+\centering
+\caption{Expanding-window forecast diagnostics by method}
+\label{tab:a3_xw_forecasts}
+\begin{threeparttable}
+\scriptsize
+\resizebox{\textwidth}{!}{%
+\begin{tabular}{lllrrrr}
+\toprule
+Method & Corpus & Target & $N$ & OOS $R^2$ & RMSE & Naive RMSE \\
+\midrule
+Random Forest & FOMC statements & Rate t+1 & 204 & 0.304 & 20.0113 & 24.0473 \\
+Random Forest & FOMC statements & Rate t+2 & 203 & 0.174 & 21.6256 & 23.8550 \\
+Random Forest & FOMC statements & 2Y yield t+1 & 204 & -0.326 & 0.0608 & 0.0529 \\
+Random Forest & FOMC statements & 2Y yield t+2 & 203 & -0.205 & 0.0524 & 0.0478 \\
+Random Forest & FOMC press conferences & Rate t+1 & 53 & 0.237 & 26.5008 & 30.6334 \\
+Random Forest & FOMC press conferences & Rate t+2 & 59 & 0.148 & 27.1026 & 29.6150 \\
+Random Forest & FOMC press conferences & 2Y yield t+1 & 60 & -0.207 & 0.0528 & 0.0485 \\
+Random Forest & FOMC press conferences & 2Y yield t+2 & 59 & -0.132 & 0.0513 & 0.0486 \\
+Random Forest & ECB statements & Rate t+1 & 245 & 0.114 & 15.1838 & 16.1639 \\
+Random Forest & ECB statements & Rate t+2 & 244 & 0.083 & 15.5534 & 16.2795 \\
+Random Forest & ECB statements & 2Y yield t+1 & 209 & -0.091 & 2.5578 & 2.4542 \\
+Random Forest & ECB statements & 2Y yield t+2 & 210 & -0.148 & 2.6166 & 2.4483 \\
+Random Forest & ECB press conferences & Rate t+1 & 220 & 0.054 & 16.0681 & 16.5617 \\
+Random Forest & ECB press conferences & Rate t+2 & 220 & 0.014 & 15.7993 & 15.9469 \\
+Random Forest & ECB press conferences & 2Y yield t+1 & 189 & -0.172 & 2.6075 & 2.4154 \\
+Random Forest & ECB press conferences & 2Y yield t+2 & 188 & -0.023 & 2.5095 & 2.4879 \\
+RoBERTa\slash BERT & FOMC statements & Rate t+1 & 203 & 0.457 & 17.5380 & 23.7962 \\
+RoBERTa\slash BERT & FOMC statements & Rate t+2 & 202 & 0.298 & 19.4990 & 23.2690 \\
+RoBERTa\slash BERT & FOMC statements & 2Y yield t+1 & 203 & -0.079 & 0.0549 & 0.0529 \\
+RoBERTa\slash BERT & FOMC statements & 2Y yield t+2 & 202 & -0.044 & 0.0488 & 0.0478 \\
+RoBERTa\slash BERT & FOMC press conferences & Rate t+1 & 60 & 0.298 & 24.2699 & 28.9726 \\
+RoBERTa\slash BERT & FOMC press conferences & Rate t+2 & 59 & 0.188 & 26.4516 & 29.3629 \\
+RoBERTa\slash BERT & FOMC press conferences & 2Y yield t+1 & 60 & -0.035 & 0.0489 & 0.0480 \\
+RoBERTa\slash BERT & FOMC press conferences & 2Y yield t+2 & 59 & -0.095 & 0.0505 & 0.0482 \\
+RoBERTa\slash BERT & ECB statements & Rate t+1 & 245 & 0.226 & 14.1922 & 16.1309 \\
+RoBERTa\slash BERT & ECB statements & Rate t+2 & 244 & 0.208 & 14.4583 & 16.2461 \\
+RoBERTa\slash BERT & ECB statements & 2Y yield t+1 & 204 & -0.022 & 2.4258 & 2.3993 \\
+RoBERTa\slash BERT & ECB statements & 2Y yield t+2 & 204 & -0.024 & 2.4949 & 2.4650 \\
+RoBERTa\slash BERT & ECB press conferences & Rate t+1 & 220 & 0.281 & 14.0087 & 16.5240 \\
+RoBERTa\slash BERT & ECB press conferences & Rate t+2 & 220 & 0.226 & 14.0001 & 15.9106 \\
+RoBERTa\slash BERT & ECB press conferences & 2Y yield t+1 & 188 & -0.005 & 2.4209 & 2.4154 \\
+RoBERTa\slash BERT & ECB press conferences & 2Y yield t+2 & 186 & -0.100 & 2.6162 & 2.4943 \\
+\bottomrule
+\end{tabular}
+}
+\begin{tablenotes}
+\footnotesize
+\item Notes: OOS $R^2$ compares the expanding-window forecast to the sample-mean benchmark over the evaluated forecast observations. Negative values indicate underperformance relative to the mean benchmark.
+\end{tablenotes}
+\end{threeparttable}
+\end{table}
+
+\subsection{Illustrative Expanding-Window Feature Importance}
+\label{app:rf_single_xw_importance}
+
+The main expanding-window Random Forest procedure stores out-of-sample
+predictions but does not save variable importance at every forecast step. As an
+interpretability diagnostic, one expanding-window forecast is therefore rerun
+with impurity-based variable importance enabled. The diagnostic uses the same
+chronological logic as the RQ2 forecasting exercise: the TF--IDF vocabulary is
+fitted only on the training window, Lasso feature pre-selection is performed
+only on information available before the forecasted meeting, and the Random
+Forest is then used to predict one held-out observation.
+
+The default diagnostic uses FOMC statements, the next-meeting rate-decision
+target \texttt{bps\_next}, and the full cleaned text input \texttt{text\_clean}.
+This case is chosen because the FOMC statement expanding-window Random Forest
+is one of the strongest RQ2 forecasting specifications in the main Results
+chapter. The output is saved by the R pipeline under the prefix
+\texttt{rf\_xw\_single\_fomc\_stmt\_bps\_next}.
+
+The diagnostic should be interpreted cautiously. The reported feature
+importance is model-level importance for the Random Forest fitted at that
+forecast step. It is not a local causal attribution for the individual
+prediction and it is not a full expanding-window importance series. Its purpose
+is only to illustrate the type of bigram information used by the
+expanding-window Random Forest in the RQ2 forecasting exercise.
+
+\begin{table}[H]
+\centering
+\caption{Illustrative single-step expanding-window RF prediction}
+\label{tab:rf_single_xw_prediction}
+\begin{threeparttable}
+\small
+\begin{tabular}{ll}
+\toprule
+Item & Value \\
+\midrule
+Corpus & FOMC statements \\
+Target & \texttt{bps\_next} \\
+Text input & \texttt{text\_clean} \\
+Forecast date & 2025-09-17 \\
+Training window & 1994-02-04 to 2025-07-30 \\
+Training observations & 230 \\
+Actual value & $-25$ bps \\
+Predicted value & $-2.38$ bps \\
+Prediction error & $+22.62$ bps \\
+TF--IDF features before Lasso & 980 \\
+RF features used & 11 \\
+\bottomrule
+\end{tabular}
+\begin{tablenotes}[flushleft]
+\footnotesize
+\item Notes: This table reports one illustrative expanding-window Random Forest
+forecast. The model is trained only on observations before the forecast date.
+The diagnostic is not used to evaluate forecasting performance; performance is
+evaluated in the full expanding-window results reported in Chapter~\ref{ch:results}.
+\end{tablenotes}
+\end{threeparttable}
+\end{table}
+
+\begin{table}[H]
+\centering
+\caption{Top model-level variables in the illustrative expanding-window RF}
+\label{tab:rf_single_xw_importance}
+\begin{threeparttable}
+\small
+\begin{tabular}{lrrl}
+\toprule
+Bigram & Importance & Signed imp. & Direction \\
+\midrule
+develop care      & 20{,}422 & $-$20{,}422 & D \\
+econom weak       & 15{,}483 & $-$15{,}483 & D \\
+feder fund        & 13{,}075 & $-$13{,}075 & D \\
+kashkari loretta  &  8{,}345 & $-$8{,}345  & D \\
+polici remain     &  7{,}107 &     7{,}107  & H \\
+elev reflect      &  7{,}036 &     7{,}036  & H \\
+plosser gari      &  6{,}729 & $-$6{,}729  & D \\
+broader price     &  6{,}558 &     6{,}558  & H \\
+addit upward      &  5{,}118 &     5{,}118  & H \\
+creat addit       &  4{,}964 &     4{,}964  & H \\
+ongo increas      &  2{,}598 &     2{,}598  & H \\
+\bottomrule
+\end{tabular}
+\begin{tablenotes}[flushleft]
+\footnotesize
+\item Notes: Importance is impurity-based Random Forest variable importance.
+Signed importance multiplies importance by the sign of the feature's training
+correlation with the forecast target. H = higher target (hawkish direction);
+D = lower target (dovish direction). Two features (\emph{kashkari loretta},
+\emph{plosser gari}) are speaker-name residuals that survived because the
+blocklist targets the RQ1 classifier vocabulary, not the RQ2 expanding-window
+vocabulary. These are model-level diagnostics, not causal effects.
+\end{tablenotes}
+\end{threeparttable}
+\end{table}
+
+\begin{table}[H]
+\centering
+\caption{Important RF variables present in the forecasted document}
+\label{tab:rf_single_xw_present_terms}
+\begin{threeparttable}
+\small
+\begin{tabular}{lrrr}
+\toprule
+Bigram & Importance & TF--IDF in document & Illustrative weight \\
+\midrule
+feder fund & 13{,}075 & 0.0026 & 34.3 \\
+\bottomrule
+\end{tabular}
+\begin{tablenotes}[flushleft]
+\footnotesize
+\item Notes: This table restricts the model-level importance list to features
+that are actually present in the forecasted document (the September 2025 FOMC
+statement). Only one of the eleven Lasso-selected bigrams appears in this
+document. The illustrative weight is computed as variable importance multiplied
+by the absolute TF--IDF value in the forecasted document. It is a descriptive
+weighting device, not a formal local-explanation method.
+\end{tablenotes}
+\end{threeparttable}
+\end{table}
+
+\section{Implementation notes}
+\label{app:a3_implementation_notes}
+
+All Random Forest models are estimated separately by corpus. The same-meeting
+classification models use bigram TF--IDF features, the blocklist in
+Appendix~\ref{app:a1_blocklist}, Lasso pre-selection, and class-balanced
+sampling. The expanding-window forecasting models rebuild the vocabulary and
+refit the model using only information available before the forecasted meeting.
+This distinction is important: OOB classification performance is a descriptive
+same-meeting diagnostic, while the expanding-window results are the genuine
+forecasting exercise.

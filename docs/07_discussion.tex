@@ -1,0 +1,574 @@
+% ══════════════════════════════════════════════════════════════════════════════
+% CHAPTER 7 — DISCUSSION  [v31 — revised for defence]
+% ══════════════════════════════════════════════════════════════════════════════
+
+This chapter interprets the empirical results from Chapter~\ref{ch:results}.
+The purpose is not to repeat the tables, but to explain what the estimates imply
+about central bank communication as a market signal, why the results differ
+across methods and institutions, and where the evidence should be interpreted
+cautiously. The discussion is organised around the two research questions. RQ1
+asks whether hawkish--dovish tone explains announcement-window market reactions
+after controlling for the contemporaneous rate surprise. RQ2 asks whether
+central bank language predicts near-term policy outcomes and two-year yield
+changes in an expanding-window setting.
+
+\section{Summary and interpretation of key findings}
+\label{sec:disc_summary}
+
+The central conclusion is that central bank language contains measurable
+information, but the information is not uniform across assets, institutions, or
+measurement methods. Text is most informative when the dependent variable is
+close to the monetary-policy object being communicated: short-maturity yields,
+rate-decision classifications, and next-meeting policy moves. Text is weaker
+when the outcome is more exposed to other forces, such as equity returns,
+foreign exchange, long yields, and future two-year yield changes.
+
+For RQ1, the evidence is concentrated rather than universal. In FOMC statements,
+the clearest market-reaction result is the two-year Treasury yield. Both the
+Random Forest and BERT scores are positively associated with UST 2Y
+reactions in the controlled regressions, and the full horse race raises the
+common-sample $R^2$ to 0.262 (adjusted $R^2 = 0.249$). This is economically
+coherent. A two-year yield is closely linked to the expected near-term path of
+policy, so it should be the asset most likely to respond to language about
+future tightening or easing. The result is robust to Newey-West standard errors
+and survives fixed-effect controls. By contrast, the FOMC equity and
+exchange-rate regressions show little evidence that text adds meaningful
+explanatory power beyond the rate surprise.
+
+For ECB statements, the strongest RQ1 result is the Euro Stoxx 50. The Random
+Forest score is positively associated with SX5E reactions ($p=0.028$), and the
+coefficient remains significant in the three-way horse race ($p=0.045$). The
+positive sign is consistent with an information-effect interpretation: language
+associated with tighter policy is also language associated with stronger
+macroeconomic conditions, and equity markets respond positively to that
+information. However, this result becomes marginal ($p=0.102$) when chair and
+era fixed effects are added, suggesting that part of the association may
+reflect systematic differences between ECB presidents (whose tenures coincide
+with different rate regimes) rather than within-regime communication effects.
+Two other ECB outcomes---OIS 10Y and EUR/USD---have negative adjusted $R^2$ in
+all specifications, meaning the text scores add no explanatory power beyond
+the rate-surprise control after adjusting for degrees of freedom.
+
+The press-conference evidence reinforces the interpretation that communication
+is information-rich, but the mapping from tone to market reaction is less
+stable. In the FOMC press-conference sample ($N=91$), the Random Forest score
+is significantly associated with EUR/USD and Treasury yields. However, the
+yield signs are negative---the opposite of the standard prediction that
+hawkish language raises yields. This result is not driven by outliers
+(removing the two most influential meetings strengthens the coefficient) and
+is robust to Newey-West standard errors. It suggests that post-2011 press
+conferences combine discussion of tightening conditions with risk-management
+reassurance, so the RF score captures a mixed signal rather than a pure
+hawkish yield shock. For ECB press conferences, BERT is the clearest
+equity signal, while the Random Forest contributes to EUR/USD in the horse
+race. The broader conclusion is that press conferences are information-rich,
+but the type of information is more heterogeneous than in statements.
+
+The dual-mandate decomposition adds a second layer to the interpretation. For
+FOMC statements, decomposing the dictionary score into policy, inflation,
+employment, and residual-risk components improves $R^2$ modestly. For ECB
+statements, the gains are larger, especially for OIS\_MP2 (7.0 percentage
+points) and OIS 10Y (8.1 percentage points). For OIS 10Y, a partial $F$-test
+confirms that the additional sub-category regressors are jointly significant
+($p=0.027$), and the adjusted $R^2$ rises from $-0.002$ under the aggregate
+score to $0.055$ under the full decomposition. This is not evidence that the
+ECB has a Federal Reserve-style dual mandate. Rather, it shows that ECB market
+reactions are component-specific: policy-action language, inflation language,
+growth language, and residual-risk language do not have the same
+financial-market implications.
+
+For RQ2, the evidence is clearer. Both Random Forest and BERT forecasts
+produce positive direct expanding-window $R^2$ values for future rate-decision
+targets in all eight corpus--method pairs. BERT performs especially
+strongly for rate decisions, reaching direct out-of-sample $R^2$ values of
+0.457 for FOMC statements and 0.281 for ECB press conferences at the
+next-meeting horizon. By contrast, the same methods do not forecast future
+two-year yield changes: all sixteen yield forecasts (two methods $\times$ four
+corpora $\times$ two horizons) deliver negative direct out-of-sample $R^2$.
+The conclusion is therefore unambiguous: central bank language helps predict
+subsequent policy actions but does not predict subsequent yield changes.
+
+This distinction is not contradictory. A document can contain information about
+what the central bank is likely to do at the next meeting while still failing to
+forecast the yield change realised between meetings. Markets may price much of
+the expected policy path immediately at the announcement, leaving little
+predictable movement for the subsequent yield window. Future two-year yields also
+respond to incoming inflation releases, labour-market data, risk premia, and
+global financial shocks that occur after the communication event. The RQ2 result
+therefore separates policy predictability from market predictability: language
+helps forecast the central bank's next action, but not the full path of market
+repricing that occurs after the meeting.
+
+These findings imply a layered view of communication. Dictionary scores provide
+transparent measures of explicit stance. Random Forest scores capture language
+that is predictive of realised rate-decision signs. BERT scores capture
+sentence-level semantic tone and are particularly useful in forecasting future
+rate decisions. The three methods are complementary, but they should not be
+interpreted as measuring exactly the same economic object.
+
+\section{Economic interpretation: policy news and information news}
+\label{sec:disc_policy_information}
+
+The results are easiest to interpret through the distinction between policy news
+and information news. Policy news refers to communication that changes market
+expectations about the future policy path. Information news refers to
+communication that changes market beliefs about the state of the economy. The
+same hawkish sentence can contain both. For example, language about persistent
+inflation may signal future tightening, which is negative for equities through
+higher discount rates. But it may also reveal that demand remains strong, which
+can be positive for expected cash flows. The observed asset-price response
+depends on which channel dominates.
+
+This ambiguity explains why the equity results are not uniformly negative. For
+FOMC statements, the text coefficients for equities are weak. This is consistent
+with offsetting channels: hawkish language may raise expected rates while also
+signalling stronger economic conditions. For ECB statements, the positive SX5E
+response to the Random Forest score is consistent with the information channel
+being stronger in that sample. This is plausible because ECB communications
+often combine policy-action language with an assessment of euro-area conditions.
+If markets interpret tighter-policy language as evidence that the Governing
+Council sees the economy as resilient enough to absorb tightening, equities can
+rise rather than fall. However, this interpretation should be treated with
+caution. In the present framework, the two channels cannot be separated
+structurally---a negative equity coefficient could equally be attributed to the
+discount-rate channel, and a positive one to the information channel, making the
+interpretation unfalsifiable without additional identifying restrictions such as
+the sign-restriction approach of \citet{jarocinski2020}.
+
+The fixed-effect and forward/current results provide partial evidence for the
+dual-channel view. For ECB statements, forward-looking tone is negatively
+associated with SX5E returns, while current-condition tone is positively
+associated with SX5E returns. The signs are economically intuitive. Hawkish
+forward-looking language points to future tightening and is negative for
+equities. Hawkish current assessment points to stronger current economic
+conditions and is positive for equities. The aggregate score partly masks this
+difference because it pools the two channels. While this pattern is harder to
+explain with pure post-hoc rationalisation than the single-coefficient results,
+it still falls short of a formal structural identification.
+
+For yields, the expected sign under both the standard monetary-policy channel
+and the information effect is positive: hawkish language should raise yields by
+shifting the expected policy path upward. This prediction holds cleanly in FOMC
+statements, where the two-year Treasury response is the strongest yield result
+and the ten-year response is weaker. However, the prediction fails in FOMC press
+conferences, where the RF score has a significantly negative yield coefficient.
+This sign reversal means that the yield channel is not as ``unambiguous'' as the
+methodology section's theoretical framework suggests. The negative sign is
+consistent with post-2011 press conferences mixing tightening rationale with
+risk-management reassurance, but it could also reflect a period-specific pattern
+related to the zero lower bound, QE tapering, and rapid tightening eras. Long
+yields include term premia, long-run inflation expectations, and global risk
+factors; a simple hawkish--dovish score should therefore not be expected to
+explain them as cleanly.
+
+\section{RQ2 and the distinction between policy predictability and market predictability}
+\label{sec:disc_rq2_interpretation}
+
+The RQ2 results draw an important distinction between predicting policy decisions
+and predicting market prices. Future rate decisions are partly under the control
+of the central bank and are shaped by the same reaction function that appears in
+its communication. If the central bank repeatedly describes inflation as too
+high, policy as insufficiently restrictive, or labour markets as tight, that
+language can predict subsequent rate hikes because both the language and the
+future decision reflect the same internal assessment.
+
+One interpretive caveat applies to the strength of this conclusion. All three
+text scores are highly autocorrelated: the first-order autocorrelation of
+\netscore{} is 0.87 in FOMC statements, and the RF and BERT scores range from
+0.55 to 0.78 across corpora. Part of the rate-decision forecast power may
+therefore reflect the text score acting as a slow-moving proxy for the policy
+stance rather than capturing meeting-specific forward-guidance signals. The
+incremental $R^2$ analysis partially addresses this concern by controlling for
+the current rate decision, and the RF text forecast remains significant beyond
+inertia ($p=0.005$ for FOMC statements). But the high autocorrelation means
+the text score carries more information about the general policy trajectory
+than about the specific incremental signal at any given meeting.
+
+Future two-year yield changes are different. They are market outcomes between
+meetings. They depend on new macroeconomic data, risk sentiment, term premia,
+liquidity conditions, geopolitical shocks, and revisions in the expected policy
+path that may occur after the original communication. Even if a statement helps
+forecast the next policy decision, it may not forecast the subsequent yield
+change because the market may already price the decision at the announcement, or
+because new information arrives before the next meeting.
+
+This explains the central RQ2 pattern. Direct out-of-sample $R^2$ values are
+positive for future rate decisions in all eight corpus--method pairs but negative
+for all sixteen yield forecasts. Some regression-based incremental $R^2$ values
+for yield targets are positive, especially for BERT in ECB
+specifications, but those gains should be interpreted cautiously because the
+direct forecast benchmark fails in every case. The conclusion is that central
+bank language predicts the central bank's subsequent policy choices but not the
+market's future repricing.
+
+The contrast between Random Forest and BERT also matters. The Random
+Forest is trained on document-level bigram features and captures phrase-level
+patterns associated with policy actions. BERT classifies sentences and
+therefore captures more local semantic context. The fact that BERT
+performs better in many rate-decision forecasting specifications suggests that
+sentence-level tone is useful for extracting forward-looking policy information.
+This is particularly visible in press conferences, where central bankers explain
+the conditional path of policy more explicitly than in short statements.
+
+\section{FOMC versus ECB}
+\label{sec:disc_fomc_ecb}
+
+The results differ across the FOMC and the ECB in ways that are consistent with
+their institutional structures. FOMC statements are committee-drafted documents
+and are closely watched for changes in wording. This makes them suitable for
+short-maturity yield reactions: small changes in policy-path language can affect
+two-year Treasury yields. The FOMC statement results therefore fit the idea that
+textual tone matters most for assets closely tied to the expected funds-rate
+path.
+
+ECB statements and press conferences have a different structure. The ECB press
+conference has existed for the entire sample, while FOMC press conferences begin
+only in 2011. ECB communication therefore provides a longer press-conference
+history across more regimes. ECB policy communication also contains distinctive
+terms around price stability, financial fragmentation, transmission, negative
+rates, and asset purchases. These institutional features make ECB communication
+particularly sensitive to the information channel. The positive SX5E response
+to ECB statement RF tone is consistent with markets reading some hawkish ECB
+language as macroeconomic news rather than only as monetary tightening, though
+the loss of significance under chair fixed effects ($p=0.102$) means that this
+interpretation rests partly on cross-president variation.
+
+The ECB rate-decision benchmark also differs from the FOMC benchmark. The FOMC
+rate decision is relatively straightforward because changes are usually recorded
+in 25-basis-point increments. The ECB has multiple policy rates, and during the
+negative-rate period the deposit facility rate became the binding marginal rate.
+The thesis uses a consistent benchmark for classification and forecasting, but
+some ECB meetings include non-standard movements or changes in the corridor
+structure. This may weaken the relationship between text labels and the
+rate-decision sign for the ECB, especially in periods when the policy stance is
+transmitted through instruments other than the main refinancing rate.
+
+\section{Dictionary, Random Forest, and BERT: trade-offs}
+\label{sec:disc_method_tradeoffs}
+
+The method comparison is not a ranking from worst to best. Each method measures
+a different object and carries a different identification risk. The dictionary is
+most transparent, the Random Forest is most directly linked to the realised
+rate-decision sign, and BERT is most context-sensitive at the sentence
+level. The empirical question is therefore not which score is universally best,
+but which score is most informative for a given outcome and how much additional
+complexity is justified.
+
+The three scoring methods differ in transparency, flexibility, and context
+sensitivity. The dictionary is the most transparent. Its categories are known in
+advance, every score can be traced to individual term matches, and the
+sub-scores are easy to interpret. This makes the dictionary useful for economic
+explanation and for the dual-mandate decomposition. Its weakness is rigidity.
+A fixed term list cannot adapt automatically to new communication styles,
+changing policy instruments, or subtle contextual shifts.
+
+The Random Forest is more flexible. It learns corpus-specific bigrams that
+predict rate-decision signs, and it can identify institutional phrasings that a
+hand-built dictionary misses. However, this advantage comes with two specific
+interpretive costs. First, because the Random Forest is trained on realised rate
+decisions, its high RF--rate agreement (84--95\% across corpora) is a training
+convergence diagnostic, not an independent validation of economic stance.
+Second, feature inspection reveals that approximately 18\% of total feature
+importance in FOMC statements and 20\% in ECB statements is attributable to
+leakage-adjacent terms---speaker names, voting-roll phrases, and institutional
+boilerplate that correlate with specific eras rather than with economic stance.
+The remaining $\sim$80\% of importance is carried by economically interpretable
+terms, but the leakage share means the \rfscore{} is partly influenced by
+era-specific vocabulary. The RF score is therefore best interpreted as a
+decision-predictive communication measure, not as a pure structural measure of
+hawkishness.
+
+The horse-race regressions that include all three scores simultaneously face a
+collinearity issue. The pairwise correlation between the dictionary and
+BERT scores is 0.81 in FOMC statements, producing variance inflation
+factors around 3.0 for these two variables. While below the conventional concern
+threshold of 5--10, this collinearity means that individual coefficient
+significance in the horse race is unreliable. When a score loses significance
+in the joint model, it may reflect absorbed information rather than genuine
+redundancy. The $R^2$ comparison across single-score models is therefore more
+informative than individual horse-race coefficients.
+
+BERT offers the strongest context sensitivity. It processes sentences
+rather than isolated n-grams and can in principle distinguish between phrases
+that a dictionary treats similarly. The results show that BERT is
+especially useful in RQ2 rate-decision forecasting. At the same time, its
+discrete classification is heavily skewed: 81 of 91 scored FOMC press
+conferences are labelled dovish. While the continuous \bertscore{} retains
+variation within the dovish range (the regression results are driven by this
+continuous variation, not the discrete labels), the systematic dovish tilt
+reflects domain transfer from the FOMC-trained sentence classifier to broader
+or ECB-specific language. Transformer scores should therefore be treated as a
+useful benchmark, not as an unquestioned ground truth. The sentence-level
+classifier is also applied once to the full corpus without retraining in the
+RQ2 expanding-window design; only the regression layer mapping \bertscore{} to
+forecast targets is fit in an expanding window. This means the sentence
+predictions themselves are not strictly out-of-sample, although the economic
+mapping is.
+
+The thesis therefore does not identify a single dominant method. Instead, the
+methods answer different questions. The dictionary is best for transparent
+measurement and decomposition. The Random Forest is best for identifying
+language associated with rate decisions but carries a leakage risk that future
+work should address. BERT is strongest for sentence-level semantic
+information and near-term rate-decision forecasting, but its dovish shift and
+domain-transfer limitations should be kept in mind. The three-way comparison is
+valuable because it reveals when these objects coincide and when they diverge.
+
+\section{Comparison with prior literature}
+\label{sec:disc_literature}
+
+The results are consistent with the broader literature showing that central bank
+communication contains information beyond the current rate decision, but they
+also qualify that conclusion. The event-study literature argues that monetary
+policy announcements include both a target component and a path component. The
+empirical design of this thesis follows that logic by controlling for the
+rate-surprise component and testing whether text explains residual market
+movements. The strongest evidence appears at the short end of the yield curve
+for the FOMC and in ECB equities, rather than uniformly across all asset classes.
+This suggests that text-based tone captures only part of the path and
+information content embedded in announcements.
+
+The results also connect to dictionary-based studies of monetary-policy tone.
+Like earlier dictionary work, the thesis finds that explicit hawkish and dovish
+language tracks monetary-policy cycles and can be related to market outcomes.
+However, the evidence here is more conditional than a simple narrative would
+suggest. A single aggregate dictionary score is not uniformly significant across
+markets. The decomposition results show why: different components of tone can
+have opposite signs. This supports the view that monetary-policy text should not
+always be collapsed into one index without checking whether policy-action,
+inflation, growth, and risk language carry different signals.
+
+The machine-learning results align with work showing that supervised models can
+extract meaningful structure from central bank language. The Random Forest's
+high OOB and balanced accuracy confirms that bigram features contain strong
+information about the contemporaneous decision class. But the holdout results
+(which drop by up to 23 percentage points relative to OOB) and the
+feature-inspection evidence (18--20\% leakage-adjacent importance) also show
+the limits of this approach. Central bank language changes across regimes, and
+some predictive features are institutional rather than purely economic. The
+blocklist reduces this problem but cannot remove it completely.
+
+The BERT results are consistent with the idea that contextual language
+models add value when the relevant signal is sentence-level and semantic rather
+than phrase-level and fixed. This is most visible in RQ2 forecasting. Still, the
+model's systematic dovish tilt in some corpora and the cross-institutional
+transfer issue mean that transformer scores should be treated as a benchmark,
+not as an unquestioned ground truth.
+
+The null and weak results are also informative. The absence of robust effects in
+many FX, equity, long-yield, breakeven, and sovereign-spread specifications---and
+the negative adjusted $R^2$ for ECB OIS 10Y and EUR/USD---suggests that
+hawkish--dovish tone is not a sufficient statistic for all market news released
+around central bank meetings. This is an important boundary condition for the
+communication literature. It indicates that text measures are most useful when
+the outcome is close to the policy path, and less reliable when the asset price
+embeds several competing risk premia or macro-financial channels.
+
+\section{Limitations}
+\label{sec:disc_limitations}
+
+Several limitations should be emphasised.
+
+\emph{Textual stance versus market surprise.}
+A central limitation is that textual hawkishness and market hawkishness
+are not identical. The dictionary, Random Forest, and BERT measures
+capture the absolute restrictiveness of communication. Financial markets,
+however, react to surprises relative to prior expectations. This creates
+a mechanical problem for text-based measurement: meetings with rate hikes
+naturally contain more restrictive language, even when the hike was fully
+expected. Conversely, a realised hike can be interpreted as dovish if
+markets had expected a larger increase or stronger forward guidance.
+
+The thesis addresses this issue by controlling for high-frequency
+rate-surprise measures in the event-study regressions and by comparing
+text labels to both realised rate-decision labels and market-surprise
+labels. Nevertheless, the text scores should be interpreted as measures
+of communication stance, not as fully expectation-adjusted structural
+monetary-policy shocks.
+
+\textbf{identification issue 2 paragraphs above added KMC 
+}
+\emph{Constructed measures.}
+The text scores are constructed measures, not observed economic variables. The
+dictionary depends on term selection and threshold choices; the Random Forest
+depends on the training target, the feature-selection procedure, and the
+blocklist; BERT depends on sentence-level model predictions and the
+domain of the training data. The use of three methods reduces dependence on any
+single measurement approach, but it does not eliminate measurement error.
+
+\emph{Descriptive Random Forest and residual leakage.}
+The Random Forest classification exercise is descriptive. Because the RF is
+trained to classify the contemporaneous rate-decision sign, high RF--rate
+agreement should not be interpreted as an independent discovery that language
+contains policy information. Moreover, approximately 18\% of total feature
+importance in FOMC statements and 20\% in ECB statements is attributable to
+leakage-adjacent terms that correlate with specific speakers or eras rather than
+with economic stance. While the remaining $\sim$80\% is economically
+interpretable, the leakage share means that the \rfscore{} used in RQ1
+regressions is partly influenced by era-specific vocabulary. A rerun with the
+extended blocklist would be needed to confirm that the market-reaction results
+are robust to this contamination.
+
+\emph{Endogeneity of the RF score in RQ1.}
+The RF score is trained on the contemporaneous rate decision. Controlling for
+MP1 removes the surprise component, but the expected policy action is embedded
+in both the RF score and the market reaction. The RF coefficient in the
+market-reaction regressions may therefore partly reflect the mechanical
+relationship between expected policy and asset prices, rather than a pure
+communication effect. The dictionary and BERT scores, which are not
+trained on the rate decision, provide a cleaner test of the communication
+channel. The fact that BERT shows similar significance for FOMC UST 2Y
+($p=0.020$) supports the interpretation that the result is not purely a
+mechanical RF artefact.
+
+\emph{ECB policy-rate benchmark.}
+ECB policy has been conducted through several instruments, especially during the
+negative-rate and asset-purchase periods. A single rate-decision sign cannot
+fully capture changes in the deposit facility rate, the main refinancing rate,
+asset-purchase programmes, forward guidance, or transmission-protection tools.
+This is likely most relevant for ECB observations after 2014.
+
+\emph{Uneven sample sizes.}
+FOMC statements cover a long period, but FOMC press conferences begin only in
+2011 ($N=91$). The FOMC press-conference forecast evaluation window is
+particularly short (as few as 53 evaluated forecasts for RF rate-decision
+targets). ECB press conferences cover a longer period, but some long-maturity
+OIS variables are available only for much smaller samples ($N=113$ for OIS 10Y).
+These sample constraints limit the statistical power and generalisability of the
+press-conference and long-maturity results.
+
+\emph{Multiple testing.}
+The analysis reports results across four corpora, multiple outcomes, three
+scoring methods, and several regression variants (horse race, fixed-effect
+ladder, forward/current decomposition, dual-mandate decomposition), generating
+in excess of 200 individual specifications. No formal multiple-testing
+correction has been applied. While the patterns that are consistent across
+methods---such as the positive rate-decision forecasting result, which holds
+for all eight corpus--method pairs---are less likely to reflect spurious
+significance, individually starred coefficients should be interpreted with
+appropriate caution.
+
+\emph{Text score persistence.}
+All three text scores are highly autocorrelated ($\rho_1 \approx 0.55$--$0.87$
+across corpora). Part of the RQ2 forecasting power may therefore reflect the
+text score acting as a slow-moving proxy for the overall policy stance rather
+than capturing meeting-specific forward-guidance information. The incremental
+$R^2$ analysis controls for the current rate decision, which partially addresses
+this concern, but a single-lag inertia control may not fully absorb the
+slow-moving stance information embedded in the text scores.
+
+\emph{BERT look-ahead and domain transfer.}
+The sentence-level BERT classifier is applied once to the full corpus and is
+not retrained in the expanding-window design. Only the regression layer mapping
+\bertscore{} to forecast targets is fit on past data. If the classifier was
+fine-tuned on an external labelled dataset, this is analogous to applying a
+fixed dictionary---the predictions do not learn from the thesis corpus. However,
+the distinction should be stated explicitly. The classifier also exhibits a
+systematic dovish shift, particularly in press conferences (81 of 91 FOMC press
+conferences labelled dovish), likely reflecting domain transfer from
+FOMC-trained models.
+
+\emph{Event-study associations, not causal effects.}
+The event-study design identifies announcement-window associations, not fully
+structural causal effects. Narrow windows reduce the probability of confounding
+news, but they cannot prove that every price movement within the window is
+caused only by the text score. Controlling for the rate surprise helps isolate
+residual communication content, but the coefficient should still be read as an
+association between measured tone and market reaction.
+
+\emph{Forecast evaluation.}
+The expanding-window design prevents look-ahead bias, yet it also reduces the
+amount of training data available early in the sample. The direct out-of-sample
+$R^2$ values are reported as point estimates without confidence intervals; a
+Clark-West or bootstrap test would provide a formal significance assessment.
+Negative direct out-of-sample $R^2$ values for yield targets should not be read
+as evidence that communication is irrelevant for yields at the announcement;
+rather, they show that communication is not sufficient to forecast subsequent
+yield changes over the next one or two meetings.
+
+\section{Implications}
+\label{sec:disc_implications}
+
+The first implication is methodological. Researchers should be cautious about
+using a single text score as if it measured one stable object. Central bank
+communication contains policy intentions, economic assessments, risk framing,
+and institutional language. These components can have different and sometimes
+opposite market effects. Decomposition and method comparison are therefore not
+optional robustness checks; they are central to interpretation.
+
+The second implication concerns central bank communication itself. Markets do
+not only react to whether language is hawkish or dovish. They react to why it is
+hawkish or dovish. Hawkishness based on current economic strength can raise
+equities, while hawkishness based on future tightening can depress them. This
+means that central banks cannot assume that tighter language will always be
+interpreted as contractionary news. The market response depends on whether the
+communication is read as policy news or information news.
+
+The third implication concerns forecasting. Central bank language can help
+predict future policy decisions, but it does not predict future yield movements.
+This distinction matters for practitioners. A text model may be useful for
+anticipating policy actions without being profitable or accurate as a
+stand-alone yield-forecasting tool.
+
+The fourth implication is a measurement caution. Supervised text classifiers
+trained on policy outcomes can achieve high in-sample agreement with the
+training target, but feature leakage (institutional boilerplate, speaker names,
+era-specific phrases) can inflate apparent performance and contaminate
+downstream regression estimates. Feature-importance diagnostics and blocklists
+are therefore necessary complements to accuracy metrics, not optional
+appendix material.
+
+\section{Directions for future research}
+\label{sec:disc_future_research}
+
+Future research could extend this thesis in several directions. First, ECB
+policy measurement could be improved by constructing a multi-instrument
+decision benchmark that combines the MRO, deposit facility rate, asset-purchase
+announcements, and forward-guidance changes. This would better reflect the ECB's
+post-2014 operating framework.
+
+Second, the dictionary could be made dynamic. Instead of applying one fixed
+vocabulary across all regimes, future work could estimate era-specific or
+institution-specific dictionaries while preserving the transparent category
+structure. This would test whether the meaning of stance-bearing language
+changes across conventional, zero-lower-bound, negative-rate, and post-COVID
+periods.
+
+Third, the BERT component could be retrained or fine-tuned on ECB
+sentences. The current design is useful as a benchmark, but an ECB-specific
+sentence classifier would provide a cleaner test of whether transformer-based
+tone improves on the dictionary and Random Forest for euro-area communication.
+Retraining the classifier within the expanding-window design would also
+eliminate the look-ahead concern noted in Section~\ref{sec:disc_limitations}.
+
+Fourth, the Random Forest could be rerun with the extended blocklist identified
+in Appendix~\ref{app:a3_rf_features}. This would quantify how much the 18--20\%
+leakage-adjacent feature importance affects the RQ1 regression coefficients and
+the RQ2 expanding-window forecasts. A before-and-after comparison would test
+whether the market-reaction results are robust to removing era-specific
+vocabulary.
+
+Fifth, future work could separate press-conference prepared remarks from Q\&A
+answers. The current cleaning removes journalist questions and keeps central
+bank answers, but the economic content of prepared remarks and spontaneous
+answers may differ. A separate decomposition could test whether markets react
+more strongly to scripted or unscripted communication.
+
+Sixth, the policy-news and information-news channels could be separated
+structurally. The current framework identifies a reduced-form association
+between text and asset prices but cannot distinguish the two channels.
+Combining text scores with the sign-restriction or heteroskedasticity-based
+identification strategies used in the structural monetary-policy literature
+would provide a more rigorous test of whether hawkish language operates through
+the discount-rate channel, the information channel, or both.
+
+Seventh, the out-of-sample $R^2$ values could be tested formally using
+Clark-West or Diebold-Mariano tests. The current evaluation reports point
+estimates without confidence intervals. Bootstrapping the expanding-window
+procedure and reporting confidence bands would strengthen the RQ2 conclusions.
+
+Eighth, future research could combine text with voice, facial expression, or
+speaker-level uncertainty measures in press conferences. The present thesis
+focuses on written language. Press conferences, however, also communicate tone
+through delivery. Combining textual and non-verbal channels could provide a more
+complete measure of central bank communication.

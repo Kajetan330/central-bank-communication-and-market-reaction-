@@ -1,224 +1,680 @@
 % ══════════════════════════════════════════════════════════════════════════════
-% APPENDIX A2 — ADDITIONAL REGRESSION TABLES  [v31 update]
+% APPENDIX A2 — ADDITIONAL REGRESSION TABLES  [v31 final]
 % ══════════════════════════════════════════════════════════════════════════════
-%
-% Requires \usepackage{pdflscape} in the preamble.
-%
-% ╔═══════════════════════════════════════════════════════════════════════╗
-% ║ TODO — RECOMPUTE ALL TABLES AFTER v31 PIPELINE RE-RUN               ║
-% ║                                                                     ║
-% ║ The scoring formula is (H-D)/(H+D+10) with Laplace smoothing.     ║
-% ║ All coefficients on net_score, net_score^fwd, net_score^curr will  ║
-% ║ change from the values shown below. RF coefficients may also       ║
-% ║ change due to B=100 (was 500) and single-spec pipeline.            ║
-% ║                                                                     ║
-% ║ NEW tables needed (added as placeholder sections at the end):       ║
-% ║   - FOMC additional variables (DXY, TIPS 5Y, TIPS 10Y)             ║
-% ║   - ECB additional variables (SX7E, DE2Y, DE10Y, IT10Y_spread)     ║
-% ║   - RoBERTa market reaction regressions                             ║
-% ║   - Three-way horse race (dict + RF + BERT)                         ║
-% ║   - Confusion matrices                                              ║
-% ╚═══════════════════════════════════════════════════════════════════════╝
-%
-% Notation conventions for all tables:
-%   - Coefficients in plain text, robust (HC1) standard errors in parentheses.
-%   - Stars: *** p<0.01, ** p<0.05, * p<0.10.
-%   - Spec A: dictionary tone alone (no controls).
-%   - Spec B: + rate-surprise control (MP1 / OIS_MP1).
-%   - Spec C: + rate-surprise + dual-mandate sub-scores.
-%
+
+\emergencystretch=2em
+
 \providecommand{\sym}[1]{\ensuremath{^{\text{#1}}}}
 
-% ──────────────────────────────────────────────────────────────────
-\section{FOMC Yield Regressions}
-\label{app:reg_fomc_yields}
-% ──────────────────────────────────────────────────────────────────
+This appendix reports supplementary regression and forecast diagnostics for the
+final pipeline. The tables are designed to support Chapter~\ref{ch:results}
+without overloading the main text. All market-reaction regressions use HC1
+robust standard errors. FOMC specifications control for MP1; ECB specifications
+control for OIS\_MP1. Positive text scores denote more hawkish communication.
 
-%%% TODO: RECOMPUTE — all coefficients on net_score will change.
+
+\section{Common-sample RQ1 incremental $R^2$ decomposition}
+\label{app:a2_common_r2}
+
+\Cref{tab:a2_common_r2_decomp} reports the common-sample $R^2$ decomposition
+used in Chapter~\ref{ch:results}. The table separates the explanatory power of
+the monetary policy surprise from the incremental contribution of the text
+scores. This is the relevant diagnostic for assessing whether tone adds
+information beyond MP1/OIS\_MP1.
 
 \begin{table}[H]
 \centering
-\caption{FOMC statements: yield response to dictionary tone}
-\label{tab:a2_fomc_stmt_yields}
-\setlength{\tabcolsep}{4pt}\small
-\begin{tabular}{lcccccc}
+\caption{Common-sample RQ1 $R^2$ decomposition}
+\label{tab:a2_common_r2_decomp}
+\begin{threeparttable}
+\scriptsize
+\setlength{\tabcolsep}{3pt}
+\begin{tabularx}{\textwidth}{@{}llr>{\centering\arraybackslash}Xrrrrr@{}}
 \toprule
- & \multicolumn{3}{c}{UST 2Y} & \multicolumn{3}{c}{UST 10Y} \\
-\cmidrule(lr){2-4}\cmidrule(lr){5-7}
- & (A) & (B) & (C) & (A) & (B) & (C) \\
+Corpus & Outcome & $N$ & Control $R^2$ & $\Delta$Dict & $\Delta$RF & $\Delta$BERT & $\Delta$All & All $R^2$ \\
 \midrule
-\netscore{} & 0.4421\sym{*} & 0.4615\sym{*} & 0.4750\sym{*} & 0.1206 & 0.1174 & 0.1028 \\
-              & (0.2369) & (0.2429) & (0.2482) & (0.1511) & (0.1545) & (0.1645) \\
+FOMC statements & S\&P 500 & 225 & 0.066 & 0.001 & 0.001 & 0.002 & 0.004 & 0.071 \\
+FOMC statements & UST 2Y & 234 & 0.237 & 0.003 & 0.014 & 0.015 & 0.024 & 0.262 \\
+FOMC statements & UST 10Y & 234 & 0.044 & 0.001 & 0.003 & 0.006 & 0.010 & 0.054 \\
+FOMC statements & EURUSD & 223 & 0.054 & 0.001 & 0.000 & 0.000 & 0.006 & 0.060 \\
+ECB statements & SX5E & 252 & 0.178 & 0.002 & 0.030 & 0.000 & 0.036 & 0.214 \\
+ECB statements & OIS\_MP2 & 243 & 0.206 & 0.001 & 0.002 & 0.019 & 0.020 & 0.225 \\
+ECB statements & OIS 10Y & 113 & 0.009 & 0.006 & 0.004 & 0.007 & 0.010 & 0.019 \\
+ECB statements & EURUSD & 252 & 0.001 & 0.002 & 0.000 & 0.000 & 0.005 & 0.006 \\
+\bottomrule
+\end{tabularx}
+\begin{tablenotes}[flushleft]
+\footnotesize
+\item Notes: Control $R^2$ comes from a regression with only MP1 for FOMC
+outcomes or OIS\_MP1 for ECB outcomes. Incremental columns show the additional
+$R^2$ from adding the indicated text score(s) on the common sample.
+\end{tablenotes}
+\end{threeparttable}
+\end{table}
+
+\Cref{tab:a2_standardised_effects} reports standardised magnitudes for the two
+headline statement-window coefficient results. The effects are small in
+absolute event-window units, which is expected for high-frequency monetary
+policy windows.
+
+\begin{table}[H]
+\centering
+\caption{Standardised magnitudes for headline RQ1 coefficients}
+\label{tab:a2_standardised_effects}
+\begin{threeparttable}
+\small
+\begin{tabular}{llrrrr}
+\toprule
+Corpus & Outcome/score & Coef. & Score SD & One-SD effect & Approx. unit \\
 \midrule
-$N$   & 237 & 237 & 237 & 237 & 237 & 237 \\
-$R^2$ & 0.263 & 0.264 & 0.264 & 0.049 & 0.052 & 0.054 \\
+FOMC statements & UST 2Y / RF & 0.0166 & 0.476 & 0.0079 & 0.79 bps \\
+FOMC statements & UST 2Y / BERT & 0.0376 & 0.215 & 0.0081 & 0.81 bps \\
+ECB statements & SX5E / RF & 0.3713 & 0.189 & 0.0700 & 0.07 pp \\
 \bottomrule
 \end{tabular}
+\begin{tablenotes}[flushleft]
+\footnotesize
+\item Notes: One-SD effect equals the coefficient multiplied by the standard
+deviation of the relevant text score in the estimation sample. FOMC yield
+effects are converted from percentage points to basis points for readability.
+\end{tablenotes}
+\end{threeparttable}
+\end{table}
+
+
+\section{RQ1 market-reaction coefficients}
+\label{app:a2_rq1_coefficients}
+
+The first four tables report the coefficient on each text score in the
+controlled RQ1 market-reaction regressions. The single-score columns estimate
+one text score at a time. The horse-race columns include \netscore{},
+\rfscore{}, and \bertscore{} jointly. These tables focus on the headline
+outcomes used in Chapter~\ref{ch:results}. The broader asset-class screen is
+reported separately in Section~\ref{app:a2_broad_outcomes}. Samples differ
+across tables because the main method-comparison table uses common samples,
+whereas the coefficient tables use all available observations for each outcome
+and specification.
+
+\begin{table}[H]
+\centering
+\caption{RQ1 coefficients: FOMC statements}
+\label{tab:a2_rq1_fomc_stmt}
+\begingroup
+\scriptsize
+\setlength{\tabcolsep}{1.7pt}
+\renewcommand{\arraystretch}{0.90}
+\resizebox{0.92\textwidth}{!}{%
+\begin{tabular}{@{}lcccccccc@{}}
+\toprule
+Outcome & Dict. & RF & BERT & H. dict & H. RF & H. BERT & $N$ & $R^2$ \\
+\midrule
+SP500 & -0.092 (0.147) & 0.037 (0.093) & -0.115 (0.177) & -0.041 (0.238) & 0.106 (0.101) & -0.220 (0.298) & 225 & 0.071 \\
+EURUSD & 0.057 (0.101) & -0.006 (0.042) & -0.044 (0.102) & 0.204 (0.185) & -0.005 (0.045) & -0.204 (0.198) & 223 & 0.060 \\
+UST2Y & 0.011 (0.015) & 0.017\sym{**} (0.008) & 0.038\sym{**} (0.016) & -0.030 (0.025) & 0.010 (0.007) & 0.050\sym{*} (0.027) & 234 & 0.262 \\
+UST10Y & 0.003 (0.012) & 0.008 (0.005) & 0.021 (0.013) & -0.023 (0.021) & 0.003 (0.006) & 0.034 (0.022) & 234 & 0.054 \\
+\bottomrule
+\end{tabular}%
+}
+\par\smallskip
+\begin{minipage}{0.92\textwidth}
+\scriptsize
+\emph{Notes:} Cells report coefficients with HC1 robust standard errors in parentheses. Dict., RF, and BERT are single-score controlled regressions. H. dict, H. RF, and H. BERT are the joint horse-race regression. Stars: $\sym{*}p<0.10$, $\sym{**}p<0.05$, $\sym{***}p<0.01$.
+\end{minipage}
+\endgroup
 \end{table}
 
 \begin{table}[H]
 \centering
-\caption{FOMC press conferences: yield response to dictionary tone}
-\label{tab:a2_fomc_pc_yields}
-\setlength{\tabcolsep}{4pt}\small
-\begin{tabular}{lcccccc}
+\caption{RQ1 coefficients: FOMC press conferences}
+\label{tab:a2_rq1_fomc_pc}
+\begingroup
+\scriptsize
+\setlength{\tabcolsep}{1.7pt}
+\renewcommand{\arraystretch}{0.90}
+\resizebox{0.92\textwidth}{!}{%
+\begin{tabular}{@{}lcccccccc@{}}
 \toprule
- & \multicolumn{3}{c}{UST 2Y} & \multicolumn{3}{c}{UST 10Y} \\
-\cmidrule(lr){2-4}\cmidrule(lr){5-7}
- & (A) & (B) & (C) & (A) & (B) & (C) \\
+Outcome & Dict. & RF & BERT & H. dict & H. RF & H. BERT & $N$ & $R^2$ \\
 \midrule
-\netscore{} & -1.760\sym{*} & -1.761 & -2.034\sym{*} & -0.8275 & -0.6992 & -1.229 \\
-              & (0.986) & (1.072) & (1.067) & (0.7074) & (0.8211) & (0.764) \\
-\midrule
-$N$   & 91 & 91 & 91 & 91 & 91 & 91 \\
-$R^2$ & 0.083 & 0.087 & 0.092 & 0.020 & 0.029 & 0.053 \\
+SP500 & 0.592 (0.431) & 0.288 (0.218) & -0.278 (0.687) & 1.050 (0.709) & 0.220 (0.206) & -2.221 (1.429) & 91 & 0.096 \\
+EURUSD & 0.191 (0.120) & 0.202\sym{**} (0.090) & 0.457\sym{*} (0.244) & 0.064 (0.137) & 0.160\sym{*} (0.087) & 0.150 (0.275) & 91 & 0.090 \\
+UST2Y & -0.021 (0.020) & -0.040\sym{***} (0.013) & -0.065\sym{*} (0.035) & 0.007 (0.024) & -0.039\sym{***} (0.012) & -0.027 (0.045) & 91 & 0.131 \\
+UST10Y & 0.001 (0.018) & -0.020\sym{**} (0.009) & -0.051\sym{*} (0.028) & 0.032 (0.030) & -0.021\sym{**} (0.008) & -0.076 (0.060) & 91 & 0.075 \\
 \bottomrule
-\end{tabular}
-\end{table}
-
-% ──────────────────────────────────────────────────────────────────
-\section{ECB OIS Yield Regressions}
-\label{app:reg_ecb_yields}
-% ──────────────────────────────────────────────────────────────────
-
-%%% TODO: RECOMPUTE — all coefficients on net_score will change.
-
-\begin{table}[H]
-\centering
-\caption{ECB statements: OIS yield response to dictionary tone}
-\label{tab:a2_ecb_stmt_yields}
-\setlength{\tabcolsep}{4pt}\small
-\begin{tabular}{lcccccc}
-\toprule
- & \multicolumn{3}{c}{OIS\_MP2} & \multicolumn{3}{c}{OIS 10Y} \\
-\cmidrule(lr){2-4}\cmidrule(lr){5-7}
- & (A) & (B) & (C) & (A) & (B) & (C) \\
-\midrule
-\netscore{} & -20.17 & -22.80 & -22.04 & -10.45 & -11.96 & -1.837 \\
-              & (30.96) & (29.02) & (25.25) & (22.56) & (21.00) & (21.066) \\
-\midrule
-$N$   & 244 & 244 & 244 & 113 & 113 & 113 \\
-$R^2$ & 0.215 & 0.227 & 0.230 & 0.014 & 0.014 & 0.023 \\
-\bottomrule
-\end{tabular}
+\end{tabular}%
+}
+\par\smallskip
+\begin{minipage}{0.92\textwidth}
+\scriptsize
+\emph{Notes:} Cells report coefficients with HC1 robust standard errors in parentheses. Dict., RF, and BERT are single-score controlled regressions. H. dict, H. RF, and H. BERT are the joint horse-race regression. Stars: $\sym{*}p<0.10$, $\sym{**}p<0.05$, $\sym{***}p<0.01$.
+\end{minipage}
+\endgroup
 \end{table}
 
 \begin{table}[H]
 \centering
-\caption{ECB press conferences: OIS yield response to dictionary tone}
-\label{tab:a2_ecb_pc_yields}
-\setlength{\tabcolsep}{4pt}\small
-\begin{tabular}{lcccccc}
+\caption{RQ1 coefficients: ECB statements}
+\label{tab:a2_rq1_ecb_stmt}
+\begingroup
+\scriptsize
+\setlength{\tabcolsep}{1.7pt}
+\renewcommand{\arraystretch}{0.90}
+\resizebox{0.92\textwidth}{!}{%
+\begin{tabular}{@{}lcccccccc@{}}
 \toprule
- & \multicolumn{3}{c}{OIS\_MP2} & \multicolumn{3}{c}{OIS 10Y} \\
-\cmidrule(lr){2-4}\cmidrule(lr){5-7}
- & (A) & (B) & (C) & (A) & (B) & (C) \\
+Outcome & Dict. & RF & BERT & H. dict & H. RF & H. BERT & $N$ & $R^2$ \\
 \midrule
-\netscore{} & -38.81 & -26.98 & -53.08 & -37.69 & -34.87 & -63.43 \\
-              & (40.12) & (48.54) & (67.77) & (55.86) & (54.90) & (75.17) \\
-\midrule
-$N$   & 235 & 235 & 235 & 105 & 105 & 105 \\
-$R^2$ & 0.071 & 0.081 & 0.084 & 0.024 & 0.027 & 0.029 \\
+SX5E & -0.082 (0.109) & 0.371\sym{**} (0.169) & -0.042 (0.350) & -0.063 (0.128) & 0.418\sym{**} (0.208) & -0.243 (0.466) & 252 & 0.214 \\
+EURUSD & 0.060 (0.074) & -0.028 (0.127) & -0.044 (0.249) & 0.083 (0.088) & -0.015 (0.141) & -0.121 (0.310) & 252 & 0.006 \\
+OIS\_MP2 & -0.404 (0.744) & -0.712 (1.775) & -3.778 (2.331) & 0.420 (0.821) & 0.005 (1.864) & -4.223 (2.675) & 243 & 0.225 \\
+OIS\_10Y & -0.650 (0.754) & -0.628 (1.496) & -1.404 (2.027) & -0.431 (0.757) & -0.348 (1.570) & -0.716 (2.086) & 113 & 0.019 \\
 \bottomrule
-\end{tabular}
+\end{tabular}%
+}
+\par\smallskip
+\begin{minipage}{0.92\textwidth}
+\scriptsize
+\emph{Notes:} Cells report coefficients with HC1 robust standard errors in parentheses. Dict., RF, and BERT are single-score controlled regressions. H. dict, H. RF, and H. BERT are the joint horse-race regression. Stars: $\sym{*}p<0.10$, $\sym{**}p<0.05$, $\sym{***}p<0.01$.
+\end{minipage}
+\endgroup
+\end{table}
+
+\begin{table}[H]
+\centering
+\caption{RQ1 coefficients: ECB press conferences}
+\label{tab:a2_rq1_ecb_pc}
+\begingroup
+\scriptsize
+\setlength{\tabcolsep}{1.7pt}
+\renewcommand{\arraystretch}{0.90}
+\resizebox{0.92\textwidth}{!}{%
+\begin{tabular}{@{}lcccccccc@{}}
+\toprule
+Outcome & Dict. & RF & BERT & H. dict & H. RF & H. BERT & $N$ & $R^2$ \\
+\midrule
+SX5E & 0.174 (0.114) & 0.191 (0.124) & 0.455\sym{**} (0.188) & 0.021 (0.130) & 0.097 (0.135) & 0.389\sym{*} (0.211) & 231 & 0.025 \\
+EURUSD & 0.012 (0.077) & -0.159\sym{*} (0.082) & -0.035 (0.135) & 0.097 (0.088) & -0.187\sym{**} (0.087) & -0.030 (0.163) & 231 & 0.047 \\
+OIS\_MP2 & -0.719 (0.782) & 0.596 (0.943) & 1.772 (1.322) & -1.640\sym{*} (0.910) & 0.434 (1.099) & 3.412\sym{**} (1.396) & 224 & 0.101 \\
+OIS\_10Y & -0.700 (1.242) & -1.539 (1.343) & 0.202 (1.975) & 0.090 (1.411) & -1.959 (1.395) & 1.619 (2.140) & 105 & 0.050 \\
+\bottomrule
+\end{tabular}%
+}
+\par\smallskip
+\begin{minipage}{0.92\textwidth}
+\scriptsize
+\emph{Notes:} Cells report coefficients with HC1 robust standard errors in parentheses. Dict., RF, and BERT are single-score controlled regressions. H. dict, H. RF, and H. BERT are the joint horse-race regression. Stars: $\sym{*}p<0.10$, $\sym{**}p<0.05$, $\sym{***}p<0.01$.
+\end{minipage}
+\endgroup
 \end{table}
 
 
-% ──────────────────────────────────────────────────────────────────
-\section{Forward/Backward Decomposition: All Outcomes}
-\label{app:reg_full_dm}
-% ──────────────────────────────────────────────────────────────────
 
-%%% TODO: RECOMPUTE — all coefficients on net_score^fwd and
-%%% net_score^curr will change.
+\section{Incremental explanatory power}
+\label{app:a2_incremental_r2}
 
-%%% NOTE: Keep existing tables A2.5-A2.8 here unchanged for now.
-%%% They will be recomputed when the pipeline is re-run.
-%%% [Existing forward/backward tables omitted for brevity;
-%%%  retain them from the original file.]
+\Cref{tab:a2_incremental_r2} reports the increase in explanatory power from
+adding each text score to a rate-surprise-only model. The table is set as a
+breakable \texttt{longtable} to avoid page overflow in the appendix.
+
+\begingroup
+\scriptsize
+\setlength{\tabcolsep}{3pt}
+\renewcommand{\arraystretch}{0.93}
+\begin{longtable}{@{}p{2.15cm}p{1.25cm}p{0.95cm}rrrrrr@{}}
+\caption{Incremental explanatory power of individual text scores}
+\label{tab:a2_incremental_r2}\\
+\toprule
+Corpus & Outcome & Method & $N$ & Control $R^2$ & Full $R^2$ & $\Delta R^2$ & Coef. & $p$ \\
+\midrule
+\endfirsthead
+\caption[]{Incremental explanatory power of individual text scores (continued)}\\
+\toprule
+Corpus & Outcome & Method & $N$ & Control $R^2$ & Full $R^2$ & $\Delta R^2$ & Coef. & $p$ \\
+\midrule
+\endhead
+\midrule
+\multicolumn{9}{r}{\footnotesize Continued on next page}\\
+\endfoot
+\bottomrule
+\endlastfoot
+ECB PC & EURUSD & BERT & 243 & 0.016 & 0.017 & 0.000 & -0.035 & 0.793 \\
+ECB PC & EURUSD & Dict. & 243 & 0.016 & 0.017 & 0.000 & 0.012 & 0.872 \\
+ECB PC & EURUSD & RF & 231 & 0.027 & 0.041 & 0.014 & -0.159 & 0.052 \\
+ECB PC & OIS\_10Y & BERT & 105 & 0.019 & 0.019 & 0.000 & 0.202 & 0.919 \\
+ECB PC & OIS\_10Y & Dict. & 105 & 0.019 & 0.023 & 0.005 & -0.700 & 0.573 \\
+ECB PC & OIS\_10Y & RF & 105 & 0.019 & 0.043 & 0.024 & -1.539 & 0.252 \\
+ECB PC & OIS\_MP2 & BERT & 235 & 0.068 & 0.075 & 0.006 & 1.772 & 0.180 \\
+ECB PC & OIS\_MP2 & Dict. & 235 & 0.068 & 0.072 & 0.004 & -0.719 & 0.358 \\
+ECB PC & OIS\_MP2 & RF & 224 & 0.078 & 0.080 & 0.002 & 0.596 & 0.527 \\
+ECB PC & SX5E & BERT & 243 & 0.001 & 0.022 & 0.021 & 0.455 & 0.015 \\
+ECB PC & SX5E & Dict. & 243 & 0.001 & 0.012 & 0.011 & 0.174 & 0.127 \\
+ECB PC & SX5E & RF & 231 & 0.000 & 0.010 & 0.010 & 0.191 & 0.122 \\
+ECB stmt. & EURUSD & BERT & 253 & 0.002 & 0.002 & 0.000 & -0.044 & 0.860 \\
+ECB stmt. & EURUSD & Dict. & 253 & 0.002 & 0.004 & 0.003 & 0.060 & 0.422 \\
+ECB stmt. & EURUSD & RF & 252 & 0.001 & 0.002 & 0.000 & -0.028 & 0.826 \\
+ECB stmt. & OIS\_10Y & BERT & 113 & 0.009 & 0.016 & 0.007 & -1.404 & 0.489 \\
+ECB stmt. & OIS\_10Y & Dict. & 113 & 0.009 & 0.016 & 0.006 & -0.650 & 0.389 \\
+ECB stmt. & OIS\_10Y & RF & 113 & 0.009 & 0.014 & 0.004 & -0.628 & 0.675 \\
+ECB stmt. & OIS\_MP2 & BERT & 244 & 0.209 & 0.228 & 0.018 & -3.778 & 0.105 \\
+ECB stmt. & OIS\_MP2 & Dict. & 244 & 0.209 & 0.210 & 0.001 & -0.404 & 0.588 \\
+ECB stmt. & OIS\_MP2 & RF & 243 & 0.206 & 0.208 & 0.002 & -0.712 & 0.688 \\
+ECB stmt. & SX5E & BERT & 253 & 0.176 & 0.176 & 0.000 & -0.042 & 0.903 \\
+ECB stmt. & SX5E & Dict. & 253 & 0.176 & 0.178 & 0.002 & -0.082 & 0.452 \\
+ECB stmt. & SX5E & RF & 252 & 0.178 & 0.208 & 0.030 & 0.371 & 0.028 \\
+FOMC PC & EURUSD & BERT & 91 & 0.009 & 0.046 & 0.037 & 0.457 & 0.061 \\
+FOMC PC & EURUSD & Dict. & 91 & 0.009 & 0.049 & 0.040 & 0.191 & 0.111 \\
+FOMC PC & EURUSD & RF & 91 & 0.009 & 0.080 & 0.070 & 0.202 & 0.025 \\
+FOMC PC & SP500 & BERT & 91 & 0.008 & 0.009 & 0.001 & -0.278 & 0.686 \\
+FOMC PC & SP500 & Dict. & 91 & 0.008 & 0.046 & 0.038 & 0.592 & 0.170 \\
+FOMC PC & SP500 & RF & 91 & 0.008 & 0.022 & 0.014 & 0.288 & 0.186 \\
+FOMC PC & UST10Y & BERT & 91 & 0.001 & 0.025 & 0.024 & -0.051 & 0.070 \\
+FOMC PC & UST10Y & Dict. & 91 & 0.001 & 0.001 & 0.000 & 0.001 & 0.946 \\
+FOMC PC & UST10Y & RF & 91 & 0.001 & 0.035 & 0.034 & -0.020 & 0.036 \\
+FOMC PC & UST2Y & BERT & 91 & 0.009 & 0.041 & 0.033 & -0.065 & 0.066 \\
+FOMC PC & UST2Y & Dict. & 91 & 0.009 & 0.029 & 0.021 & -0.021 & 0.288 \\
+FOMC PC & UST2Y & RF & 91 & 0.009 & 0.127 & 0.119 & -0.040 & 0.003 \\
+FOMC stmt. & EURUSD & BERT & 226 & 0.057 & 0.058 & 0.001 & -0.044 & 0.665 \\
+FOMC stmt. & EURUSD & Dict. & 230 & 0.060 & 0.061 & 0.001 & 0.057 & 0.570 \\
+FOMC stmt. & EURUSD & RF & 224 & 0.058 & 0.058 & 0.000 & -0.006 & 0.893 \\
+FOMC stmt. & SP500 & BERT & 228 & 0.062 & 0.063 & 0.001 & -0.115 & 0.515 \\
+FOMC stmt. & SP500 & Dict. & 232 & 0.050 & 0.051 & 0.001 & -0.092 & 0.533 \\
+FOMC stmt. & SP500 & RF & 226 & 0.053 & 0.054 & 0.000 & 0.037 & 0.691 \\
+FOMC stmt. & UST10Y & BERT & 237 & 0.047 & 0.055 & 0.008 & 0.021 & 0.104 \\
+FOMC stmt. & UST10Y & Dict. & 242 & 0.022 & 0.022 & 0.000 & 0.003 & 0.824 \\
+FOMC stmt. & UST10Y & RF & 235 & 0.019 & 0.025 & 0.005 & 0.008 & 0.141 \\
+FOMC stmt. & UST2Y & BERT & 237 & 0.244 & 0.262 & 0.019 & 0.038 & 0.020 \\
+FOMC stmt. & UST2Y & Dict. & 242 & 0.189 & 0.191 & 0.002 & 0.011 & 0.460 \\
+FOMC stmt. & UST2Y & RF & 235 & 0.183 & 0.202 & 0.018 & 0.017 & 0.030 \\
+\end{longtable}
+\footnotesize\noindent\emph{Notes:} Control model includes MP1 for FOMC outcomes and
+OIS\_MP1 for ECB outcomes. Full model adds the indicated text score. ``Dict.'' denotes
+\netscore{}; ``RF'' denotes \rfscore{}; ``BERT'' denotes \bertscore{}. The table is
+split automatically across pages by \texttt{longtable} so that rows do not overlap with
+the footer or page number.
+\endgroup
+
+\section{Dual-mandate decomposition}
+\label{app:a2_dual_decomposition}
+
+\begin{table}[H]
+\centering
+\caption{Dual-mandate decomposition: $R^2$ levels and gains}
+\label{tab:a2_dual_levels}
+\begin{threeparttable}
+\small
+\resizebox{\textwidth}{!}{%
+\begin{tabular}{llrrrrr}
+\toprule
+Corpus & Outcome & $N$ & Spec A & Spec B & Spec C & C--A \\
+\midrule
+FOMC statements & SP500 & 232 & 0.051 & 0.051 & 0.056 & 0.005 \\
+FOMC statements & EURUSD & 230 & 0.061 & 0.061 & 0.073 & 0.012 \\
+FOMC statements & UST2Y & 242 & 0.191 & 0.193 & 0.204 & 0.013 \\
+FOMC statements & UST10Y & 242 & 0.022 & 0.024 & 0.032 & 0.010 \\
+ECB statements & SX5E & 253 & 0.178 & 0.184 & 0.199 & 0.020 \\
+ECB statements & EURUSD & 253 & 0.004 & 0.005 & 0.013 & 0.009 \\
+ECB statements & OIS\_MP2 & 244 & 0.210 & 0.219 & 0.280 & 0.070 \\
+ECB statements & OIS\_10Y & 113 & 0.016 & 0.026 & 0.097 & 0.081 \\
+\bottomrule
+\end{tabular}
+}
+\begin{tablenotes}
+\footnotesize
+\item Notes: Spec A uses aggregate \netscore{}. Spec B separates policy-action and economic-condition scores. Spec C separates policy, inflation, employment, and residual components.
+\end{tablenotes}
+\end{threeparttable}
+\end{table}
 
 
-% ──────────────────────────────────────────────────────────────────
-\section{RF Market Regressions}
-\label{app:reg_rf}
-% ──────────────────────────────────────────────────────────────────
 
-%%% TODO: RECOMPUTE — RF coefficients will change due to B=100 and
-%%% single-spec pipeline.
-
-%%% NOTE: Keep existing RF tables A2.9-A2.12 here unchanged for now.
-%%% [Existing RF tables omitted for brevity;
-%%%  retain them from the original file.]
-
-
-% ──────────────────────────────────────────────────────────────────
-\section{Horse Race: Dictionary vs RF (Two-Way)}
-\label{app:reg_horserace_twoway}
-% ──────────────────────────────────────────────────────────────────
-
-%%% TODO: RECOMPUTE — both RF and net_score coefficients will change.
-
-%%% NOTE: Keep existing horse-race tables A2.13-A2.16 here unchanged.
-%%% [Existing horse-race tables omitted for brevity;
-%%%  retain them from the original file.]
-
-
-% ══════════════════════════════════════════════════════════════════════════════
-% NEW SECTIONS (v31 additions)
-% ══════════════════════════════════════════════════════════════════════════════
-
-% ──────────────────────────────────────────────────────────────────
-\section{FOMC Additional Market Variables}
-\label{app:reg_fomc_additional}
-% ──────────────────────────────────────────────────────────────────
-
-%%% TODO: Generate tables using stargazer or texreg from v31 output:
-%%% - DXY ~ net_score + MP1 (FOMC stmt and PC)
-%%% - TIPS 5Y ~ net_score + MP1 (FOMC stmt and PC)
-%%% - TIPS 10Y ~ net_score + MP1 (FOMC stmt and PC)
+\begin{table}[H]
+\centering
+\caption{Dual-mandate decomposition: conventional partial $F$-tests}
+\label{tab:a2_dual_f_tests}
+\begin{threeparttable}
+\small
+\begin{tabular}{llrrrr}
+\toprule
+Corpus & Outcome & $N$ & $F$ statistic & $p$-value & Adj. $R^2$ gain \\
+\midrule
+ECB statements & SX5E & 253 & 2.10 & 0.101 & 0.011 \\
+ECB statements & OIS\_MP2 & 244 & 7.74 & $<0.001$ & 0.062 \\
+ECB statements & OIS 10Y & 113 & 3.20 & 0.026 & 0.057 \\
+\bottomrule
+\end{tabular}
+\begin{tablenotes}[flushleft]
+\footnotesize
+\item Notes: Tests compare the aggregate net-score specification with the full
+policy, inflation, employment/growth, and residual-risk decomposition. These
+are conventional OLS partial $F$-tests and should be interpreted as model-fit
+diagnostics, not structural channel tests.
+\end{tablenotes}
+\end{threeparttable}
+\end{table}
 
 
-% ──────────────────────────────────────────────────────────────────
-\section{ECB Additional Market Variables}
-\label{app:reg_ecb_additional}
-% ──────────────────────────────────────────────────────────────────
+\section{Fixed-effect robustness ladder}
+\label{app:a2_fe_ladder}
 
-%%% TODO: Generate tables using stargazer or texreg from v31 output:
-%%% - SX7E ~ net_score + OIS_MP1 (ECB stmt and PC)
-%%% - DE2Y ~ net_score + OIS_MP1 (ECB stmt and PC)
-%%% - DE10Y ~ net_score + OIS_MP1 (ECB stmt and PC)
-%%% - IT10Y_spread ~ net_score + OIS_MP1 (ECB stmt and PC)
+\begin{table}[H]
+\centering
+\caption{Fixed-effect ladder: specifications with $p<0.10$}
+\label{tab:a2_fe_selected}
+\begin{threeparttable}
+\scriptsize
+\resizebox{\textwidth}{!}{%
+\begin{tabular}{lllrrrrr}
+\toprule
+Specification & FE & Term & Coef. & SE & $p$ & $N$ & $R^2$ \\
+\midrule
+FOMC PC -> UST10Y [fwd/curr] & B & net\_score\_fwd & -0.075\sym{**} & (0.032) & 0.022 & 91 & 0.115 \\
+FOMC PC -> UST10Y [fwd/curr] & C & net\_score\_fwd & -0.075\sym{**} & (0.032) & 0.023 & 91 & 0.115 \\
+ECB Stmt -> SX5E [fwd/curr] & B & net\_score\_curr & 0.850\sym{**} & (0.375) & 0.024 & 253 & 0.224 \\
+FOMC PC -> UST10Y [fwd/curr] & A & net\_score\_fwd & -0.073\sym{**} & (0.032) & 0.024 & 91 & 0.087 \\
+FOMC PC -> TIPS10Y [fwd/curr] & A & net\_score\_fwd & -0.072\sym{**} & (0.032) & 0.027 & 91 & 0.083 \\
+ECB Stmt -> SX5E [fwd/curr] & C & net\_score\_curr & 0.833\sym{**} & (0.375) & 0.027 & 253 & 0.234 \\
+FOMC stmt | UST2Y  rf & B & rf\_score & 0.017\sym{**} & (0.008) & 0.028 & 235 & 0.204 \\
+ECB stmt | SX5E    rf & A & rf\_score & 0.371\sym{**} & (0.169) & 0.029 & 252 & 0.208 \\
+FOMC stmt | UST2Y  rf & C & rf\_score & 0.018\sym{**} & (0.008) & 0.029 & 235 & 0.204 \\
+FOMC PC -> TIPS10Y [fwd/curr] & B & net\_score\_fwd & -0.074\sym{**} & (0.033) & 0.029 & 91 & 0.105 \\
+FOMC stmt | UST2Y  rf & A & rf\_score & 0.017\sym{**} & (0.008) & 0.031 & 235 & 0.202 \\
+FOMC PC -> TIPS10Y [fwd/curr] & C & net\_score\_fwd & -0.075\sym{**} & (0.034) & 0.031 & 91 & 0.105 \\
+FOMC PC -> TIPS5Y [fwd/curr] & A & net\_score\_fwd & -0.090\sym{**} & (0.041) & 0.031 & 91 & 0.086 \\
+FOMC PC -> TIPS5Y [fwd/curr] & B & net\_score\_fwd & -0.096\sym{**} & (0.044) & 0.032 & 91 & 0.102 \\
+ECB Stmt -> SX5E [fwd/curr] & A & net\_score\_curr & 0.806\sym{**} & (0.376) & 0.033 & 253 & 0.210 \\
+FOMC PC -> DXY [fwd/curr] & A & net\_score\_fwd & -0.430\sym{**} & (0.199) & 0.033 & 91 & 0.093 \\
+FOMC PC -> DXY [fwd/curr] & B & net\_score\_fwd & -0.462\sym{**} & (0.214) & 0.033 & 91 & 0.107 \\
+FOMC PC -> EURUSD [fwd/curr] & B & net\_score\_fwd & 0.461\sym{**} & (0.214) & 0.034 & 91 & 0.105 \\
+FOMC PC -> EURUSD [fwd/curr] & A & net\_score\_fwd & 0.428\sym{**} & (0.199) & 0.034 & 91 & 0.090 \\
+FOMC PC -> TIPS5Y [fwd/curr] & C & net\_score\_fwd & -0.096\sym{**} & (0.045) & 0.036 & 91 & 0.102 \\
+ECB stmt | SX5E    rf & B & rf\_score & 0.409\sym{**} & (0.195) & 0.036 & 252 & 0.227 \\
+FOMC PC -> DXY [fwd/curr] & C & net\_score\_fwd & -0.447\sym{**} & (0.216) & 0.041 & 91 & 0.115 \\
+ECB Stmt -> SX5E [fwd/curr] & A & net\_score\_fwd & -0.478\sym{**} & (0.235) & 0.043 & 253 & 0.210 \\
+FOMC PC -> EURUSD [net] & C & net\_score & 0.374\sym{**} & (0.182) & 0.043 & 91 & 0.089 \\
+FOMC PC -> EURUSD [fwd/curr] & C & net\_score\_fwd & 0.442\sym{**} & (0.216) & 0.044 & 91 & 0.117 \\
+ECB Stmt -> SX5E [fwd/curr] & C & net\_score\_fwd & -0.456\sym{**} & (0.225) & 0.044 & 253 & 0.234 \\
+ECB Stmt -> SX7E [fwd/curr] & C & net\_score\_fwd & -0.864\sym{**} & (0.431) & 0.046 & 253 & 0.123 \\
+FOMC PC -> DXY [net] & C & net\_score & -0.345\sym{*} & (0.175) & 0.052 & 91 & 0.081 \\
+ECB Stmt -> IT10Y\_spread [fwd/curr] & C & net\_score\_fwd & 3.818\sym{*} & (1.956) & 0.052 & 233 & 0.108 \\
+ECB Stmt -> IT10Y\_spread [fwd/curr] & A & net\_score\_fwd & 4.338\sym{*} & (2.237) & 0.054 & 233 & 0.074 \\
+ECB PC -> SX7E [net] & A & net\_score & 0.382\sym{*} & (0.198) & 0.055 & 243 & 0.019 \\
+ECB Stmt -> SX7E [fwd/curr] & A & net\_score\_fwd & -0.841\sym{*} & (0.444) & 0.059 & 253 & 0.090 \\
+ECB Stmt -> IT10Y\_spread [fwd/curr] & A & net\_score\_curr & -6.539\sym{*} & (3.468) & 0.061 & 233 & 0.074 \\
+ECB Stmt -> IT10Y\_spread [fwd/curr] & B & net\_score\_curr & -6.328\sym{*} & (3.429) & 0.066 & 233 & 0.104 \\
+ECB PC -> DE10Y [fwd/curr] & C & net\_score\_curr & -1.611\sym{*} & (0.887) & 0.071 & 243 & 0.025 \\
+ECB Stmt -> IT10Y\_spread [fwd/curr] & B & net\_score\_fwd & 4.180\sym{*} & (2.304) & 0.071 & 233 & 0.104 \\
+ECB Stmt -> IT10Y\_spread [fwd/curr] & C & net\_score\_curr & -6.429\sym{*} & (3.615) & 0.077 & 233 & 0.108 \\
+ECB Stmt -> SX7E [fwd/curr] & C & net\_score\_curr & 1.267\sym{*} & (0.721) & 0.080 & 253 & 0.123 \\
+ECB Stmt -> SX7E [fwd/curr] & B & net\_score\_curr & 1.310\sym{*} & (0.748) & 0.081 & 253 & 0.104 \\
+ECB PC -> DE10Y [fwd/curr] & B & net\_score\_curr & -1.436\sym{*} & (0.830) & 0.085 & 243 & 0.023 \\
+\bottomrule
+\end{tabular}
+}
+\begin{tablenotes}
+\footnotesize
+\item Notes: FE A is the baseline controlled specification; FE B adds chair/president fixed effects; FE C adds chair/president and broad-era fixed effects. The table reports all score terms from the FE ladder with $p<0.10$, capped at the 40 smallest $p$-values for readability.
+\end{tablenotes}
+\end{threeparttable}
+\end{table}
 
 
-% ──────────────────────────────────────────────────────────────────
-\section{RoBERTa Market Reaction Regressions}
-\label{app:reg_bert}
-% ──────────────────────────────────────────────────────────────────
+\section{RQ2 expanding-window diagnostics}
+\label{app:a2_rq2_diagnostics}
 
-%%% TODO: Generate tables from v31 output:
-%%% - outcome ~ bert_score + MP1/OIS_MP1 for each corpus
-%%% - Mirror the structure of the existing dict and RF tables above.
+\begin{table}[H]
+\centering
+\caption{RQ2 direct expanding-window forecast diagnostics}
+\label{tab:a2_rq2_direct_diagnostics}
+\begin{threeparttable}
+\scriptsize
+\resizebox{\textwidth}{!}{%
+\begin{tabular}{lllrrrr}
+\toprule
+Method & Corpus & Target & $N$ & OOS $R^2$ & RMSE & Naive RMSE \\
+\midrule
+Random Forest & FOMC statements & Rate t+1 & 204 & 0.304 & 20.0113 & 24.0473 \\
+Random Forest & FOMC statements & Rate t+2 & 203 & 0.174 & 21.6256 & 23.8550 \\
+Random Forest & FOMC statements & 2Y yield t+1 & 204 & -0.326 & 0.0608 & 0.0529 \\
+Random Forest & FOMC statements & 2Y yield t+2 & 203 & -0.205 & 0.0524 & 0.0478 \\
+Random Forest & FOMC press conferences & Rate t+1 & 53 & 0.237 & 26.5008 & 30.6334 \\
+Random Forest & FOMC press conferences & Rate t+2 & 59 & 0.148 & 27.1026 & 29.6150 \\
+Random Forest & FOMC press conferences & 2Y yield t+1 & 60 & -0.207 & 0.0528 & 0.0485 \\
+Random Forest & FOMC press conferences & 2Y yield t+2 & 59 & -0.132 & 0.0513 & 0.0486 \\
+Random Forest & ECB statements & Rate t+1 & 245 & 0.114 & 15.1838 & 16.1639 \\
+Random Forest & ECB statements & Rate t+2 & 244 & 0.083 & 15.5534 & 16.2795 \\
+Random Forest & ECB statements & 2Y yield t+1 & 209 & -0.091 & 2.5578 & 2.4542 \\
+Random Forest & ECB statements & 2Y yield t+2 & 210 & -0.148 & 2.6166 & 2.4483 \\
+Random Forest & ECB press conferences & Rate t+1 & 220 & 0.054 & 16.0681 & 16.5617 \\
+Random Forest & ECB press conferences & Rate t+2 & 220 & 0.014 & 15.7993 & 15.9469 \\
+Random Forest & ECB press conferences & 2Y yield t+1 & 189 & -0.172 & 2.6075 & 2.4154 \\
+Random Forest & ECB press conferences & 2Y yield t+2 & 188 & -0.023 & 2.5095 & 2.4879 \\
+RoBERTa\slash BERT & FOMC statements & Rate t+1 & 203 & 0.457 & 17.5380 & 23.7962 \\
+RoBERTa\slash BERT & FOMC statements & Rate t+2 & 202 & 0.298 & 19.4990 & 23.2690 \\
+RoBERTa\slash BERT & FOMC statements & 2Y yield t+1 & 203 & -0.079 & 0.0549 & 0.0529 \\
+RoBERTa\slash BERT & FOMC statements & 2Y yield t+2 & 202 & -0.044 & 0.0488 & 0.0478 \\
+RoBERTa\slash BERT & FOMC press conferences & Rate t+1 & 60 & 0.298 & 24.2699 & 28.9726 \\
+RoBERTa\slash BERT & FOMC press conferences & Rate t+2 & 59 & 0.188 & 26.4516 & 29.3629 \\
+RoBERTa\slash BERT & FOMC press conferences & 2Y yield t+1 & 60 & -0.035 & 0.0489 & 0.0480 \\
+RoBERTa\slash BERT & FOMC press conferences & 2Y yield t+2 & 59 & -0.095 & 0.0505 & 0.0482 \\
+RoBERTa\slash BERT & ECB statements & Rate t+1 & 245 & 0.226 & 14.1922 & 16.1309 \\
+RoBERTa\slash BERT & ECB statements & Rate t+2 & 244 & 0.208 & 14.4583 & 16.2461 \\
+RoBERTa\slash BERT & ECB statements & 2Y yield t+1 & 204 & -0.022 & 2.4258 & 2.3993 \\
+RoBERTa\slash BERT & ECB statements & 2Y yield t+2 & 204 & -0.024 & 2.4949 & 2.4650 \\
+RoBERTa\slash BERT & ECB press conferences & Rate t+1 & 220 & 0.281 & 14.0087 & 16.5240 \\
+RoBERTa\slash BERT & ECB press conferences & Rate t+2 & 220 & 0.226 & 14.0001 & 15.9106 \\
+RoBERTa\slash BERT & ECB press conferences & 2Y yield t+1 & 188 & -0.005 & 2.4209 & 2.4154 \\
+RoBERTa\slash BERT & ECB press conferences & 2Y yield t+2 & 186 & -0.100 & 2.6162 & 2.4943 \\
+\bottomrule
+\end{tabular}
+}
+\begin{tablenotes}
+\footnotesize
+\item Notes: OOS $R^2$ compares the expanding-window forecast to the sample-mean benchmark over the evaluated forecast observations. Negative values indicate underperformance relative to the mean benchmark.
+\end{tablenotes}
+\end{threeparttable}
+\end{table}
+
+\begin{table}[H]
+\centering
+\caption{RQ2 incremental explanatory power beyond inertia}
+\label{tab:a2_rq2_incremental_detail}
+\begin{threeparttable}
+\scriptsize
+\resizebox{\textwidth}{!}{%
+\begin{tabular}{lllrrrrrrr}
+\toprule
+Method & Corpus & Target & $N$ & Base $R^2$ & Full $R^2$ & $\Delta R^2$ & Coef. & SE & $p$ \\
+\midrule
+Random Forest & FOMC statements & Rate t+1 & 204 & 0.482 & 0.526 & 0.044 & 0.407\sym{***} & (0.144) & 0.005 \\
+RoBERTa\slash BERT & FOMC statements & Rate t+1 & 203 & 0.471 & 0.483 & 0.012 & 0.434\sym{*} & (0.255) & 0.091 \\
+Random Forest & FOMC statements & Rate t+2 & 203 & 0.336 & 0.349 & 0.013 & 0.240 & (0.148) & 0.106 \\
+RoBERTa\slash BERT & FOMC statements & Rate t+2 & 202 & 0.312 & 0.323 & 0.010 & 0.458 & (0.278) & 0.101 \\
+Random Forest & FOMC statements & 2Y yield t+1 & 204 & 0.001 & 0.028 & 0.028 & -0.442\sym{**} & (0.204) & 0.032 \\
+RoBERTa\slash BERT & FOMC statements & 2Y yield t+1 & 203 & 0.000 & 0.018 & 0.017 & 0.305\sym{*} & (0.173) & 0.079 \\
+Random Forest & FOMC statements & 2Y yield t+2 & 203 & 0.001 & 0.014 & 0.013 & 0.222 & (0.192) & 0.248 \\
+RoBERTa\slash BERT & FOMC statements & 2Y yield t+2 & 202 & 0.001 & 0.013 & 0.012 & 0.343 & (0.234) & 0.144 \\
+Random Forest & FOMC press conferences & Rate t+1 & 53 & 0.547 & 0.548 & 0.001 & 0.083 & (0.213) & 0.698 \\
+RoBERTa\slash BERT & FOMC press conferences & Rate t+1 & 60 & 0.533 & 0.638 & 0.105 & -1.355\sym{***} & (0.469) & 0.005 \\
+Random Forest & FOMC press conferences & Rate t+2 & 59 & 0.293 & 0.305 & 0.012 & 0.345 & (0.416) & 0.411 \\
+RoBERTa\slash BERT & FOMC press conferences & Rate t+2 & 59 & 0.293 & 0.358 & 0.064 & -1.658\sym{**} & (0.687) & 0.019 \\
+Random Forest & FOMC press conferences & 2Y yield t+1 & 60 & 0.008 & 0.035 & 0.027 & -0.562 & (0.411) & 0.176 \\
+RoBERTa\slash BERT & FOMC press conferences & 2Y yield t+1 & 60 & 0.008 & 0.016 & 0.008 & -0.644 & (0.747) & 0.392 \\
+Random Forest & FOMC press conferences & 2Y yield t+2 & 59 & 0.001 & 0.005 & 0.004 & -0.226 & (0.411) & 0.585 \\
+RoBERTa\slash BERT & FOMC press conferences & 2Y yield t+2 & 59 & 0.001 & 0.008 & 0.007 & -0.603 & (1.042) & 0.565 \\
+Random Forest & ECB statements & Rate t+1 & 245 & 0.312 & 0.325 & 0.013 & 0.276\sym{**} & (0.136) & 0.044 \\
+RoBERTa\slash BERT & ECB statements & Rate t+1 & 245 & 0.312 & 0.323 & 0.011 & 0.573 & (0.449) & 0.203 \\
+Random Forest & ECB statements & Rate t+2 & 244 & 0.272 & 0.278 & 0.006 & 0.212 & (0.213) & 0.322 \\
+RoBERTa\slash BERT & ECB statements & Rate t+2 & 244 & 0.272 & 0.276 & 0.004 & 0.333 & (0.352) & 0.345 \\
+Random Forest & ECB statements & 2Y yield t+1 & 208 & 0.042 & 0.047 & 0.005 & 0.230 & (0.404) & 0.570 \\
+RoBERTa\slash BERT & ECB statements & 2Y yield t+1 & 204 & 0.045 & 0.116 & 0.071 & -2.802\sym{**} & (1.413) & 0.049 \\
+Random Forest & ECB statements & 2Y yield t+2 & 209 & 0.006 & 0.012 & 0.007 & -0.270 & (0.453) & 0.552 \\
+RoBERTa\slash BERT & ECB statements & 2Y yield t+2 & 204 & 0.005 & 0.010 & 0.005 & 0.287 & (0.330) & 0.385 \\
+Random Forest & ECB press conferences & Rate t+1 & 220 & 0.349 & 0.351 & 0.002 & 0.096 & (0.113) & 0.401 \\
+RoBERTa\slash BERT & ECB press conferences & Rate t+1 & 220 & 0.349 & 0.398 & 0.049 & 0.614\sym{***} & (0.195) & 0.002 \\
+Random Forest & ECB press conferences & Rate t+2 & 220 & 0.284 & 0.287 & 0.003 & 0.104 & (0.112) & 0.355 \\
+RoBERTa\slash BERT & ECB press conferences & Rate t+2 & 220 & 0.284 & 0.312 & 0.028 & 0.537\sym{***} & (0.186) & 0.004 \\
+Random Forest & ECB press conferences & 2Y yield t+1 & 189 & 0.046 & 0.053 & 0.007 & -0.280 & (0.442) & 0.528 \\
+RoBERTa\slash BERT & ECB press conferences & 2Y yield t+1 & 188 & 0.046 & 0.124 & 0.078 & -4.073 & (2.531) & 0.109 \\
+Random Forest & ECB press conferences & 2Y yield t+2 & 188 & 0.004 & 0.007 & 0.003 & 0.248 & (0.486) & 0.610 \\
+RoBERTa\slash BERT & ECB press conferences & 2Y yield t+2 & 186 & 0.004 & 0.043 & 0.039 & -1.083\sym{**} & (0.471) & 0.023 \\
+\bottomrule
+\end{tabular}
+}
+\begin{tablenotes}
+\footnotesize
+\item Notes: Base model includes the inertia control: current rate decision for rate targets and current two-year yield change for yield targets. Full model adds the expanding-window text forecast.
+\end{tablenotes}
+\end{threeparttable}
+\end{table}
 
 
-% ──────────────────────────────────────────────────────────────────
-\section{Three-Way Horse Race Regressions}
-\label{app:reg_horserace_threeway}
-% ──────────────────────────────────────────────────────────────────
+\section{Broader asset-class screen}
+\label{app:a2_broad_outcomes}
 
-%%% TODO: Generate tables from v31 output:
-%%% - outcome ~ rf_score + net_score + bert_score + MP1/OIS_MP1
-%%% - For equity, FX, 2Y yield, 10Y yield per corpus.
-%%% Source: rq1_method_comparison_v31.csv
+The main Results chapter reports the most comparable outcomes across the two
+central banks. The tables in this section document the broader set of market
+variables available in USMPD and EA-MPD. They are included to make clear that
+the main conclusions are not based on selectively omitting weaker asset classes.
+The broader screen produces isolated significant coefficients, but no uniformly
+stronger pattern than the headline results. The most stable evidence remains
+concentrated in short and intermediate yield responses, ECB equity reactions,
+and the rate-decision forecasting exercise.
+
+\begin{table}[H]
+\centering
+\caption{Additional RQ1 outcomes: FOMC statements}
+\label{tab:a2_broad_fomc_statements}
+\begin{threeparttable}
+\scriptsize
+\resizebox{\textwidth}{!}{%
+\begin{tabular}{lrrrrrrr}
+\toprule
+Outcome & Dict. & RF & BERT & $N_{dict}$ & $R^2_{dict}$ & $N_{RF}$ & $R^2_{RF}$ \\
+\midrule
+SP500 & -0.092 (0.147) & 0.037 (0.093) & -0.115 (0.177) & 232 & 0.051 & 226 & 0.054 \\
+EURUSD & 0.057 (0.101) & -0.006 (0.042) & -0.044 (0.102) & 230 & 0.061 & 224 & 0.058 \\
+DXY & -0.054 (0.093) & 0.003 (0.038) & 0.044 (0.092) & 242 & 0.096 & 235 & 0.094 \\
+UST2Y & 0.011 (0.015) & 0.017\sym{**} (0.008) & 0.038\sym{**} (0.016) & 242 & 0.191 & 235 & 0.202 \\
+UST5Y & 0.008 (0.015) & 0.013\sym{*} (0.007) & 0.039\sym{**} (0.016) & 242 & 0.075 & 235 & 0.081 \\
+UST10Y & 0.003 (0.012) & 0.008 (0.005) & 0.021 (0.013) & 242 & 0.022 & 235 & 0.025 \\
+UST30Y & -0.002 (0.009) & 0.001 (0.004) & 0.007 (0.011) & 242 & 0.002 & 235 & 0.003 \\
+TIPS5Y & -0.003 (0.020) & 0.010 (0.009) & 0.029 (0.022) & 176 & 0.030 & 172 & 0.028 \\
+TIPS10Y & 0.002 (0.015) & 0.008 (0.007) & 0.020 (0.016) & 176 & 0.018 & 172 & 0.020 \\
+\bottomrule
+\end{tabular}%
+}
+\begin{tablenotes}
+\footnotesize
+\item Notes: Each cell reports the coefficient on the relevant text score from a controlled single-score regression with HC1 standard errors in parentheses. FOMC regressions control for MP1; ECB regressions control for OIS\_MP1. $R^2$ values are shown for dictionary and RF columns to avoid over-wide tables; BERT $R^2$ values are available in the CSV output. $^{***}$, $^{**}$, and $^{*}$ denote significance at 1\%, 5\%, and 10\%.
+\end{tablenotes}
+\end{threeparttable}
+\end{table}
+
+\begin{table}[H]
+\centering
+\caption{Additional RQ1 outcomes: FOMC press conferences}
+\label{tab:a2_broad_fomc_press_conferences}
+\begin{threeparttable}
+\scriptsize
+\resizebox{\textwidth}{!}{%
+\begin{tabular}{lrrrrrrr}
+\toprule
+Outcome & Dict. & RF & BERT & $N_{dict}$ & $R^2_{dict}$ & $N_{RF}$ & $R^2_{RF}$ \\
+\midrule
+SP500 & 0.592 (0.431) & 0.288 (0.218) & -0.278 (0.687) & 91 & 0.046 & 91 & 0.022 \\
+EURUSD & 0.191 (0.120) & 0.202\sym{**} (0.090) & 0.457\sym{*} (0.244) & 91 & 0.049 & 91 & 0.080 \\
+DXY & -0.179 (0.117) & -0.194\sym{**} (0.088) & -0.413\sym{*} (0.239) & 91 & 0.047 & 91 & 0.080 \\
+UST2Y & -0.021 (0.020) & -0.040\sym{***} (0.013) & -0.065\sym{*} (0.035) & 91 & 0.029 & 91 & 0.127 \\
+UST5Y & -0.007 (0.023) & -0.032\sym{***} (0.012) & -0.071\sym{**} (0.036) & 91 & 0.002 & 91 & 0.055 \\
+UST10Y & 0.001 (0.018) & -0.020\sym{**} (0.009) & -0.051\sym{*} (0.028) & 91 & 0.001 & 91 & 0.035 \\
+UST30Y & -0.000 (0.009) & -0.009\sym{*} (0.005) & -0.026 (0.017) & 91 & 0.014 & 91 & 0.045 \\
+TIPS5Y & -0.031 (0.024) & -0.048\sym{***} (0.016) & -0.087\sym{*} (0.045) & 91 & 0.029 & 91 & 0.113 \\
+TIPS10Y & -0.019 (0.019) & -0.034\sym{***} (0.011) & -0.076\sym{**} (0.032) & 91 & 0.019 & 91 & 0.089 \\
+\bottomrule
+\end{tabular}%
+}
+\begin{tablenotes}
+\footnotesize
+\item Notes: Each cell reports the coefficient on the relevant text score from a controlled single-score regression with HC1 standard errors in parentheses. FOMC regressions control for MP1; ECB regressions control for OIS\_MP1. $R^2$ values are shown for dictionary and RF columns to avoid over-wide tables; BERT $R^2$ values are available in the CSV output. $^{***}$, $^{**}$, and $^{*}$ denote significance at 1\%, 5\%, and 10\%.
+\end{tablenotes}
+\end{threeparttable}
+\end{table}
+
+\begin{table}[H]
+\centering
+\caption{Additional RQ1 outcomes: ECB statements}
+\label{tab:a2_broad_ecb_statements}
+\begin{threeparttable}
+\scriptsize
+\resizebox{\textwidth}{!}{%
+\begin{tabular}{lrrrrrrr}
+\toprule
+Outcome & Dict. & RF & BERT & $N_{dict}$ & $R^2_{dict}$ & $N_{RF}$ & $R^2_{RF}$ \\
+\midrule
+SX5E & -0.082 (0.109) & 0.371\sym{**} (0.169) & -0.042 (0.350) & 253 & 0.178 & 252 & 0.208 \\
+SX7E & -0.221 (0.229) & 0.747\sym{**} (0.333) & 0.188 (0.614) & 253 & 0.057 & 252 & 0.102 \\
+EURUSD & 0.060 (0.074) & -0.028 (0.127) & -0.044 (0.249) & 253 & 0.004 & 252 & 0.002 \\
+OIS\_MP2 & -0.404 (0.744) & -0.712 (1.775) & -3.778 (2.331) & 244 & 0.210 & 243 & 0.208 \\
+OIS\_5Y & -1.055 (1.009) & -0.483 (2.062) & -3.134 (2.580) & 112 & 0.023 & 112 & 0.016 \\
+OIS\_10Y & -0.650 (0.754) & -0.628 (1.496) & -1.404 (2.027) & 113 & 0.016 & 113 & 0.014 \\
+DE2Y & -0.419 (0.848) & -0.930 (1.656) & -4.199\sym{*} (2.330) & 253 & 0.117 & 252 & 0.116 \\
+DE10Y & -0.151 (0.710) & -0.440 (1.216) & -2.542 (1.937) & 253 & 0.036 & 252 & 0.044 \\
+IT10Y\_spread & 1.395 (1.285) & 0.093 (1.091) & 0.448 (3.228) & 233 & 0.020 & 232 & 0.005 \\
+\bottomrule
+\end{tabular}%
+}
+\begin{tablenotes}
+\footnotesize
+\item Notes: Each cell reports the coefficient on the relevant text score from a controlled single-score regression with HC1 standard errors in parentheses. FOMC regressions control for MP1; ECB regressions control for OIS\_MP1. $R^2$ values are shown for dictionary and RF columns to avoid over-wide tables; BERT $R^2$ values are available in the CSV output. $^{***}$, $^{**}$, and $^{*}$ denote significance at 1\%, 5\%, and 10\%.
+\end{tablenotes}
+\end{threeparttable}
+\end{table}
+
+\begin{table}[H]
+\centering
+\caption{Additional RQ1 outcomes: ECB press conferences}
+\label{tab:a2_broad_ecb_press_conferences}
+\begin{threeparttable}
+\scriptsize
+\resizebox{\textwidth}{!}{%
+\begin{tabular}{lrrrrrrr}
+\toprule
+Outcome & Dict. & RF & BERT & $N_{dict}$ & $R^2_{dict}$ & $N_{RF}$ & $R^2_{RF}$ \\
+\midrule
+SX5E & 0.174 (0.114) & 0.191 (0.124) & 0.455\sym{**} (0.188) & 243 & 0.012 & 231 & 0.010 \\
+SX7E & 0.382\sym{*} (0.198) & 0.085 (0.171) & 0.671\sym{**} (0.312) & 243 & 0.019 & 231 & 0.001 \\
+EURUSD & 0.012 (0.077) & -0.159\sym{*} (0.082) & -0.035 (0.135) & 243 & 0.017 & 231 & 0.041 \\
+OIS\_MP2 & -0.719 (0.782) & 0.596 (0.943) & 1.772 (1.322) & 235 & 0.072 & 224 & 0.080 \\
+OIS\_5Y & -0.816 (1.566) & -1.385 (1.699) & 0.479 (2.299) & 104 & 0.099 & 104 & 0.109 \\
+OIS\_10Y & -0.700 (1.242) & -1.539 (1.343) & 0.202 (1.975) & 105 & 0.023 & 105 & 0.043 \\
+DE2Y & -0.358 (0.857) & 0.854 (1.143) & 2.318\sym{*} (1.404) & 243 & 0.056 & 231 & 0.059 \\
+DE10Y & -0.583 (0.595) & -0.626 (0.794) & 0.284 (1.021) & 243 & 0.009 & 231 & 0.009 \\
+IT10Y\_spread & -1.265 (1.028) & 0.121 (0.939) & -2.784 (1.832) & 220 & 0.008 & 215 & 0.000 \\
+\bottomrule
+\end{tabular}%
+}
+\begin{tablenotes}
+\footnotesize
+\item Notes: Each cell reports the coefficient on the relevant text score from a controlled single-score regression with HC1 standard errors in parentheses. FOMC regressions control for MP1; ECB regressions control for OIS\_MP1. $R^2$ values are shown for dictionary and RF columns to avoid over-wide tables; BERT $R^2$ values are available in the CSV output. $^{***}$, $^{**}$, and $^{*}$ denote significance at 1\%, 5\%, and 10\%.
+\end{tablenotes}
+\end{threeparttable}
+\end{table}
+
+The sample sizes differ across rows because each event-study database has
+asset-specific coverage. For example, FOMC TIPS breakevens and ECB long-maturity
+OIS or Bund yields are available for smaller samples than the headline equity,
+foreign-exchange, and short-rate variables. The coefficient tables should
+therefore be interpreted as an asset-class screen rather than as a set of
+strictly common-sample horse races.
 
 
-% ──────────────────────────────────────────────────────────────────
-\section{Confusion Matrices}
-\label{app:confusion}
-% ──────────────────────────────────────────────────────────────────
+\section{Interpretation notes}
+\label{app:a2_interpretation_notes}
 
-%%% TODO: Insert 3x3 confusion matrices from
-%%% confusion_matrices_long_v31.csv for all label pairs:
-%%% - dict vs RF, dict vs BERT, RF vs BERT
-%%% - dict vs rate decision, RF vs rate, BERT vs rate
-%%% - dict vs MP1 surprise, RF vs MP1, BERT vs MP1
-%%% Source: confusion_matrix_agreement_v31.csv for summary rates.
+The tables above should be read together with the main Results chapter. The
+large $R^2$ values in rate-decision forecasting specifications partly reflect
+policy inertia. The direct out-of-sample $R^2$ table is therefore the stricter
+forecasting diagnostic, while the incremental-$R^2$ table answers a different
+question: whether the text forecast adds explanatory power to an inertia-only
+regression over the same observations. This distinction is central to the
+interpretation of RQ2.

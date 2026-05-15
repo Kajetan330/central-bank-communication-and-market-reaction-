@@ -1,0 +1,119 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1180" height="820" viewBox="0 0 1180 820">
+<rect width="100%" height="100%" fill="#fbfaf7"/>
+<rect x="20" y="20" width="1140" height="780" rx="22" fill="#ffffff" stroke="#d8d1c7"/>
+<text x="44" y="72" font-family="Arial, Helvetica, sans-serif" font-size="31" font-weight="700" fill="#202124">What Central Bank Language Forecasts</text>
+<text x="44" y="106" font-family="Arial, Helvetica, sans-serif" font-size="16" fill="#5f6368">Direct expanding-window out-of-sample R^2 from the final v31 RQ2 forecast table</text>
+<rect x="44" y="132" width="330" height="122" rx="18" fill="#e0f1e8" stroke="#2d7c5b" stroke-opacity="0.35"/>
+<text x="66" y="166" font-family="Arial, Helvetica, sans-serif" font-size="15" font-weight="700" fill="#2d7c5b">Rate decisions</text>
+<text x="66" y="207" font-family="Arial, Helvetica, sans-serif" font-size="34" font-weight="800" fill="#202124">16/16 positive</text>
+<text x="66" y="235" font-family="Arial, Helvetica, sans-serif" font-size="13" fill="#4f555a">Language forecasts future policy moves</text>
+<rect x="410" y="132" width="330" height="122" rx="18" fill="#fce6e2" stroke="#b74b4b" stroke-opacity="0.35"/>
+<text x="432" y="166" font-family="Arial, Helvetica, sans-serif" font-size="15" font-weight="700" fill="#b74b4b">Two-year yields</text>
+<text x="432" y="207" font-family="Arial, Helvetica, sans-serif" font-size="34" font-weight="800" fill="#202124">0/16 positive</text>
+<text x="432" y="235" font-family="Arial, Helvetica, sans-serif" font-size="13" fill="#4f555a">Yield changes remain hard to forecast</text>
+<rect x="776" y="132" width="330" height="122" rx="18" fill="#edf0fb" stroke="#4e5f9e" stroke-opacity="0.35"/>
+<text x="798" y="166" font-family="Arial, Helvetica, sans-serif" font-size="15" font-weight="700" fill="#4e5f9e">Best specification</text>
+<text x="798" y="207" font-family="Arial, Helvetica, sans-serif" font-size="34" font-weight="800" fill="#202124">+0.457</text>
+<text x="798" y="235" font-family="Arial, Helvetica, sans-serif" font-size="13" fill="#4f555a">RoBERTa/BERT - FOMC stmt - Rate t+1</text>
+<text x="44" y="294" font-family="Arial, Helvetica, sans-serif" font-size="22" font-weight="700" fill="#202124">Forecast Skill By Method, Corpus, And Target</text>
+<text x="44" y="318" font-family="Arial, Helvetica, sans-serif" font-size="13" fill="#686868">Positive values beat the sample-mean benchmark; negative values underperform it.</text>
+<rect x="254" y="326" width="210" height="42" rx="12" fill="#edf7f1" stroke="#8bbfa8"/>
+<text x="359.0" y="353" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="14" font-weight="700" fill="#263238">Rate t+1</text>
+<rect x="472" y="326" width="210" height="42" rx="12" fill="#edf7f1" stroke="#8bbfa8"/>
+<text x="577.0" y="353" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="14" font-weight="700" fill="#263238">Rate t+2</text>
+<rect x="690" y="326" width="210" height="42" rx="12" fill="#fff0ed" stroke="#d89b90"/>
+<text x="795.0" y="353" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="14" font-weight="700" fill="#263238">2Y yield t+1</text>
+<rect x="908" y="326" width="210" height="42" rx="12" fill="#fff0ed" stroke="#d89b90"/>
+<text x="1013.0" y="353" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="14" font-weight="700" fill="#263238">2Y yield t+2</text>
+<rect x="44" y="376" width="200" height="48" rx="12" fill="#f5f2ec" stroke="#e1dbd2"/>
+<text x="62" y="396" font-family="Arial, Helvetica, sans-serif" font-size="13" font-weight="800" fill="#202124">RF</text>
+<text x="62" y="414" font-family="Arial, Helvetica, sans-serif" font-size="13" fill="#5f6368">FOMC stmt</text>
+<rect x="254" y="376" width="210" height="48" rx="12" fill="#6aa48b"/>
+<text x="359.0" y="407" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="18" font-weight="800" fill="#ffffff">+0.304</text>
+<rect x="472" y="376" width="210" height="48" rx="12" fill="#9cc5b3"/>
+<text x="577.0" y="407" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="18" font-weight="800" fill="#263238">+0.174</text>
+<rect x="690" y="376" width="210" height="48" rx="12" fill="#b84d4d"/>
+<text x="795.0" y="407" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="18" font-weight="800" fill="#ffffff">-0.326</text>
+<rect x="908" y="376" width="210" height="48" rx="12" fill="#d18684"/>
+<text x="1013.0" y="407" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="18" font-weight="800" fill="#263238">-0.205</text>
+<rect x="44" y="432" width="200" height="48" rx="12" fill="#ffffff" stroke="#e1dbd2"/>
+<text x="62" y="452" font-family="Arial, Helvetica, sans-serif" font-size="13" font-weight="800" fill="#202124">RF</text>
+<text x="62" y="470" font-family="Arial, Helvetica, sans-serif" font-size="13" fill="#5f6368">FOMC PC</text>
+<rect x="254" y="432" width="210" height="48" rx="12" fill="#84b59f"/>
+<text x="359.0" y="463" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="18" font-weight="800" fill="#ffffff">+0.237</text>
+<rect x="472" y="432" width="210" height="48" rx="12" fill="#a6cbbb"/>
+<text x="577.0" y="463" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="18" font-weight="800" fill="#263238">+0.148</text>
+<rect x="690" y="432" width="210" height="48" rx="12" fill="#d18583"/>
+<text x="795.0" y="463" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="18" font-weight="800" fill="#263238">-0.207</text>
+<rect x="908" y="432" width="210" height="48" rx="12" fill="#e0a8a6"/>
+<text x="1013.0" y="463" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="18" font-weight="800" fill="#263238">-0.132</text>
+<rect x="44" y="488" width="200" height="48" rx="12" fill="#f5f2ec" stroke="#e1dbd2"/>
+<text x="62" y="508" font-family="Arial, Helvetica, sans-serif" font-size="13" font-weight="800" fill="#202124">RF</text>
+<text x="62" y="526" font-family="Arial, Helvetica, sans-serif" font-size="13" fill="#5f6368">ECB stmt</text>
+<rect x="254" y="488" width="210" height="48" rx="12" fill="#b4d4c5"/>
+<text x="359.0" y="519" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="18" font-weight="800" fill="#263238">+0.114</text>
+<rect x="472" y="488" width="210" height="48" rx="12" fill="#c0dccf"/>
+<text x="577.0" y="519" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="18" font-weight="800" fill="#263238">+0.083</text>
+<rect x="690" y="488" width="210" height="48" rx="12" fill="#e9bbb8"/>
+<text x="795.0" y="519" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="18" font-weight="800" fill="#263238">-0.091</text>
+<rect x="908" y="488" width="210" height="48" rx="12" fill="#dda09e"/>
+<text x="1013.0" y="519" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="18" font-weight="800" fill="#263238">-0.148</text>
+<rect x="44" y="544" width="200" height="48" rx="12" fill="#ffffff" stroke="#e1dbd2"/>
+<text x="62" y="564" font-family="Arial, Helvetica, sans-serif" font-size="13" font-weight="800" fill="#202124">RF</text>
+<text x="62" y="582" font-family="Arial, Helvetica, sans-serif" font-size="13" fill="#5f6368">ECB PC</text>
+<rect x="254" y="544" width="210" height="48" rx="12" fill="#cbe3d7"/>
+<text x="359.0" y="575" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="18" font-weight="800" fill="#263238">+0.054</text>
+<rect x="472" y="544" width="210" height="48" rx="12" fill="#dbede4"/>
+<text x="577.0" y="575" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="18" font-weight="800" fill="#263238">+0.014</text>
+<rect x="690" y="544" width="210" height="48" rx="12" fill="#d89593"/>
+<text x="795.0" y="575" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="18" font-weight="800" fill="#263238">-0.172</text>
+<rect x="908" y="544" width="210" height="48" rx="12" fill="#f7dbd7"/>
+<text x="1013.0" y="575" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="18" font-weight="800" fill="#263238">-0.023</text>
+<rect x="44" y="600" width="200" height="48" rx="12" fill="#f5f2ec" stroke="#e1dbd2"/>
+<text x="62" y="620" font-family="Arial, Helvetica, sans-serif" font-size="13" font-weight="800" fill="#202124">BERT</text>
+<text x="62" y="638" font-family="Arial, Helvetica, sans-serif" font-size="13" fill="#5f6368">FOMC stmt</text>
+<rect x="254" y="600" width="210" height="48" rx="12" fill="#2e7d5c"/>
+<text x="359.0" y="631" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="18" font-weight="800" fill="#ffffff">+0.457</text>
+<rect x="472" y="600" width="210" height="48" rx="12" fill="#6ca58d"/>
+<text x="577.0" y="631" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="18" font-weight="800" fill="#ffffff">+0.298</text>
+<rect x="690" y="600" width="210" height="48" rx="12" fill="#ebc1be"/>
+<text x="795.0" y="631" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="18" font-weight="800" fill="#263238">-0.079</text>
+<rect x="908" y="600" width="210" height="48" rx="12" fill="#f3d1ce"/>
+<text x="1013.0" y="631" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="18" font-weight="800" fill="#263238">-0.044</text>
+<rect x="44" y="656" width="200" height="48" rx="12" fill="#ffffff" stroke="#e1dbd2"/>
+<text x="62" y="676" font-family="Arial, Helvetica, sans-serif" font-size="13" font-weight="800" fill="#202124">BERT</text>
+<text x="62" y="694" font-family="Arial, Helvetica, sans-serif" font-size="13" fill="#5f6368">FOMC PC</text>
+<rect x="254" y="656" width="210" height="48" rx="12" fill="#6ca58d"/>
+<text x="359.0" y="687" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="18" font-weight="800" fill="#ffffff">+0.298</text>
+<rect x="472" y="656" width="210" height="48" rx="12" fill="#97c1ae"/>
+<text x="577.0" y="687" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="18" font-weight="800" fill="#263238">+0.188</text>
+<rect x="690" y="656" width="210" height="48" rx="12" fill="#f5d6d2"/>
+<text x="795.0" y="687" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="18" font-weight="800" fill="#263238">-0.035</text>
+<rect x="908" y="656" width="210" height="48" rx="12" fill="#e8b9b7"/>
+<text x="1013.0" y="687" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="18" font-weight="800" fill="#263238">-0.095</text>
+<rect x="44" y="712" width="200" height="48" rx="12" fill="#f5f2ec" stroke="#e1dbd2"/>
+<text x="62" y="732" font-family="Arial, Helvetica, sans-serif" font-size="13" font-weight="800" fill="#202124">BERT</text>
+<text x="62" y="750" font-family="Arial, Helvetica, sans-serif" font-size="13" fill="#5f6368">ECB stmt</text>
+<rect x="254" y="712" width="210" height="48" rx="12" fill="#88b8a3"/>
+<text x="359.0" y="743" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="18" font-weight="800" fill="#ffffff">+0.226</text>
+<rect x="472" y="712" width="210" height="48" rx="12" fill="#8fbca8"/>
+<text x="577.0" y="743" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="18" font-weight="800" fill="#263238">+0.208</text>
+<rect x="690" y="712" width="210" height="48" rx="12" fill="#f7dcd8"/>
+<text x="795.0" y="743" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="18" font-weight="800" fill="#263238">-0.022</text>
+<rect x="908" y="712" width="210" height="48" rx="12" fill="#f7dbd7"/>
+<text x="1013.0" y="743" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="18" font-weight="800" fill="#263238">-0.024</text>
+<rect x="44" y="768" width="200" height="48" rx="12" fill="#ffffff" stroke="#e1dbd2"/>
+<text x="62" y="788" font-family="Arial, Helvetica, sans-serif" font-size="13" font-weight="800" fill="#202124">BERT</text>
+<text x="62" y="806" font-family="Arial, Helvetica, sans-serif" font-size="13" fill="#5f6368">ECB PC</text>
+<rect x="254" y="768" width="210" height="48" rx="12" fill="#73a992"/>
+<text x="359.0" y="799" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="18" font-weight="800" fill="#ffffff">+0.281</text>
+<rect x="472" y="768" width="210" height="48" rx="12" fill="#88b8a3"/>
+<text x="577.0" y="799" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="18" font-weight="800" fill="#ffffff">+0.226</text>
+<rect x="690" y="768" width="210" height="48" rx="12" fill="#fbe4e0"/>
+<text x="795.0" y="799" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="18" font-weight="800" fill="#263238">-0.005</text>
+<rect x="908" y="768" width="210" height="48" rx="12" fill="#e7b7b4"/>
+<text x="1013.0" y="799" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="18" font-weight="800" fill="#263238">-0.100</text>
+<rect x="44" y="858" width="1092" height="76" rx="16" fill="#faf7f1" stroke="#e1dbd2"/>
+<text x="66" y="887" font-family="Arial, Helvetica, sans-serif" font-size="14" font-weight="700" fill="#263238">Reading the table</text>
+<text x="66" y="912" font-family="Arial, Helvetica, sans-serif" font-size="13" fill="#5f6368">Green cells indicate forecast skill over the mean benchmark. Red cells show underperformance. The table visualises the draft thesis result that language predicts future rate decisions more reliably than future two-year yield changes.</text>
+</svg>

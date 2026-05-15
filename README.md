@@ -38,13 +38,13 @@ flowchart LR
 
 ## Visual Preview
 
-The figures below are selected from the final v31 output set and focus on diagnostics and method comparisons.
+The figures below are selected from the final v31 output set and the newest thesis draft. They focus on diagnostics and method comparisons.
 
 ### Diagnostics And Method Comparisons
 
-| Cross-method divergence | Tone-score descriptive statistics |
+| Cross-method divergence | RQ2 forecast scoreboard |
 | --- | --- |
-| ![Cross-method divergence](results/figures/cross_method_divergence.png) | ![Tone-score descriptive statistics](results/figures/readme_tone_score_descriptive_statistics.svg) |
+| ![Cross-method divergence](results/figures/cross_method_divergence.png) | ![RQ2 forecast scoreboard](results/figures/readme_rq2_forecast_scoreboard.svg) |
 
 | Rolling agreement | Tone and rate overlay |
 | --- | --- |
@@ -62,7 +62,7 @@ results/tables/       Main result tables and diagnostics from the v31 run
 results/figures/      Final generated thesis figures
 results/figure_data/  CSV data behind the generated figures
 results/review_checks/Additional review and robustness diagnostics
-docs/                 Selected thesis chapters and appendix material
+docs/                 Latest selected thesis chapters and appendix material from the draft source
 ```
 
 ## Key Files
