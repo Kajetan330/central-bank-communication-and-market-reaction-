@@ -42,9 +42,7 @@ The figures below are selected from the final v31 output set and the newest thes
 
 ### Diagnostics And Method Comparisons
 
-| Cross-method divergence | Corpus coverage timeline |
-| --- | --- |
-| ![Cross-method divergence](results/figures/cross_method_divergence.png) | ![Corpus coverage timeline](results/figures/readme_sample_coverage_timeline.png) |
+![Cross-method divergence](results/figures/cross_method_divergence.png)
 
 | Rolling agreement | Tone and rate overlay |
 | --- | --- |
