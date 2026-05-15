@@ -1,5 +1,0 @@
-corpus,spec_used,n,oob_acc,bal_acc,holdout_acc
-FOMC stmt,Lasso + balanced RF,235,0.843,0.838,0.617
-FOMC PC,Lasso + balanced RF,91,0.945,0.936,0.684
-ECB stmt,Lasso + balanced RF,276,0.887,0.763,0.696
-ECB PC,Lasso + balanced RF,250,0.896,0.848,0.8

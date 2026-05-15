@@ -1,2 +1,0 @@
-corpus,target,text_input,forecast_date,t_index,train_start,train_end,train_n,actual,prediction,error,n_tfidf_features_before_lasso,n_features_used_by_rf,lasso_lambda_choice,used_top200_fallback,ntree,note
-FOMC STMT,bps_next,text_clean,2025-09-17,231,1994-02-04,2025-07-30,230,-25,-2.380340376632933,22.619659623367067,980,11,1se,FALSE,100,Illustrative single expanding-window RF model-level importance diagnostic. Not a full importance series and not a local causal explanation.

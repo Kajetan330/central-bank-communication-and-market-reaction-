@@ -4,7 +4,7 @@ This repository is the public artifact archive for the thesis:
 
 **Central Bank Communication and Market Reactions: Text-Based Hawk/Dove Classification and Event-Study Evidence from the FOMC and ECB**
 
-It collects the thesis model outputs, data, code, tables, and figures used to study whether the tone of central bank communication helps explain financial market reactions and predict near-term policy outcomes.
+It collects the thesis raw data, model objects, and code used to study whether the tone of central bank communication helps explain financial market reactions and predict near-term policy outcomes.
 
 Authors: Adrian Piotr Pulchny and Kajetan Moravec Cvelbar  
 Institution: Copenhagen Business School, MSc in Advanced Economics and Finance  
@@ -18,7 +18,7 @@ The project compares three ways of measuring monetary policy tone across FOMC an
 | --- | --- | --- |
 | Dictionary score | Transparent hawkishness measure built from policy, inflation, employment, and residual-risk language | `net_score`, component scores, dictionary labels |
 | Random Forest score | Supervised bigram model trained to recover rate-decision language | `rf_score`, feature importance, confusion matrices |
-| RoBERTa/BERT score | Sentence-level neural benchmark aggregated to document level | `bert_score`, BERT labels, method comparison tables |
+| RoBERTa/BERT score | Sentence-level neural benchmark aggregated to document level | `bert_score`, BERT labels |
 
 These measures are merged with intraday market surprises from USMPD and EA-MPD, then evaluated in event-study regressions and expanding-window forecast exercises.
 
@@ -32,21 +32,9 @@ flowchart LR
   B --> E[Dictionary, Random Forest, and BERT tone scores]
   E --> F[RQ1 market-reaction regressions]
   E --> G[RQ2 expanding-window forecasts]
-  F --> H[Tables, figures, and diagnostics]
+  F --> H[Model outputs and reproducible artifacts]
   G --> H
 ```
-
-## Visual Preview
-
-The figures below are selected from the thesis model outputs. They focus on diagnostics and method comparisons.
-
-### Diagnostics And Method Comparisons
-
-![Cross-method divergence](results/figures/cross_method_divergence.png)
-
-| Rolling agreement | Tone and rate overlay |
-| --- | --- |
-| ![Rolling agreement](results/figures/rolling_agreement_rate.png) | ![Tone and rate overlay](results/figures/tone_rate_overlay.png) |
 
 ## Repository Map
 
@@ -54,13 +42,9 @@ The figures below are selected from the thesis model outputs. They focus on diag
 code/                 R scripts for the thesis model pipeline, figure generation, and data checks
 data/raw/             Raw FOMC, ECB, USMPD, EA-MPD, recovery, and BERT sentence-prediction files
 models/               Saved Random Forest model and expanding-window result objects
-results/tables/       Main result tables and diagnostics from the submitted model run
-results/figures/      Final generated thesis figures
-results/figure_data/  CSV data behind the generated figures
-results/review_checks/Additional review and robustness diagnostics
 ```
 
-The manuscript text is maintained outside this repository. This archive is kept focused on the public data, model, code, table, and figure artifacts.
+The manuscript text, generated tables, and generated figures are maintained outside this repository. This archive is kept focused on the public raw data, model objects, and code artifacts.
 
 ## Key Files
 
@@ -68,11 +52,8 @@ The manuscript text is maintained outside this repository. This archive is kept 
 | --- | --- |
 | RQ1 Random Forest object | `models/rf_rq1_models_v31.rds` |
 | RQ2 expanding-window object | `models/rf_rq2_xw_results_v31.rds` |
-| RF performance | `results/tables/rf_rq1_performance_v31.csv` |
-| RF feature importance | `results/tables/rf_feature_importance_v31.csv` |
-| RQ1 method comparison | `results/tables/rq1_method_comparison_v31.csv` |
-| RQ2 method comparison | `results/tables/rq2_method_comparison_v31.csv` |
-| Figure manifest | `results/figure_data/00_figure_manifest.csv` |
+| Main pipeline script | `code/pipeline_v31_final.R` |
+| Figure-generation script | `code/generate_v31_figures_full_FIXED_PATHS.R` |
 
 ## Raw Data Included
 
@@ -86,21 +67,21 @@ The raw folder from the thesis workspace is included under `data/raw/`, includin
 
 Only the two zero-byte Excel lock files, `~$EA-MPD.xlsx` and `~$USMPD.xlsx`, were excluded.
 
-The `data/` directory is intentionally raw-only. Processed panels are not stored under `data/`; the submitted model objects, tables, figures, and figure-data extracts are stored under `models/` and `results/`.
+The `data/` directory is intentionally raw-only. Processed panels, generated tables, and generated figures are not stored in this repository.
 
 ## Reproduction Notes
 
 The final outputs are already stored in this repository. The scripts in `code/` are included for transparency and reruns.
 
 - `code/pipeline_v31_final.R` reads from `data/raw/` and writes rerun outputs to `reproduction/output_v31/`.
-- `code/generate_v31_figures_full_FIXED_PATHS.R` regenerates figures from processed outputs produced by the pipeline, together with `results/tables/`, then writes regenerated figures to `reproduction/figures_v31/`.
+- `code/generate_v31_figures_full_FIXED_PATHS.R` regenerates figures from processed outputs produced by the pipeline, then writes regenerated figures to `reproduction/figures_v31/`.
 - `code/data_chapter_checks_FIXED_V5.R` reads from `data/raw/` and writes checks to `reproduction/data_check/`.
 
 The full RF/BERT pipeline can take several hours and requires the R packages loaded at the top of the scripts.
 
 ## Important Caveat
 
-The uploaded outputs are the thesis artifacts identified in the local working folder. A later review check identifies several RF leakage-adjacent terms in `results/review_checks/10_rf_leakage_adjacent_terms.csv` and suggests blocklist additions in `results/review_checks/11_suggested_blocklist_additions_from_v31.csv`. Those files are diagnostic. The full RF pipeline was not re-run after that suggested expanded blocklist.
+The uploaded model objects are the thesis artifacts identified in the local working folder. Generated result tables, figures, and manuscript files are intentionally not stored in this repository.
 
 ## Citation
 
@@ -110,4 +91,4 @@ If you use this archive, please cite the repository metadata in `CITATION.cff`.
 
 Code is released under the MIT License. See `LICENSE-CODE`.
 
-Data, figures, tables, and repository documentation are released under Creative Commons Attribution 4.0 International. See `LICENSE-DATA`.
+Data and repository documentation are released under Creative Commons Attribution 4.0 International. See `LICENSE-DATA`.

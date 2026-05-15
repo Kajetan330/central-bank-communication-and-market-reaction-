@@ -1,2 +1,0 @@
-feature_id,importance,term,train_correlation_with_target,direction,signed_importance,test_tfidf,present_in_forecast_document,illustrative_document_weight
-feder.fund,13075.129403069523,feder fund,-0.3189935650325887,lower target,-13075.129403069523,0.002616704218292935,TRUE,34.213746263738
